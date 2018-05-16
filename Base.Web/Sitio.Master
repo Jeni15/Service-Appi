@@ -12,31 +12,31 @@
 		
 		<!-- #CSS Links -->
 		<!-- Basic Styles -->
-		<link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap.min.css" />
-		<link rel="stylesheet" type="text/css" media="screen" href="css/font-awesome.min.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="Content/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="Content/css/font-awesome.min.css" />
         
 		<!-- SmartAdmin Styles : Caution! DO NOT change the order -->
-		<link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-production-plugins.min.css" />
-		<link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-production.min.css" />
-		<link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-skins.min.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="Content/css/smartadmin-production-plugins.min.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="Content/css/smartadmin-production.min.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="Content/css/smartadmin-skins-green.min.css" />
 
 		<!-- SmartAdmin RTL Support  -->
-		<link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-rtl.min.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="Content/css/smartadmin-rtl.min.css" />
 
 		<!-- Demo purpose only: goes with demo.js, you can delete this css when designing your own WebApp -->
-		<link rel="stylesheet" type="text/css" media="screen" href="css/demo.min.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="Content/css/demo.min.css" />
 
 		<!-- FAVICONS -->
-		<link rel="shortcut icon" href="img/favicon/favicon.ico" type="image/x-icon" />
-		<link rel="icon" href="img/favicon/favicon.ico" type="image/x-icon" />
+		<link rel="shortcut icon" href="Content/img/favicon/favicon.ico" type="image/x-icon" />
+		<link rel="icon" href="Content/img/favicon/favicon.ico" type="image/x-icon" />
 
 		<!-- GOOGLE FONT -->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700" />
 
-		<link rel="apple-touch-icon" href="img/splash/sptouch-icon-iphone.png" />
-		<link rel="apple-touch-icon" sizes="76x76" href="img/splash/touch-icon-ipad.png" />
-		<link rel="apple-touch-icon" sizes="120x120" href="img/splash/touch-icon-iphone-retina.png" />
-		<link rel="apple-touch-icon" sizes="152x152" href="img/splash/touch-icon-ipad-retina.png" />
+		<link rel="apple-touch-icon" href="Content/img/splash/sptouch-icon-iphone.png" />
+		<link rel="apple-touch-icon" sizes="76x76" href="Content/img/splash/touch-icon-ipad.png" />
+		<link rel="apple-touch-icon" sizes="120x120" href="Content/img/splash/touch-icon-iphone-retina.png" />
+		<link rel="apple-touch-icon" sizes="152x152" href="Content/img/splash/touch-icon-ipad-retina.png" />
 	</head>
 
     <!--
@@ -89,7 +89,7 @@
 			<div id="logo-group">
 
 				<!-- PLACE YOUR LOGO HERE -->
-				<span id="logo"> <img src="<%= ResolveUrl("~/img/logo.png") %>" alt="SmartAdmin"> </span>
+				<span id="logo"> <img src="<%= ResolveUrl("~/Content/img/logo.png") %>" alt="SmartAdmin"> </span>
 				<!-- END LOGO PLACEHOLDER -->
 
 				<!-- Note: The activity badge color changes when clicked and resets the number to 0
@@ -103,7 +103,8 @@
 					<div class="btn-group btn-group-justified" data-toggle="buttons">
 						<label class="btn btn-default">
 							<input type="radio" name="activity" id="ajax/notify/mail.html">
-							Msgs (14) </label>
+							Msgs (14)
+						</label>
 						<label class="btn btn-default">
 							<input type="radio" name="activity" id="ajax/notify/notifications.html">
 							notify (3) </label>
@@ -178,7 +179,7 @@
 				<ul id="mobile-profile-img" class="header-dropdown-list hidden-xs padding-5">
 					<li class="">
 						<a href="#" class="dropdown-toggle no-margin userdropdown" data-toggle="dropdown"> 
-							<img src="img/avatars/sunny.png" alt="John Doe" class="online" />  
+							<img src="Content/img/avatars/sunny.png" alt="John Doe" class="online" />  
 						</a>
 						<ul class="dropdown-menu pull-right">
 							<li>
@@ -257,37 +258,37 @@
 				<!-- multiple lang dropdown : find all flags in the flags page -->
 				<ul class="header-dropdown-list hidden-xs">
 					<li>
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="img/blank.gif" class="flag flag-es" alt="Spanish"> <span> Español </span> <i class="fa fa-angle-down"></i> </a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="Content/img/blank.gif" class="flag flag-es" alt="Spanish"> <span> Español </span> <i class="fa fa-angle-down"></i> </a>
 						<ul class="dropdown-menu pull-right">
 							<li class="active">
-								<a href="javascript:void(0);"><img src="img/blank.gif" class="flag flag-es" alt="Spanish"> Español</a>
+								<a href="javascript:void(0);"><img src="Content/img/blank.gif" class="flag flag-es" alt="Spanish"> Español</a>
 							</li>
                             <li>
-								<a href="javascript:void(0);"><img src="img/blank.gif" class="flag flag-us" alt="United States"> English (US)</a>
+								<a href="javascript:void(0);"><img src="Content/img/blank.gif" class="flag flag-us" alt="United States"> English (US)</a>
 							</li>
 							<li>
-								<a href="javascript:void(0);"><img src="img/blank.gif" class="flag flag-fr" alt="France"> Français</a>
+								<a href="javascript:void(0);"><img src="Content/img/blank.gif" class="flag flag-fr" alt="France"> Français</a>
 							</li>
 							<li>
-								<a href="javascript:void(0);"><img src="img/blank.gif" class="flag flag-de" alt="German"> Deutsch</a>
+								<a href="javascript:void(0);"><img src="Content/img/blank.gif" class="flag flag-de" alt="German"> Deutsch</a>
 							</li>
 							<li>
-								<a href="javascript:void(0);"><img src="img/blank.gif" class="flag flag-jp" alt="Japan"> 日本語</a>
+								<a href="javascript:void(0);"><img src="Content/img/blank.gif" class="flag flag-jp" alt="Japan"> 日本語</a>
 							</li>
 							<li>
-								<a href="javascript:void(0);"><img src="img/blank.gif" class="flag flag-cn" alt="China"> 中文</a>
+								<a href="javascript:void(0);"><img src="Content/img/blank.gif" class="flag flag-cn" alt="China"> 中文</a>
 							</li>	
 							<li>
-								<a href="javascript:void(0);"><img src="img/blank.gif" class="flag flag-it" alt="Italy"> Italiano</a>
+								<a href="javascript:void(0);"><img src="Content/img/blank.gif" class="flag flag-it" alt="Italy"> Italiano</a>
 							</li>	
 							<li>
-								<a href="javascript:void(0);"><img src="img/blank.gif" class="flag flag-pt" alt="Portugal"> Portugal</a>
+								<a href="javascript:void(0);"><img src="Content/img/blank.gif" class="flag flag-pt" alt="Portugal"> Portugal</a>
 							</li>
 							<li>
-								<a href="javascript:void(0);"><img src="img/blank.gif" class="flag flag-ru" alt="Russia"> Русский язык</a>
+								<a href="javascript:void(0);"><img src="Content/img/blank.gif" class="flag flag-ru" alt="Russia"> Русский язык</a>
 							</li>
 							<li>
-								<a href="javascript:void(0);"><img src="img/blank.gif" class="flag flag-kr" alt="Korea"> 한국어</a>
+								<a href="javascript:void(0);"><img src="Content/img/blank.gif" class="flag flag-kr" alt="Korea"> 한국어</a>
 							</li>						
 							
 						</ul>
@@ -309,7 +310,7 @@
 			<div class="login-info">
 				<span> <!-- User image size is adjusted inside CSS, it should stay as is -->
 					<a href="javascript:void(0);" id="show-shortcut" data-action="toggleShortcut">
-						<img src="<%= ResolveUrl("~/img/avatars/sunny.png") %>" alt="me" class="online" /> 
+						<img src="<%= ResolveUrl("~/Content/img/avatars/sunny.png") %>" alt="me" class="online" /> 
 						<span>
 							ivan.arias
 						</span>
@@ -333,7 +334,7 @@
                     </headertemplate>
                     <itemtemplate>
                         <li>
-                            <a>
+                            <a href="<%#Eval("Url") != null ? ResolveUrl(Eval("Url").ToString()) : "#" %>">
                                 <i class="fa fa-lg fa-fw <%#Eval("Icono") %>"></i><%#Eval("Nombre") %>
                             </a>
                             <asp:literal ID="lblSubMenu" runat="server"></asp:literal>
@@ -385,26 +386,26 @@
 		    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		    <script>
 			    if (!window.jQuery) {
-				    document.write('<script src="js/libs/jquery-3.2.1.min.js"><\/script>');
+				    document.write('<script src="Content/js/libs/jquery-3.2.1.min.js"><\/script>');
 			    }
 		    </script>
 
 		    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 		    <script>
 			    if (!window.jQuery.ui) {
-				    document.write('<script src="js/libs/jquery-ui.min.js"><\/script>');
+				    document.write('<script src="Content/js/libs/jquery-ui.min.js"><\/script>');
 			    }
 		    </script>
 
 		    <!-- IMPORTANT: APP CONFIG -->
-		    <script src='<%= ResolveUrl("~/js/app.config.js") %>'></script>
+		    <script src='<%= ResolveUrl("~/Content/js/app.config.js") %>'></script>
 
 		    <!-- MAIN APP JS FILE -->
-		    <script src='<%= ResolveUrl("~/js/app.min.js") %>'></script>
+		    <script src='<%= ResolveUrl("~/Content/js/app.min.js") %>'></script>
 
             <!-- MAIN CONTENT -->
 			<div id="content">
-                <form id="masterForm" novalidate="novalidate" runat="server">
+                <form id="masterForm" novalidate="novalidate" enctype="multipart/form-data" runat="server">
                     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
                     <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="false">
                         <ContentTemplate>
@@ -423,62 +424,69 @@
         <!--================================================== -->
 
 		<!-- JS TOUCH : include this plugin for mobile drag / drop touch events-->
-		<script src='<%= ResolveUrl("~/js/plugin/jquery-touch/jquery.ui.touch-punch.min.js") %>'></script>
+		<script src='<%= ResolveUrl("~/Content/js/plugin/jquery-touch/jquery.ui.touch-punch.min.js") %>'></script>
 
 		<!-- BOOTSTRAP JS -->
-        <script src='<%= ResolveUrl("~/js/bootstrap/bootstrap.min.js") %>'></script>
+        <script src='<%= ResolveUrl("~/Content/js/bootstrap/bootstrap.min.js") %>'></script>
 
 		<!-- CUSTOM NOTIFICATION -->
-        <script src='<%= ResolveUrl("~/js/notification/SmartNotification.min.js") %>'></script>
+        <script src='<%= ResolveUrl("~/Content/js/notification/SmartNotification.min.js") %>'></script>
 
 		<!-- JARVIS WIDGETS -->
-        <script src='<%= ResolveUrl("~/js/smartwidgets/jarvis.widget.min.js") %>'></script>
+        <script src='<%= ResolveUrl("~/Content/js/smartwidgets/jarvis.widget.min.js") %>'></script>
 
 		<!-- EASY PIE CHARTS -->
-        <script src='<%= ResolveUrl("~/js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js") %>'></script>
+        <script src='<%= ResolveUrl("~/Content/js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js") %>'></script>
 
 		<!-- SPARKLINES -->
-        <script src='<%= ResolveUrl("~/js/plugin/sparkline/jquery.sparkline.min.js") %>'></script>
+        <script src='<%= ResolveUrl("~/Content/js/plugin/sparkline/jquery.sparkline.min.js") %>'></script>
 
 		<!-- JQUERY VALIDATE -->
-        <script src='<%= ResolveUrl("~/js/plugin/jquery-validate/jquery.validate.min.js") %>'></script>
+        <script src='<%= ResolveUrl("~/Content/js/plugin/jquery-validate/jquery.validate.min.js") %>'></script>
 
 		<!-- JQUERY MASKED INPUT -->
-        <script src='<%= ResolveUrl("~/js/plugin/masked-input/jquery.maskedinput.min.js") %>'></script>
+        <script src='<%= ResolveUrl("~/Content/js/plugin/masked-input/jquery.maskedinput.min.js") %>'></script>
 
 		<!-- JQUERY SELECT2 INPUT -->
-        <script src='<%= ResolveUrl("~/js/plugin/select2/select2.min.js") %>'></script>
+        <script src='<%= ResolveUrl("~/Content/js/plugin/select2/select2.min.js") %>'></script>
 
 		<!-- JQUERY UI + Bootstrap Slider -->
-        <script src='<%= ResolveUrl("~/js/plugin/bootstrap-slider/bootstrap-slider.min.js") %>'></script>
+        <script src='<%= ResolveUrl("~/Content/js/plugin/bootstrap-slider/bootstrap-slider.min.js") %>'></script>
 
 		<!-- browser msie issue fix -->
-        <script src='<%= ResolveUrl("~/js/plugin/msie-fix/jquery.mb.browser.min.js") %>'></script>
+        <script src='<%= ResolveUrl("~/Content/js/plugin/msie-fix/jquery.mb.browser.min.js") %>'></script>
 
 		<!-- FastClick: For mobile devices -->
-        <script src='<%= ResolveUrl("~/js/plugin/fastclick/fastclick.min.js") %>'></script>
+        <script src='<%= ResolveUrl("~/Content/js/plugin/fastclick/fastclick.min.js") %>'></script>
 
 		<!-- ENHANCEMENT PLUGINS : NOT A REQUIREMENT -->
 		
 		<!-- SmartChat UI : plugin -->
-        <script src='<%= ResolveUrl("~/js/smart-chat-ui/smart.chat.ui.min.js") %>'></script>
-        <script src='<%= ResolveUrl("~/js/smart-chat-ui/smart.chat.manager.min.js") %>'></script>
+        <script src='<%= ResolveUrl("~/Content/js/smart-chat-ui/smart.chat.ui.min.js") %>'></script>
+        <script src='<%= ResolveUrl("~/Content/js/smart-chat-ui/smart.chat.manager.min.js") %>'></script>
 		
 		<!-- PAGE RELATED PLUGIN(S) -->
 		
 		<!-- Flot Chart Plugin: Flot Engine, Flot Resizer, Flot Tooltip -->
-        <script src='<%= ResolveUrl("~/js/plugin/flot/jquery.flot.cust.min.js") %>'></script>
-        <script src='<%= ResolveUrl("~/js/plugin/flot/jquery.flot.resize.min.js") %>'></script>
-        <script src='<%= ResolveUrl("~/js/plugin/flot/jquery.flot.time.min.js") %>'></script>
-        <script src='<%= ResolveUrl("~/js/plugin/flot/jquery.flot.tooltip.min.js") %>'></script>
+        <script src='<%= ResolveUrl("~/Content/js/plugin/flot/jquery.flot.cust.min.js") %>'></script>
+        <script src='<%= ResolveUrl("~/Content/js/plugin/flot/jquery.flot.resize.min.js") %>'></script>
+        <script src='<%= ResolveUrl("~/Content/js/plugin/flot/jquery.flot.time.min.js") %>'></script>
+        <script src='<%= ResolveUrl("~/Content/js/plugin/flot/jquery.flot.tooltip.min.js") %>'></script>
 		
 		<!-- Vector Maps Plugin: Vectormap engine, Vectormap language -->
-        <script src='<%= ResolveUrl("~/js/plugin/vectormap/jquery-jvectormap-1.2.2.min.js") %>'></script>
-        <script src='<%= ResolveUrl("~/js/plugin/vectormap/jquery-jvectormap-world-mill-en.js") %>'></script>
+        <script src='<%= ResolveUrl("~/Content/js/plugin/vectormap/jquery-jvectormap-1.2.2.min.js") %>'></script>
+        <script src='<%= ResolveUrl("~/Content/js/plugin/vectormap/jquery-jvectormap-world-mill-en.js") %>'></script>
 		
 		<!-- Full Calendar -->
-        <script src='<%= ResolveUrl("~/js/plugin/moment/moment.min.js") %>'></script>
-        <script src='<%= ResolveUrl("~/js/plugin/fullcalendar/fullcalendar.min.js") %>'></script>
+        <script src='<%= ResolveUrl("~/Content/js/plugin/moment/moment.min.js") %>'></script>
+        <script src='<%= ResolveUrl("~/Content/js/plugin/fullcalendar/fullcalendar.min.js") %>'></script>
+
+        <!-- DataTables -->
+        <script src='<%= ResolveUrl("~/Content/js/plugin/datatables/jquery.dataTables.min.js") %>'></script>
+		<script src='<%= ResolveUrl("~/Content/js/plugin/datatables/dataTables.colVis.min.js") %>'></script>
+		<script src='<%= ResolveUrl("~/Content/js/plugin/datatables/dataTables.tableTools.min.js") %>'></script>
+		<script src='<%= ResolveUrl("~/Content/js/plugin/datatables/dataTables.bootstrap.min.js") %>'></script>
+		<script src='<%= ResolveUrl("~/Content/js/plugin/datatable-responsive/datatables.responsive.min.js") %>'></script>
 
 		<script>
 		    // DO NOT REMOVE : GLOBAL FUNCTIONS!

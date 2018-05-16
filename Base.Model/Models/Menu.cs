@@ -15,6 +15,7 @@ namespace Base.Model.Models
         public string Url { get; set; }
 
         public string Icono { get; set; }
-        
+
+        public int? Orden { get; set; }
     }
 }

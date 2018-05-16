@@ -12,27 +12,27 @@
 		
 		<!-- #CSS Links -->
 		<!-- Basic Styles -->
-		<link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap.min.css" />
-		<link rel="stylesheet" type="text/css" media="screen" href="css/font-awesome.min.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="Content/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" media="screen" href="Content/css/font-awesome.min.css">
 
 		<!-- SmartAdmin Styles : Caution! DO NOT change the order -->
-		<link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-production-plugins.min.css" />
-		<link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-production.min.css" />
-		<link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-skins.min.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="Content/css/smartadmin-production-plugins.min.css">
+		<link rel="stylesheet" type="text/css" media="screen" href="Content/css/smartadmin-production.min.css">
+		<link rel="stylesheet" type="text/css" media="screen" href="Content/css/smartadmin-skins.min.css">
 
 		<!-- SmartAdmin RTL Support -->
-		<link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-rtl.min.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="Content/css/smartadmin-rtl.min.css"> 
 
 		<!-- We recommend you use "your_style.css" to override SmartAdmin
 		     specific styles this will also ensure you retrain your customization with each SmartAdmin update.
-		<link rel="stylesheet" type="text/css" media="screen" href="css/your_style.css"> -->
+		<link rel="stylesheet" type="text/css" media="screen" href="Content/css/your_style.css"> -->
 
 		<!-- #FAVICONS -->
-		<link rel="shortcut icon" href="img/favicon/favicon.ico" type="image/x-icon" />
-		<link rel="icon" href="img/favicon/favicon.ico" type="image/x-icon" />
+		<link rel="shortcut icon" href="Content/img/favicon/favicon.ico" type="image/x-icon">
+		<link rel="icon" href="Content/img/favicon/favicon.ico" type="image/x-icon">
 
 		<!-- #GOOGLE FONT -->
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700" />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700">
 	</head>
 	<body id="login">
 		<header id="header">
@@ -360,27 +360,27 @@
 
 		<!--================================================== -->	
 
-		<!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
+	    <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
 	    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		<script> if (!window.jQuery) { document.write('<script src="js/libs/jquery-3.2.1.min.js"><\/script>');} </script>
+		<script> if (!window.jQuery) { document.write('<script src="Content/js/libs/jquery-3.2.1.min.js"><\/script>');} </script>
 
 	    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-		<script> if (!window.jQuery.ui) { document.write('<script src="js/libs/jquery-ui.min.js"><\/script>');} </script>
+		<script> if (!window.jQuery.ui) { document.write('<script src="Content/js/libs/jquery-ui.min.js"><\/script>');} </script>
 
 		<!-- IMPORTANT: APP CONFIG -->
-		<script src="js/app.config.js"></script>
+		<script src="Content/js/app.config.js"></script>
 
 		<!-- JS TOUCH : include this plugin for mobile drag / drop touch events 		
-		<script src="js/plugin/jquery-touch/jquery.ui.touch-punch.min.js"></script> -->
+		<script src="Content/js/plugin/jquery-touch/jquery.ui.touch-punch.min.js"></script> -->
 
 		<!-- BOOTSTRAP JS -->		
-		<script src="js/bootstrap/bootstrap.min.js"></script>
+		<script src="Content/js/bootstrap/bootstrap.min.js"></script>
 
 		<!-- JQUERY VALIDATE -->
-		<script src="js/plugin/jquery-validate/jquery.validate.min.js"></script>
+		<script src="Content/js/plugin/jquery-validate/jquery.validate.min.js"></script>
 		
 		<!-- JQUERY MASKED INPUT -->
-		<script src="js/plugin/masked-input/jquery.maskedinput.min.js"></script>
+		<script src="Content/js/plugin/masked-input/jquery.maskedinput.min.js"></script>
 		
 		<!--[if IE 8]>
 			
@@ -389,7 +389,7 @@
 		<![endif]-->
 
 		<!-- MAIN APP JS FILE -->
-		<script src="js/app.min.js"></script>
+		<script src="Content/js/app.min.js"></script>
 
 		<script>
 			runAllForms();

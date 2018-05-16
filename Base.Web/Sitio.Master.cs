@@ -40,7 +40,7 @@ namespace SeedProject
                     {
                         sb = AgregarSubMenu(subMenu, sb);
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         string errMes = ex.Message;
                     }
@@ -52,38 +52,42 @@ namespace SeedProject
 
         private void CargarMenusPadres()
         {
-            List<Base.Model.Models.Menu> menus = MenuService.GetAll().Where(men => men.IdMenuPadre == null).ToList();
+            List<Base.Model.Models.Menu> menus = MenuService.GetAll().OrderBy(men => men.Orden).Where(men => men.IdMenuPadre == null).ToList();
 
             this.rptMenu.DataSource = menus;
             this.rptMenu.DataBind();
         }
-        
+
         private StringBuilder AgregarSubMenu(Base.Model.Models.Menu subMenu, StringBuilder sb)
         {
-            sb.Append("<ul>");
-            List<Base.Model.Models.Menu> childItems = MenuService.GetAll().Where(men => men.IdMenuPadre == subMenu.IdMenu).ToList();
+            List<Base.Model.Models.Menu> childItems = MenuService.GetAll().OrderBy(men => men.Orden).Where(men => men.IdMenuPadre == subMenu.IdMenu).ToList();
 
-            foreach (Base.Model.Models.Menu cItem in childItems)
+            if (childItems.Count > 0)
             {
-                string menu = "<li><a href='%RUTA%'>%ICONO%%MENU%</a>";
+                sb.Append("<ul>");
 
-                menu = menu.Replace("%RUTA%", cItem.Url != null && cItem.Url != "" ? ResolveUrl(cItem.Url) : "#");
-                menu = menu.Replace("%ICONO%", cItem.Icono != null && cItem.Icono != "" ? "<i class='fa fa-lg fa-fw " + cItem.Icono + "'></i>" : "");
-                menu = menu.Replace("%MENU%", cItem.Nombre != null && cItem.Nombre != "" ? cItem.Nombre : "");
-                
-                sb.Append(menu);
-
-                List <Base.Model.Models.Menu> subChilds = MenuService.GetAll().Where(men => men.IdMenuPadre == subMenu.IdMenu).ToList();
-
-                if (subChilds.Count > 0)
+                foreach (Base.Model.Models.Menu cItem in childItems)
                 {
-                    AgregarSubMenu(cItem, sb);
+                    string menu = "<li><a href='%RUTA%'>%ICONO%%MENU%</a>";
+
+                    menu = menu.Replace("%RUTA%", cItem.Url != null && cItem.Url != "" ? ResolveUrl(cItem.Url) : "#");
+                    menu = menu.Replace("%ICONO%", cItem.Icono != null && cItem.Icono != "" ? "<i class='fa fa-lg fa-fw " + cItem.Icono + "'></i>" : "");
+                    menu = menu.Replace("%MENU%", cItem.Nombre != null && cItem.Nombre != "" ? cItem.Nombre : "");
+
+                    sb.Append(menu);
+
+                    List<Base.Model.Models.Menu> subChilds = MenuService.GetAll().Where(men => men.IdMenuPadre == subMenu.IdMenu).ToList();
+
+                    if (subChilds.Count > 0)
+                    {
+                        AgregarSubMenu(cItem, sb);
+                    }
+
+                    sb.Append("</li>");
                 }
 
-                sb.Append("</li>");
+                sb.Append("</ul>");
             }
-
-            sb.Append("</ul>");
 
             return sb;
         }
