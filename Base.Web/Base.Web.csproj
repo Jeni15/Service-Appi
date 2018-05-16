@@ -481,6 +481,7 @@
     <Content Include="Content\js\plugin\bootstrap-slider\bootstrap-slider.min.js" />
     <Content Include="Content\js\plugin\bootstrap-tags\bootstrap-tagsinput-angular.min.js" />
     <Content Include="Content\js\plugin\bootstrap-tags\bootstrap-tagsinput.min.js" />
+    <Content Include="Content\js\plugin\bootstrap-tags\dist\bootstrap-tagsinput.min.js.map" />
     <Content Include="Content\js\plugin\bootstrap-timepicker\bootstrap-timepicker.min.js" />
     <Content Include="Content\js\plugin\bootstrap-wizard\jquery.bootstrap.wizard.min.js" />
     <Content Include="Content\js\plugin\bootstraptree\bootstrap-tree.min.js" />
@@ -508,6 +509,7 @@
     <Content Include="Content\js\plugin\chartjs\chart.min.js" />
     <Content Include="Content\js\plugin\ckeditor\adapters\jquery.js" />
     <Content Include="Content\js\plugin\ckeditor\build-config.js" />
+    <Content Include="Content\js\plugin\ckeditor\CHANGES.md" />
     <Content Include="Content\js\plugin\ckeditor\ckeditor.js" />
     <Content Include="Content\js\plugin\ckeditor\config.js" />
     <Content Include="Content\js\plugin\ckeditor\contents.css" />
@@ -576,6 +578,7 @@
     <Content Include="Content\js\plugin\ckeditor\lang\vi.js" />
     <Content Include="Content\js\plugin\ckeditor\lang\zh-cn.js" />
     <Content Include="Content\js\plugin\ckeditor\lang\zh.js" />
+    <Content Include="Content\js\plugin\ckeditor\LICENSE.md" />
     <Content Include="Content\js\plugin\ckeditor\plugins\a11yhelp\dialogs\a11yhelp.js" />
     <Content Include="Content\js\plugin\ckeditor\plugins\a11yhelp\dialogs\lang\ar.js" />
     <Content Include="Content\js\plugin\ckeditor\plugins\a11yhelp\dialogs\lang\bg.js" />
@@ -669,6 +672,8 @@
     <Content Include="Content\js\plugin\ckeditor\plugins\preview\preview.html" />
     <Content Include="Content\js\plugin\ckeditor\plugins\scayt\dialogs\options.js" />
     <Content Include="Content\js\plugin\ckeditor\plugins\scayt\dialogs\toolbar.css" />
+    <Content Include="Content\js\plugin\ckeditor\plugins\scayt\LICENSE.md" />
+    <Content Include="Content\js\plugin\ckeditor\plugins\scayt\README.md" />
     <Content Include="Content\js\plugin\ckeditor\plugins\showblocks\images\block_address.png" />
     <Content Include="Content\js\plugin\ckeditor\plugins\showblocks\images\block_blockquote.png" />
     <Content Include="Content\js\plugin\ckeditor\plugins\showblocks\images\block_div.png" />
@@ -762,11 +767,15 @@
     <Content Include="Content\js\plugin\ckeditor\plugins\wsc\dialogs\wsc.css" />
     <Content Include="Content\js\plugin\ckeditor\plugins\wsc\dialogs\wsc.js" />
     <Content Include="Content\js\plugin\ckeditor\plugins\wsc\dialogs\wsc_ie.js" />
+    <Content Include="Content\js\plugin\ckeditor\plugins\wsc\LICENSE.md" />
+    <Content Include="Content\js\plugin\ckeditor\plugins\wsc\README.md" />
+    <Content Include="Content\js\plugin\ckeditor\README.md" />
     <Content Include="Content\js\plugin\ckeditor\samples\ajax.html" />
     <Content Include="Content\js\plugin\ckeditor\samples\api.html" />
     <Content Include="Content\js\plugin\ckeditor\samples\appendto.html" />
     <Content Include="Content\js\plugin\ckeditor\samples\assets\inlineall\logo.png" />
     <Content Include="Content\js\plugin\ckeditor\samples\assets\outputxhtml\outputxhtml.css" />
+    <Content Include="Content\js\plugin\ckeditor\samples\assets\posteddata.php" />
     <Content Include="Content\js\plugin\ckeditor\samples\assets\sample.css" />
     <Content Include="Content\js\plugin\ckeditor\samples\assets\sample.jpg" />
     <Content Include="Content\js\plugin\ckeditor\samples\assets\uilanguages\languages.js" />
@@ -780,6 +789,7 @@
     <Content Include="Content\js\plugin\ckeditor\samples\plugins\dialog\assets\my_dialog.js" />
     <Content Include="Content\js\plugin\ckeditor\samples\plugins\dialog\dialog.html" />
     <Content Include="Content\js\plugin\ckeditor\samples\plugins\enterkey\enterkey.html" />
+    <Content Include="Content\js\plugin\ckeditor\samples\plugins\htmlwriter\assets\outputforflash\outputforflash.fla" />
     <Content Include="Content\js\plugin\ckeditor\samples\plugins\htmlwriter\assets\outputforflash\outputforflash.swf" />
     <Content Include="Content\js\plugin\ckeditor\samples\plugins\htmlwriter\assets\outputforflash\swfobject.js" />
     <Content Include="Content\js\plugin\ckeditor\samples\plugins\htmlwriter\outputforflash.html" />
@@ -792,6 +802,7 @@
     <Content Include="Content\js\plugin\ckeditor\samples\replacebycode.html" />
     <Content Include="Content\js\plugin\ckeditor\samples\sample.css" />
     <Content Include="Content\js\plugin\ckeditor\samples\sample.js" />
+    <Content Include="Content\js\plugin\ckeditor\samples\sample_posteddata.php" />
     <Content Include="Content\js\plugin\ckeditor\samples\tabindex.html" />
     <Content Include="Content\js\plugin\ckeditor\samples\uicolor.html" />
     <Content Include="Content\js\plugin\ckeditor\samples\uilanguages.html" />
@@ -819,6 +830,7 @@
     <Content Include="Content\js\plugin\ckeditor\skins\moono\images\lock-open.png" />
     <Content Include="Content\js\plugin\ckeditor\skins\moono\images\lock.png" />
     <Content Include="Content\js\plugin\ckeditor\skins\moono\images\refresh.png" />
+    <Content Include="Content\js\plugin\ckeditor\skins\moono\readme.md" />
     <Content Include="Content\js\plugin\ckeditor\styles.js" />
     <Content Include="Content\js\plugin\clockpicker\clockpicker.min.js" />
     <Content Include="Content\js\plugin\colorpicker\bootstrap-colorpicker.min.js" />
@@ -920,18 +932,6 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\js\plugin\bootstrap-tags\dist\bootstrap-tagsinput.min.js.map" />
-    <Content Include="Content\js\plugin\ckeditor\CHANGES.md" />
-    <Content Include="Content\js\plugin\ckeditor\LICENSE.md" />
-    <Content Include="Content\js\plugin\ckeditor\plugins\scayt\LICENSE.md" />
-    <Content Include="Content\js\plugin\ckeditor\plugins\scayt\README.md" />
-    <Content Include="Content\js\plugin\ckeditor\plugins\wsc\LICENSE.md" />
-    <Content Include="Content\js\plugin\ckeditor\plugins\wsc\README.md" />
-    <Content Include="Content\js\plugin\ckeditor\README.md" />
-    <Content Include="Content\js\plugin\ckeditor\samples\assets\posteddata.php" />
-    <Content Include="Content\js\plugin\ckeditor\samples\plugins\htmlwriter\assets\outputforflash\outputforflash.fla" />
-    <Content Include="Content\js\plugin\ckeditor\samples\sample_posteddata.php" />
-    <Content Include="Content\js\plugin\ckeditor\skins\moono\readme.md" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Login.aspx" />
     <Content Include="NotifyMsgs.aspx" />
