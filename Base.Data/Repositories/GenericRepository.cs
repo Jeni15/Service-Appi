@@ -26,7 +26,7 @@ namespace Base.Data.Repositories
             using (var command = (_uow?.CreateCommand() ?? DbContext.Connection.CreateCommand()))
             {
 
-                var sql = "chawaaaaa chawa chawa, aqui esta el mister, aqui esta el mister";
+                var sql = "prueba";
 
                 DbParameter[] parameters = CreateParemeters(entity, command, sql);
 
