@@ -69,6 +69,7 @@ namespace SeedProject.Paginas.Administracion
             {
                 setFormViewModel.Set = LlenarSet(new Set());
                 setFormViewModel.Set.Fecha_Creacion = DateTime.Now;
+                setFormViewModel.Set.Fecha_UltMod = DateTime.Now;
                 setFormViewModel.Set.Usuario_Creacion = "iarias";
                 setFormViewModel.Set.Usuario_UltMod = "iarias";
                 setFormViewModel.Set.Activa = "1";

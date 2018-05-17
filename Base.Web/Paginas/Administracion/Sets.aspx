@@ -286,7 +286,7 @@
 
             // custom toolbar
             $("div.toolbar").html('' +
-                '<div class="text-left">' +
+                '<div class="text-right">' +
                     '<asp:LinkButton ID="btnAgregar" runat="server" CssClass="btn btn-primary form-control" OnClick="btnAgregar_Click">' +
                         '<i class="fa fa-plus"></i> ' +
                         'Agregar' +
