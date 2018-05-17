@@ -15,5 +15,6 @@ namespace Base.Service.Infrastructure
         //IEnumerable<T> GetAll(params Expression<Func<T, object>>[] includes);
         T GetById(int id);
         void Update(T entity);
+        IEnumerable<T> Execute(string statement, T entity);
     }
 }

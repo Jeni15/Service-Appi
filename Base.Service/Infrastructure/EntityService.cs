@@ -31,8 +31,7 @@ namespace Base.Service.Infrastructure
             _repository.Add(entity);
             _unitOfWork.SaveChanges();
         }
-
-
+        
         public virtual void Update(TEntity entity)
         {
             if (entity == null) throw new ArgumentNullException("entity");
@@ -55,14 +54,17 @@ namespace Base.Service.Infrastructure
         {
             return _repository.GetById(id);
         }
-
-
+        
         public virtual IEnumerable<TEntity> GetAll()
         {
             return _repository.GetAll();
         }
 
-        
+        public virtual IEnumerable<TEntity> Execute(string statement, TEntity entity)
+        {
+            return _repository.Execute(statement, entity);
+        }
+
     }
 
 }

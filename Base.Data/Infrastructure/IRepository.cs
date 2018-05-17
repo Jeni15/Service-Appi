@@ -24,6 +24,8 @@ namespace Base.Data.Infrastructure
         // Gets all entities of type T
         IEnumerable<T> GetAll();
 
-             
+
+        IEnumerable<T> Execute(string statement, T entity);
+
     }
 }
