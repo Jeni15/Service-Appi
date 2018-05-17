@@ -73,9 +73,7 @@
                                                     </label>
                                                 </section>
                                             </div>
-                                        </fieldset>
 
-                                        <footer>
                                             <div class="row">
                                                 <section class="col col-12 pull-right">
                                                     <asp:LinkButton ID="btnFiltrar" runat="server" CssClass="btn btn-primary" OnClick="btnFiltrar_Click">
@@ -84,7 +82,7 @@
                                                     </asp:LinkButton>
                                                 </section>
                                             </div>
-							            </footer>
+                                        </fieldset>
                                     </div>
                                 </ContentTemplate>
                             </asp:UpdatePanel>
@@ -129,12 +127,15 @@
 					    <div class="widget-body no-padding">
                             <asp:UpdatePanel ID="updParametros" runat="server" UpdateMode="Always" ChildrenAsTriggers="true">
                                 <ContentTemplate>
-                                    <asp:GridView ID="grvParametros" runat="server" AutoGenerateColumns="false" CssClass="table table-striped table-bordered" OnRowCommand="grvParametros_RowCommand">
+                                    <asp:GridView ID="grvParametros" runat="server" AutoGenerateColumns="false" ShowHeaderWhenEmpty="true" CssClass="table table-striped table-bordered" OnRowCommand="grvParametros_RowCommand">
                                         <Columns>
                                             <asp:TemplateField HeaderText="">
                                                 <ItemTemplate>
                                                     <asp:LinkButton ID="btnEditar" runat="server" CssClass="btn btn-warning btn-xs" CausesValidation="false" CommandName="EditarParametro" CommandArgument='<%#Eval("IDSet")%>'>
                                                         <i class="fa fa-pencil"></i>
+                                                    </asp:LinkButton>
+                                                    <asp:LinkButton ID="btnEliminar" runat="server" CssClass="btn btn-dange btn-xs" CausesValidation="false" CommandName="EliminarParametro" CommandArgument='<%#Eval("IDSet")%>'>
+                                                        <i class="fa fa-trash"></i>
                                                     </asp:LinkButton>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
@@ -158,6 +159,10 @@
                                     </button>
 
                                     <asp:HiddenField ID="hddIdSet" runat="server" Value="0" />
+
+                                    <div>
+
+                                    </div>
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                         </div>
@@ -188,6 +193,19 @@
                         <ContentTemplate>
 				            <div class="smart-form">
 						        <fieldset>
+                                    <asp:Panel ID="pnlIdSet" runat="server">
+                                        <section>
+								            <div class="row">
+									            <label class="label col col-2">Id</label>
+									            <div class="col col-10">
+										            <label class="input">
+                                                        <asp:Label ID="lblIdSet" runat="server"></asp:Label>
+										            </label>
+									            </div>
+								            </div>
+							            </section>
+                                    </asp:Panel>
+
                                     <section>
 								        <div class="row">
 									        <label class="label col col-2">Nombre</label>
@@ -220,6 +238,20 @@
 									        </div>
 								        </div>
 							        </section>
+
+                                    <asp:Panel ID="pnlActivo" runat="server">
+                                        <section>
+								            <div class="row">
+									            <label class="label col col-2">Activo</label>
+									            <div class="col col-10">
+										            <label class="checkbox">
+                                                        <asp:CheckBox ID="chkActivo" runat="server" />
+											            <i></i>
+										            </label>
+									            </div>
+								            </div>
+							            </section>
+                                    </asp:Panel>
 						        </fieldset>
 							
 						        <footer>
@@ -254,7 +286,7 @@
 
             // custom toolbar
             $("div.toolbar").html('' +
-                '<div class="text-right">' +
+                '<div class="text-left">' +
                     '<asp:LinkButton ID="btnAgregar" runat="server" CssClass="btn btn-primary form-control" OnClick="btnAgregar_Click">' +
                         '<i class="fa fa-plus"></i> ' +
                         'Agregar' +
