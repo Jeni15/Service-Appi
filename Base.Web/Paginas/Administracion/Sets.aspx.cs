@@ -26,7 +26,7 @@ namespace SeedProject.Paginas.Administracion
                 BindData();
             }
 
-            this.grvParametros.HeaderRow.TableSection = TableRowSection.TableHeader;
+            this.grvDatos.HeaderRow.TableSection = TableRowSection.TableHeader;
         }
 
         protected void ddlFiltroModelos_SelectedIndexChanged(object sender, EventArgs e)
@@ -42,7 +42,8 @@ namespace SeedProject.Paginas.Administracion
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
             this.lblModalTitulo.Text = "Agregar Set";
-            
+            this.hddIdSet.Value = "0";
+
             LimpiarCampos(false);
 
             ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", "$('#btnAgregarModal').click();", true);
@@ -81,7 +82,7 @@ namespace SeedProject.Paginas.Administracion
             ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", "$('#btnCerrarModal').click();", true);
         }
 
-        protected void grvParametros_RowCommand(object sender, GridViewCommandEventArgs e)
+        protected void grvDatos_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             if (e.CommandName == "EditarParametro")
             {
@@ -118,9 +119,9 @@ namespace SeedProject.Paginas.Administracion
                 setFormViewModel.Sets = setFormViewModel.Sets.Where(sv => sv.IdVersion == idVersion).ToList();
             }
 
-            this.grvParametros.DataSource = setFormViewModel.Sets;
-            this.grvParametros.DataBind();
-            this.grvParametros.HeaderRow.TableSection = TableRowSection.TableHeader;
+            this.grvDatos.DataSource = setFormViewModel.Sets;
+            this.grvDatos.DataBind();
+            this.grvDatos.HeaderRow.TableSection = TableRowSection.TableHeader;
         }
 
         private void CargarModelos()
@@ -176,7 +177,6 @@ namespace SeedProject.Paginas.Administracion
 
         private void LimpiarCampos(bool esUpdate)
         {
-            this.hddIdSet.Value = "0";
             this.pnlIdSet.Visible = esUpdate;
             this.txtNombre.Text = "";
             this.txtDescripcion.Text = "";

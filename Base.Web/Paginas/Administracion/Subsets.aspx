@@ -7,9 +7,9 @@
 			
 			    <!-- PAGE HEADER -->
 			    <i class="fa-fw fa fa-pencil-square-o"></i> 
-				    Parametros
+				    Configuración
 			    <span>>  
-				    Registrar Parametros
+				    Subsets
 			    </span>
 		    </h1>
 	    </div>
@@ -22,7 +22,7 @@
 		    <!-- NEW COL START -->
 		    <article class="col-sm-12 col-md-5">
 			    <!-- Widget ID (each widget will need unique ID)-->
-			    <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-2" data-widget-editbutton="false" data-widget-custombutton="false">
+			    <div class="jarviswidget jarviswidget-color-greenLight" id="wid-id-2" data-widget-editbutton="false" data-widget-custombutton="false">
 				    <!-- widget options:
 					    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 					
@@ -68,32 +68,19 @@
                                             <div class="row">
                                                 <section class="col col-10">
                                                     <label class="select">
-                                                        <asp:DropDownList ID="ddlFiltroModelosVersiones" name="filtermodelsversions" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlFiltroModelosVersiones_SelectedIndexChanged"></asp:DropDownList>
-                                                        <i></i>
-                                                    </label>
-                                                </section>
-                                            </div>
-
-                                            <div class="row">
-                                                <section class="col col-10">
-                                                    <label class="select">
-                                                        <asp:DropDownList ID="ddlFiltroModelosCasos" name="filtermodelscases" runat="server"></asp:DropDownList>
+                                                        <asp:DropDownList ID="ddlFiltroVersiones" name="filtermodelsversions" runat="server"></asp:DropDownList>
                                                         <i></i>
                                                     </label>
                                                 </section>
                                             </div>
                                         </fieldset>
 
-                                        <footer>
-                                            <div class="row">
-                                                <section class="col col-12 pull-right">
-                                                    <asp:LinkButton ID="btnFiltrar" runat="server" CssClass="btn btn-primary" OnClick="btnFiltrar_Click">
-                                                        <i class="fa fa-search"></i>
-                                                        Filtrar
-                                                    </asp:LinkButton>
-                                                </section>
-                                            </div>
-							            </footer>
+                                        <section class="col col-12 pull-right">
+                                            <asp:LinkButton ID="btnFiltrar" runat="server" CssClass="btn-sm btn btn-primary" OnClick="btnFiltrar_Click">
+                                                <i class="fa fa-search"></i>
+                                                Filtrar
+                                            </asp:LinkButton>
+                                        </section>
                                     </div>
                                 </ContentTemplate>
                             </asp:UpdatePanel>
@@ -104,7 +91,7 @@
             </article>
 
             <article class="col-sm-12 col-md-12">
-                <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-1" data-widget-editbutton="false">
+                <div class="jarviswidget jarviswidget-color-greenLight" id="wid-id-1" data-widget-editbutton="false">
 				    <!-- widget options:
 				    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 
@@ -120,7 +107,7 @@
 				    -->
 				    <header>
 					    <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-					    <h2>Lista Parametros</h2>
+					    <h2>Lista Subsets</h2>
 
 				    </header>
 
@@ -138,27 +125,31 @@
 					    <div class="widget-body no-padding">
                             <asp:UpdatePanel ID="updParametros" runat="server" UpdateMode="Always" ChildrenAsTriggers="true">
                                 <ContentTemplate>
-                                    <asp:GridView ID="grvParametros" runat="server" AutoGenerateColumns="false" CssClass="table table-striped table-bordered" OnRowCommand="grvParametros_RowCommand">
+                                    <asp:GridView ID="grvDatos" runat="server" AutoGenerateColumns="false" ShowHeaderWhenEmpty="true" CssClass="table table-striped table-bordered" OnRowCommand="grvDatos_RowCommand">
                                         <Columns>
                                             <asp:TemplateField HeaderText="">
                                                 <ItemTemplate>
-                                                    <asp:LinkButton ID="btnEditar" runat="server" CssClass="btn btn-warning btn-xs" CausesValidation="false" CommandName="EditarParametro" CommandArgument='<%#Eval("IdParametro")%>'>
+                                                    <asp:LinkButton ID="btnEditar" runat="server" CssClass="btn btn-warning btn-xs" CausesValidation="false" CommandName="EditarParametro" CommandArgument='<%#Eval("IDSet")%>'>
                                                         <i class="fa fa-pencil"></i>
+                                                    </asp:LinkButton>
+                                                    <asp:LinkButton ID="btnEliminar" runat="server" CssClass="btn btn-danger btn-xs" CausesValidation="false" CommandName="EliminarParametro" CommandArgument='<%#Eval("IDSet")%>'>
+                                                        <i class="fa fa-trash"></i>
                                                     </asp:LinkButton>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
-                                            <asp:BoundField DataField="IdParametro" HeaderText="Id" />
-                                            <asp:BoundField DataField="Nombre" HeaderText="Parámetro" />
+                                            <asp:BoundField DataField="IDSet" HeaderText="Id" />
+                                            <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
                                             <asp:BoundField DataField="Descripcion" HeaderText="Descripción" />
-                                            <asp:BoundField DataField="Alias" HeaderText="Alias GAMS" />
+                                            <asp:BoundField DataField="AliasGAMS" HeaderText="Alias GAMS" />
                                             <asp:TemplateField HeaderText="Activo">
                                                 <ItemTemplate>
                                                     <label class="checkbox state-disabled">
-											            <asp:CheckBox ID="chkParametroActivo" runat="server" Checked='<%#Bind("Activo")%>' Enabled="false" />
+											            <asp:CheckBox ID="chkParametroActivo" runat="server" Checked='<%#Eval("Activa").ToString() == "1"%>' Enabled="false" />
 											            <i></i>
                                                     </label>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
+                                            <asp:BoundField DataField="AliasGAMS" HeaderText="Set" />
                                         </Columns>
                                     </asp:GridView>
 
@@ -166,9 +157,20 @@
                                         ShowModal
                                     </button>
 
-                                    <asp:HiddenField ID="hddIdParametro" runat="server" Value="0" />
+                                    <asp:HiddenField ID="hddIdSubset" runat="server" Value="0" />
                                 </ContentTemplate>
                             </asp:UpdatePanel>
+                        </div>
+                        <div class="widget-footer">
+                            <asp:LinkButton ID="btnCargueMasivo" runat="server" CssClass="btn btn-primary" OnClick="btnCargueMasivo_Click">
+                                <i class="fa fa-upload"></i>
+                                Cargue Masivo
+                            </asp:LinkButton>
+
+                            <asp:LinkButton ID="btnExportar" runat="server" CssClass="btn btn-primary" OnClick="btnExportar_Click">
+                                <i class="fa fa-download"></i>
+                                Exportar
+                            </asp:LinkButton>
                         </div>
                     </div>
                 </div>
@@ -197,45 +199,25 @@
                         <ContentTemplate>
 				            <div class="smart-form">
 						        <fieldset>
-                                    <section>
-                                        <div class="row">
-                                            <section class="col col-10">
-										        <label class="select">
-                                                    <asp:DropDownList ID="ddlModelos" name="models" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlModelos_SelectedIndexChanged"></asp:DropDownList>
-                                                    <i></i>
-                                                </label>
-									        </section>
-                                        </div>
-                                    </section>
+                                    <asp:Panel ID="pnlIdSet" runat="server">
+                                        <section>
+								            <div class="row">
+									            <label class="label col col-2">Id</label>
+									            <div class="col col-10">
+										            <label class="input">
+                                                        <asp:Label ID="lblIdSet" runat="server"></asp:Label>
+										            </label>
+									            </div>
+								            </div>
+							            </section>
+                                    </asp:Panel>
 
                                     <section>
-                                        <div class="row">
-                                            <section class="col col-10">
-                                                <label class="select">
-                                                    <asp:DropDownList ID="ddlModelosVersiones" name="modelsversions" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlModelosVersiones_SelectedIndexChanged"></asp:DropDownList>
-                                                    <i></i>
-                                                </label>
-                                            </section>
-                                        </div>
-                                    </section>
-
-                                    <section>
-                                        <div class="row">
-                                            <section class="col col-10">
-                                                <label class="select">
-                                                    <asp:DropDownList ID="ddlModelosCasos" name="modelscases" runat="server"></asp:DropDownList>
-                                                    <i></i>
-                                                </label>
-                                            </section>
-                                        </div>
-                                    </section>
-
-							        <section>
 								        <div class="row">
-									        <label class="label col col-2">Parametro</label>
+									        <label class="label col col-2">Nombre</label>
 									        <div class="col col-10">
-										        <label class="input"> <i class="icon-append fa fa-cog"></i>
-                                                    <asp:TextBox ID="txtParametro" runat="server"></asp:TextBox>
+										        <label class="input">
+                                                    <asp:TextBox ID="txtNombre" runat="server"></asp:TextBox>
 										        </label>
 									        </div>
 								        </div>
@@ -254,7 +236,7 @@
 
 							        <section>
 								        <div class="row">
-									        <label class="label col col-2">Alias</label>
+									        <label class="label col col-2">Alias Gams</label>
 									        <div class="col col-10">
 										        <label class="input">
 											        <asp:TextBox ID="txtAlias" runat="server"></asp:TextBox>
@@ -263,17 +245,31 @@
 								        </div>
 							        </section>
 
-							        <section>
+                                    <section>
 								        <div class="row">
-									        <label class="label col col-2">Activo</label>
+									        <label class="label col col-2">Set</label>
 									        <div class="col col-10">
-										        <label class="checkbox">
-                                                    <asp:CheckBox ID="chkActivo" runat="server" Checked="true" />
-											        <i></i>
-										        </label>
+										        <label class="select">
+                                                    <asp:DropDownList ID="ddlSets" name="models" runat="server"></asp:DropDownList>
+                                                    <i></i>
+                                                </label>
 									        </div>
 								        </div>
 							        </section>
+
+                                    <asp:Panel ID="pnlActivo" runat="server">
+                                        <section>
+								            <div class="row">
+									            <label class="label col col-2">Activo</label>
+									            <div class="col col-10">
+										            <label class="checkbox">
+                                                        <asp:CheckBox ID="chkActivo" runat="server" />
+											            <i></i>
+										            </label>
+									            </div>
+								            </div>
+							            </section>
+                                    </asp:Panel>
 						        </fieldset>
 							
 						        <footer>
@@ -294,14 +290,10 @@
 	    </div>
     </div>
 
-    <script src='<%= ResolveUrl("~/Scripts/Paginas/Administracion/Parametros/parametros.js") %>'></script>
-
+    <script src='<%= ResolveUrl("~/Scripts/WebForms/Paginas/Administracion/subsets.js") %>'></script>
     <script>
         $(document).ready(function () {
-            grvParametros = $("#<%=grvParametros.ClientID%>");
-            txtParametro = $("#<%=txtParametro.ClientID%>");
-            txtDescripcion = $("#<%=txtDescripcion.ClientID%>");
-            txtAlias = $("#<%=txtAlias.ClientID%>");
+            grvDatos = $("#<%=grvDatos.ClientID%>");
 
             iniciarControles();
             iniciarDataTable();
@@ -329,7 +321,7 @@
         var prm = Sys.WebForms.PageRequestManager.getInstance();
 
         function EndRequestHandler(sender, args) {
-            grvParametros = $("#<%=grvParametros.ClientID%>");
+            grvDatos = $("#<%=grvDatos.ClientID%>");
             iniciarDataTable();
         };
 

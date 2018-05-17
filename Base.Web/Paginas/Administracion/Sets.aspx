@@ -73,16 +73,14 @@
                                                     </label>
                                                 </section>
                                             </div>
-
-                                            <div class="row">
-                                                <section class="col col-12 pull-right">
-                                                    <asp:LinkButton ID="btnFiltrar" runat="server" CssClass="btn btn-primary" OnClick="btnFiltrar_Click">
-                                                        <i class="fa fa-search"></i>
-                                                        Filtrar
-                                                    </asp:LinkButton>
-                                                </section>
-                                            </div>
                                         </fieldset>
+
+                                        <section class="col col-12 pull-right">
+                                            <asp:LinkButton ID="btnFiltrar" runat="server" CssClass="btn-sm btn btn-primary" OnClick="btnFiltrar_Click">
+                                                <i class="fa fa-search"></i>
+                                                Filtrar
+                                            </asp:LinkButton>
+                                        </section>
                                     </div>
                                 </ContentTemplate>
                             </asp:UpdatePanel>
@@ -127,14 +125,14 @@
 					    <div class="widget-body no-padding">
                             <asp:UpdatePanel ID="updParametros" runat="server" UpdateMode="Always" ChildrenAsTriggers="true">
                                 <ContentTemplate>
-                                    <asp:GridView ID="grvParametros" runat="server" AutoGenerateColumns="false" ShowHeaderWhenEmpty="true" CssClass="table table-striped table-bordered" OnRowCommand="grvParametros_RowCommand">
+                                    <asp:GridView ID="grvDatos" runat="server" AutoGenerateColumns="false" ShowHeaderWhenEmpty="true" CssClass="table table-striped table-bordered" OnRowCommand="grvDatos_RowCommand">
                                         <Columns>
                                             <asp:TemplateField HeaderText="">
                                                 <ItemTemplate>
                                                     <asp:LinkButton ID="btnEditar" runat="server" CssClass="btn btn-warning btn-xs" CausesValidation="false" CommandName="EditarParametro" CommandArgument='<%#Eval("IDSet")%>'>
                                                         <i class="fa fa-pencil"></i>
                                                     </asp:LinkButton>
-                                                    <asp:LinkButton ID="btnEliminar" runat="server" CssClass="btn btn-dange btn-xs" CausesValidation="false" CommandName="EliminarParametro" CommandArgument='<%#Eval("IDSet")%>'>
+                                                    <asp:LinkButton ID="btnEliminar" runat="server" CssClass="btn btn-danger btn-xs" CausesValidation="false" CommandName="EliminarParametro" CommandArgument='<%#Eval("IDSet")%>'>
                                                         <i class="fa fa-trash"></i>
                                                     </asp:LinkButton>
                                                 </ItemTemplate>
@@ -159,10 +157,6 @@
                                     </button>
 
                                     <asp:HiddenField ID="hddIdSet" runat="server" Value="0" />
-
-                                    <div>
-
-                                    </div>
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                         </div>
@@ -272,10 +266,10 @@
 	    </div>
     </div>
 
-    <script src='<%= ResolveUrl("~/Scripts/WebForms/Paginas/Administracion/parametros.js") %>'></script>
+    <script src='<%= ResolveUrl("~/Scripts/WebForms/Paginas/Administracion/sets.js") %>'></script>
     <script>
         $(document).ready(function () {
-            grvParametros = $("#<%=grvParametros.ClientID%>");
+            grvDatos = $("#<%=grvDatos.ClientID%>");
 
             iniciarControles();
             iniciarDataTable();
@@ -303,7 +297,7 @@
         var prm = Sys.WebForms.PageRequestManager.getInstance();
 
         function EndRequestHandler(sender, args) {
-            grvParametros = $("#<%=grvParametros.ClientID%>");
+            grvDatos = $("#<%=grvDatos.ClientID%>");
             iniciarDataTable();
         };
 

@@ -11,12 +11,6 @@ namespace SeedProject.Paginas.Administracion
 {
     public partial class Subsets : System.Web.UI.Page
     {
-        private ParametroFormViewModel parametroFormViewModel = new ParametroFormViewModel();
-
-        public IParametroService ParametroService { get; set; }
-
-        public IModeloService ModeloService { get; set; }
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -24,10 +18,9 @@ namespace SeedProject.Paginas.Administracion
 
             }
 
-            if (this.grvParametros.Rows.Count > 0)
-            {
-                this.grvParametros.HeaderRow.TableSection = TableRowSection.TableHeader;
-            }
+            this.grvDatos.DataSource = new List<string>();
+            this.grvDatos.DataBind();
+            this.grvDatos.HeaderRow.TableSection = TableRowSection.TableHeader;
         }
 
         protected void ddlFiltroModelos_SelectedIndexChanged(object sender, EventArgs e)
@@ -47,7 +40,8 @@ namespace SeedProject.Paginas.Administracion
 
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
-
+            this.lblModalTitulo.Text = "Agregar Subset";
+            ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", "$('#btnAgregarModal').click();", true);
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
@@ -55,7 +49,7 @@ namespace SeedProject.Paginas.Administracion
 
         }
 
-        protected void grvParametros_RowCommand(object sender, GridViewCommandEventArgs e)
+        protected void grvDatos_RowCommand(object sender, GridViewCommandEventArgs e)
         {
 
         }
@@ -66,6 +60,16 @@ namespace SeedProject.Paginas.Administracion
         }
 
         protected void ddlModelosVersiones_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnCargueMasivo_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnExportar_Click(object sender, EventArgs e)
         {
 
         }

@@ -58,13 +58,13 @@ namespace SeedProject.Paginas.Administracion {
         protected global::System.Web.UI.UpdatePanel updParametros;
         
         /// <summary>
-        /// Control grvParametros.
+        /// Control grvDatos.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView grvParametros;
+        protected global::System.Web.UI.WebControls.GridView grvDatos;
         
         /// <summary>
         /// Control hddIdSet.

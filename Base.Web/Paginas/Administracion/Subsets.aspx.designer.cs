@@ -31,22 +31,13 @@ namespace SeedProject.Paginas.Administracion {
         protected global::System.Web.UI.WebControls.DropDownList ddlFiltroModelos;
         
         /// <summary>
-        /// Control ddlFiltroModelosVersiones.
+        /// Control ddlFiltroVersiones.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlFiltroModelosVersiones;
-        
-        /// <summary>
-        /// Control ddlFiltroModelosCasos.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlFiltroModelosCasos;
+        protected global::System.Web.UI.WebControls.DropDownList ddlFiltroVersiones;
         
         /// <summary>
         /// Control btnFiltrar.
@@ -67,22 +58,40 @@ namespace SeedProject.Paginas.Administracion {
         protected global::System.Web.UI.UpdatePanel updParametros;
         
         /// <summary>
-        /// Control grvParametros.
+        /// Control grvDatos.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView grvParametros;
+        protected global::System.Web.UI.WebControls.GridView grvDatos;
         
         /// <summary>
-        /// Control hddIdParametro.
+        /// Control hddIdSubset.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hddIdParametro;
+        protected global::System.Web.UI.WebControls.HiddenField hddIdSubset;
+        
+        /// <summary>
+        /// Control btnCargueMasivo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnCargueMasivo;
+        
+        /// <summary>
+        /// Control btnExportar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnExportar;
         
         /// <summary>
         /// Control updModalTitulo.
@@ -112,40 +121,31 @@ namespace SeedProject.Paginas.Administracion {
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
-        /// Control ddlModelos.
+        /// Control pnlIdSet.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlModelos;
+        protected global::System.Web.UI.WebControls.Panel pnlIdSet;
         
         /// <summary>
-        /// Control ddlModelosVersiones.
+        /// Control lblIdSet.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlModelosVersiones;
+        protected global::System.Web.UI.WebControls.Label lblIdSet;
         
         /// <summary>
-        /// Control ddlModelosCasos.
+        /// Control txtNombre.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlModelosCasos;
-        
-        /// <summary>
-        /// Control txtParametro.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtParametro;
+        protected global::System.Web.UI.WebControls.TextBox txtNombre;
         
         /// <summary>
         /// Control txtDescripcion.
@@ -164,6 +164,24 @@ namespace SeedProject.Paginas.Administracion {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtAlias;
+        
+        /// <summary>
+        /// Control ddlSets.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSets;
+        
+        /// <summary>
+        /// Control pnlActivo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlActivo;
         
         /// <summary>
         /// Control chkActivo.
