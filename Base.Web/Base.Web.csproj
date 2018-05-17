@@ -228,6 +228,7 @@
     <Content Include="Content\css\smartadmin-production.min.css" />
     <Content Include="Content\css\smartadmin-rtl.css" />
     <Content Include="Content\css\smartadmin-rtl.min.css" />
+    <Content Include="Content\css\smartadmin-skins-green.min.css" />
     <Content Include="Content\css\smartadmin-skins.css" />
     <Content Include="Content\css\smartadmin-skins.min.css" />
     <Content Include="Content\css\smartadmin.min.css" />

@@ -63,8 +63,16 @@
        SELECT * FROM MENUS
       -->
     </SQL>
-
-
+   <SQL id="Menu_GetParents">
+      <!--
+       SELECT * FROM MENUS WHERE IdMenuPadre IS NULL  Order by Orden
+      -->
+    </SQL>
+   <SQL id="Menu_GetChildren">
+      <!--
+       SELECT * FROM MENUS WHERE IdMenuPadre = @IdMenuPadre Order by Orden
+      -->
+    </SQL>
 
     <!-- MODELO -->
 
@@ -183,7 +191,7 @@
        SELECT * FROM PARAMETROS
       -->
     </SQL>
-
+    
     <!-- SET -->
 
     <SQL id="Set_Insert">

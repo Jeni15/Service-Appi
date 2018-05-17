@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+
 namespace SeedProject
 {
     public partial class Sitio : System.Web.UI.MasterPage
@@ -21,18 +22,18 @@ namespace SeedProject
                 CargarMenusPadres();
             }
         }
-
+            
         protected void rptMenu_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             if (e.Item.ItemType == ListItemType.Item
                 || e.Item.ItemType == ListItemType.AlternatingItem)
             {
-                List<Base.Model.Models.Menu> menus = MenuService.GetAll().Where(men => men.IdMenuPadre != null).ToList();
+                List<Base.Model.Models.Menu> menus = MenuService.Execute("GetParents", null).ToList();
                 Base.Model.Models.Menu subMenu = (Base.Model.Models.Menu)e.Item.DataItem;
                 int ID = Convert.ToInt32(subMenu.IdMenu.ToString());
                 StringBuilder sb = new StringBuilder();
 
-                List<Base.Model.Models.Menu> subMenus = menus.Where(ms => ms.IdMenuPadre == subMenu.IdMenu).ToList();
+                List<Base.Model.Models.Menu> subMenus = MenuService.Execute("GetChildren", new Base.Model.Models.Menu { IdMenuPadre = subMenu.IdMenu }).ToList();
 
                 if (subMenus.Count > 0)
                 {
@@ -52,15 +53,16 @@ namespace SeedProject
 
         private void CargarMenusPadres()
         {
-            List<Base.Model.Models.Menu> menus = MenuService.GetAll().OrderBy(men => men.Orden).Where(men => men.IdMenuPadre == null).ToList();
-
+            //List<Base.Model.Models.Menu> menus = MenuService.GetAll().OrderBy(men => men.Orden).Where(men => men.IdMenuPadre == null).ToList();
+            List<Base.Model.Models.Menu> menus = MenuService.Execute("GetParents", null).ToList();
             this.rptMenu.DataSource = menus;
             this.rptMenu.DataBind();
         }
 
         private StringBuilder AgregarSubMenu(Base.Model.Models.Menu subMenu, StringBuilder sb)
         {
-            List<Base.Model.Models.Menu> childItems = MenuService.GetAll().OrderBy(men => men.Orden).Where(men => men.IdMenuPadre == subMenu.IdMenu).ToList();
+            //List<Base.Model.Models.Menu> childItems = MenuService.GetAll().OrderBy(men => men.Orden).Where(men => men.IdMenuPadre == subMenu.IdMenu).ToList();
+            List<Base.Model.Models.Menu> childItems = MenuService.Execute("GetChildren", new Base.Model.Models.Menu { IdMenuPadre = subMenu.IdMenu }).ToList();
 
             if (childItems.Count > 0)
             {

@@ -79,7 +79,8 @@ namespace SeedProject.Paginas.Administracion
                 {
                     parametroFormViewModel.Parametro = LlenarParametro(parametroFormViewModel.Parametro);
 
-                    ParametroService.Update(parametroFormViewModel.Parametro);
+                    //ParametroService.Update(parametroFormViewModel.Parametro);
+                    ParametroService.Execute("Update",parametroFormViewModel.Parametro);
                 }
             }
             else

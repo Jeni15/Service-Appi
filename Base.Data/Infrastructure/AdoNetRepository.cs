@@ -139,11 +139,29 @@ namespace Base.Data.Infrastructure
             }
         }
 
+        public IEnumerable<T> Execute(string statement, T entity)
+        {
+            using (var command = (_uow?.CreateCommand() ?? DbContext.Connection.CreateCommand()))
+            {
+
+                var sql = SqlManager.GetSQL($"{typeof(T).Name}_{statement}");
+
+                DbParameter[] parameters = CreateParemeters(entity, command, sql);
+
+                foreach (var param in parameters) command.Parameters.Add(param);
+
+                command.CommandText = sql;
+
+                return this.ToList(command);
+
+            }
+        }
+
         protected IEnumerable<T> ToList(IDbCommand command)
         {
+            List<T> items = new List<T>();
             using (var record = command.ExecuteReader())
             {
-                List<T> items = new List<T>();
                 while (record.Read())
                 {
                     items.Add(Map<T>(record));

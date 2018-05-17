@@ -22,7 +22,7 @@
 		    <!-- NEW COL START -->
 		    <article class="col-sm-12 col-md-5">
 			    <!-- Widget ID (each widget will need unique ID)-->
-			    <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-2" data-widget-editbutton="false" data-widget-custombutton="false">
+			    <div class="jarviswidget jarviswidget-color-greenLight" id="wid-id-2" data-widget-editbutton="false" data-widget-custombutton="false">
 				    <!-- widget options:
 					    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 					
@@ -95,7 +95,7 @@
             </article>
 
             <article class="col-sm-12 col-md-12">
-                <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-1" data-widget-editbutton="false">
+                <div class="jarviswidget jarviswidget-color-greenLight" id="wid-id-1" data-widget-editbutton="false">
 				    <!-- widget options:
 				    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 
