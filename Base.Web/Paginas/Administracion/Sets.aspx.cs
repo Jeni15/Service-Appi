@@ -42,7 +42,7 @@ namespace SeedProject.Paginas.Administracion
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
             this.lblModalTitulo.Text = "Agregar Set";
-
+            
             LimpiarCampos(false);
 
             ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", "$('#btnAgregarModal').click();", true);
@@ -176,6 +176,7 @@ namespace SeedProject.Paginas.Administracion
 
         private void LimpiarCampos(bool esUpdate)
         {
+            this.hddIdSet.Value = "0";
             this.pnlIdSet.Visible = esUpdate;
             this.txtNombre.Text = "";
             this.txtDescripcion.Text = "";
