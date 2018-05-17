@@ -13,15 +13,15 @@ using System.Threading.Tasks;
 namespace Base.Data.Repositories
 {
 
-    public class ModeloVersionRepository : AdoNetRepository<ModeloVersion>, IModeloVersionRepository
+    public class VersionRepository : AdoNetRepository<Model.Models.Version>, IModeloVersionRepository
     {
-        public ModeloVersionRepository(IAdoNetDbFactory dbFactory, IUnitOfWork uow) : base(dbFactory, uow)
+        public VersionRepository(IAdoNetDbFactory dbFactory, IUnitOfWork uow) : base(dbFactory, uow)
         {
 
         }
     }
 
-    public interface IModeloVersionRepository : IRepository<ModeloVersion>
+    public interface IModeloVersionRepository : IRepository<Model.Models.Version>
     {
 
     }

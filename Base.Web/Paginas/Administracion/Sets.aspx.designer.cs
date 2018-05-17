@@ -22,22 +22,22 @@ namespace SeedProject.Paginas.Administracion {
         protected global::System.Web.UI.UpdatePanel updFiltros;
         
         /// <summary>
-        /// Control ddlFiltroSubModelos.
+        /// Control ddlFiltroModelos.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlFiltroSubModelos;
+        protected global::System.Web.UI.WebControls.DropDownList ddlFiltroModelos;
         
         /// <summary>
-        /// Control ddlFiltroModelosVersiones.
+        /// Control ddlFiltroVersiones.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlFiltroModelosVersiones;
+        protected global::System.Web.UI.WebControls.DropDownList ddlFiltroVersiones;
         
         /// <summary>
         /// Control btnFiltrar.
@@ -67,13 +67,13 @@ namespace SeedProject.Paginas.Administracion {
         protected global::System.Web.UI.WebControls.GridView grvParametros;
         
         /// <summary>
-        /// Control hddIdParametro.
+        /// Control hddIdSet.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hddIdParametro;
+        protected global::System.Web.UI.WebControls.HiddenField hddIdSet;
         
         /// <summary>
         /// Control updModalTitulo.
@@ -103,40 +103,13 @@ namespace SeedProject.Paginas.Administracion {
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
-        /// Control ddlModelos.
+        /// Control txtNombre.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlModelos;
-        
-        /// <summary>
-        /// Control ddlModelosVersiones.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlModelosVersiones;
-        
-        /// <summary>
-        /// Control ddlModelosCasos.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlModelosCasos;
-        
-        /// <summary>
-        /// Control txtParametro.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtParametro;
+        protected global::System.Web.UI.WebControls.TextBox txtNombre;
         
         /// <summary>
         /// Control txtDescripcion.
@@ -155,15 +128,6 @@ namespace SeedProject.Paginas.Administracion {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtAlias;
-        
-        /// <summary>
-        /// Control chkActivo.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkActivo;
         
         /// <summary>
         /// Control btnGuardar.

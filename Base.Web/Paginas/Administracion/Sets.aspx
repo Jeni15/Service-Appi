@@ -59,7 +59,7 @@
                                             <div class="row">
                                                 <section class="col col-10">
 										            <label class="select">
-                                                        <asp:DropDownList ID="ddlFiltroSubModelos" name="filtermodels" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlFiltroSubModelos_SelectedIndexChanged"></asp:DropDownList>
+                                                        <asp:DropDownList ID="ddlFiltroModelos" name="filtermodels" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlFiltroModelos_SelectedIndexChanged"></asp:DropDownList>
                                                         <i></i>
                                                     </label>
 									            </section>
@@ -68,7 +68,7 @@
                                             <div class="row">
                                                 <section class="col col-10">
                                                     <label class="select">
-                                                        <asp:DropDownList ID="ddlFiltroModelosVersiones" name="filtermodelsversions" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlFiltroModelosVersiones_SelectedIndexChanged"></asp:DropDownList>
+                                                        <asp:DropDownList ID="ddlFiltroVersiones" name="filtermodelsversions" runat="server"></asp:DropDownList>
                                                         <i></i>
                                                     </label>
                                                 </section>
@@ -111,7 +111,7 @@
 				    -->
 				    <header>
 					    <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-					    <h2>Lista Parametros</h2>
+					    <h2>Lista Sets</h2>
 
 				    </header>
 
@@ -133,19 +133,19 @@
                                         <Columns>
                                             <asp:TemplateField HeaderText="">
                                                 <ItemTemplate>
-                                                    <asp:LinkButton ID="btnEditar" runat="server" CssClass="btn btn-warning btn-xs" CausesValidation="false" CommandName="EditarParametro" CommandArgument='<%#Eval("IdParametro")%>'>
+                                                    <asp:LinkButton ID="btnEditar" runat="server" CssClass="btn btn-warning btn-xs" CausesValidation="false" CommandName="EditarParametro" CommandArgument='<%#Eval("IDSet")%>'>
                                                         <i class="fa fa-pencil"></i>
                                                     </asp:LinkButton>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
-                                            <asp:BoundField DataField="IdParametro" HeaderText="Id" />
+                                            <asp:BoundField DataField="IDSet" HeaderText="Id" />
                                             <asp:BoundField DataField="Nombre" HeaderText="Parámetro" />
                                             <asp:BoundField DataField="Descripcion" HeaderText="Descripción" />
-                                            <asp:BoundField DataField="Alias" HeaderText="Alias GAMS" />
+                                            <asp:BoundField DataField="AliasGAMS" HeaderText="Alias GAMS" />
                                             <asp:TemplateField HeaderText="Activo">
                                                 <ItemTemplate>
                                                     <label class="checkbox state-disabled">
-											            <asp:CheckBox ID="chkParametroActivo" runat="server" Checked='<%#Bind("Activo")%>' Enabled="false" />
+											            <asp:CheckBox ID="chkParametroActivo" runat="server" Checked='<%#Eval("Activa").ToString() == "1"%>' Enabled="false" />
 											            <i></i>
                                                     </label>
                                                 </ItemTemplate>
@@ -157,7 +157,7 @@
                                         ShowModal
                                     </button>
 
-                                    <asp:HiddenField ID="hddIdParametro" runat="server" Value="0" />
+                                    <asp:HiddenField ID="hddIdSet" runat="server" Value="0" />
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                         </div>
@@ -189,44 +189,11 @@
 				            <div class="smart-form">
 						        <fieldset>
                                     <section>
-                                        <div class="row">
-                                            <section class="col col-10">
-										        <label class="select">
-                                                    <asp:DropDownList ID="ddlModelos" name="models" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlModelos_SelectedIndexChanged"></asp:DropDownList>
-                                                    <i></i>
-                                                </label>
-									        </section>
-                                        </div>
-                                    </section>
-
-                                    <section>
-                                        <div class="row">
-                                            <section class="col col-10">
-                                                <label class="select">
-                                                    <asp:DropDownList ID="ddlModelosVersiones" name="modelsversions" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlModelosVersiones_SelectedIndexChanged"></asp:DropDownList>
-                                                    <i></i>
-                                                </label>
-                                            </section>
-                                        </div>
-                                    </section>
-
-                                    <section>
-                                        <div class="row">
-                                            <section class="col col-10">
-                                                <label class="select">
-                                                    <asp:DropDownList ID="ddlModelosCasos" name="modelscases" runat="server"></asp:DropDownList>
-                                                    <i></i>
-                                                </label>
-                                            </section>
-                                        </div>
-                                    </section>
-
-							        <section>
 								        <div class="row">
-									        <label class="label col col-2">Parametro</label>
+									        <label class="label col col-2">Nombre</label>
 									        <div class="col col-10">
-										        <label class="input"> <i class="icon-append fa fa-cog"></i>
-                                                    <asp:TextBox ID="txtParametro" runat="server"></asp:TextBox>
+										        <label class="input">
+                                                    <asp:TextBox ID="txtNombre" runat="server"></asp:TextBox>
 										        </label>
 									        </div>
 								        </div>
@@ -245,22 +212,10 @@
 
 							        <section>
 								        <div class="row">
-									        <label class="label col col-2">Alias</label>
+									        <label class="label col col-2">Alias Gams</label>
 									        <div class="col col-10">
 										        <label class="input">
 											        <asp:TextBox ID="txtAlias" runat="server"></asp:TextBox>
-										        </label>
-									        </div>
-								        </div>
-							        </section>
-
-							        <section>
-								        <div class="row">
-									        <label class="label col col-2">Activo</label>
-									        <div class="col col-10">
-										        <label class="checkbox">
-                                                    <asp:CheckBox ID="chkActivo" runat="server" Checked="true" />
-											        <i></i>
 										        </label>
 									        </div>
 								        </div>
@@ -285,14 +240,10 @@
 	    </div>
     </div>
 
-    <script src='<%= ResolveUrl("~/Scripts/Paginas/Administracion/Parametros/parametros.js") %>'></script>
-
+    <script src='<%= ResolveUrl("~/Scripts/WebForms/Paginas/Administracion/parametros.js") %>'></script>
     <script>
         $(document).ready(function () {
             grvParametros = $("#<%=grvParametros.ClientID%>");
-            txtParametro = $("#<%=txtParametro.ClientID%>");
-            txtDescripcion = $("#<%=txtDescripcion.ClientID%>");
-            txtAlias = $("#<%=txtAlias.ClientID%>");
 
             iniciarControles();
             iniciarDataTable();

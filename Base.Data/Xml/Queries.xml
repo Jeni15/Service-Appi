@@ -85,12 +85,12 @@
     </SQL>
     <SQL id="Modelo_Get">
       <!--
-       SELECT * FROM MODELOS WHERE IDMODELO = @Id
+       SELECT * FROM MODELOS WHERE IdModelo = @Id
       -->
     </SQL>
     <SQL id="Modelo_GetAll">
       <!--
-       SELECT * FROM MODELOS
+       SELECT * FROM Modelo
       -->
     </SQL>
 
@@ -126,31 +126,31 @@
 
 
 
-    <!-- MODELOVERSION -->
+    <!-- VERSION -->
 
-    <SQL id="ModeloVersion_Insert">
+    <SQL id="Version_Insert">
       <!--
-        INSERT INTO MODELOSVERSIONES (nombre,IdModelo) VALUES (@Nombre, @IdModelo)
+        INSERT INTO Version (nombre,IdModelo) VALUES (@Nombre, @IdModelo)
       -->
     </SQL>
-    <SQL id="ModeloVersion_Update">
+    <SQL id="Version_Update">
       <!--
         UPDATE MODELOSVERSIONES SET nombre = @Nombre, IdModelo = @IdModelo WHERE IDMODELOVERSION = @Id
       -->
     </SQL>
-    <SQL id="ModeloVersion_Delete">
+    <SQL id="Version_Delete">
       <!--
        DELETE FROM MODELOSVERSIONES WHERE IDMODELOVERSION = @Id
       -->
     </SQL>
-    <SQL id="ModeloVersion_Get">
+    <SQL id="Version_Get">
       <!--
-       SELECT * FROM MODELOSVERSIONES WHERE IDMODELOVERSION = @Id
+       SELECT * FROM Version WHERE IDVersion = @Id
       -->
     </SQL>
-    <SQL id="ModeloVersion_GetAll">
+    <SQL id="Version_GetAll">
       <!--
-       SELECT * FROM MODELOSVERSIONES
+       SELECT * FROM Version
       -->
     </SQL>
 
@@ -183,6 +183,33 @@
        SELECT * FROM PARAMETROS
       -->
     </SQL>
-    
+
+    <!-- SET -->
+
+    <SQL id="Set_Insert">
+      <!--
+        INSERT INTO [Set] (IDSet,Nombre,Descripcion,AliasGAMS,IDSet_Padre,Fecha_Creacion,Usuario_Creacion,Fecha_UltMod,Usuario_UltMod,Activa) VALUES (NEXT VALUE FOR seqMICV,@Nombre,@Descripcion,@AliasGAMS,@IDSet_Padre,@Fecha_Creacion,@Usuario_Creacion,@Fecha_UltMod,@Usuario_UltMod,@Activa)
+      -->
+    </SQL>
+    <SQL id="Set_Update">
+      <!--
+        UPDATE [Set] SET Nombre = @Nombre, Descripcion = @Descripcion, AliasGAMS = @AliasGAMS, IDSet_Padre = @IDSet_Padre, Fecha_Creacion = @Fecha_Creacion, Usuario_Creacion = @Usuario_Creacion, Fecha_UltMod = @Fecha_UltMod, Usuario_UltMod = @Usuario_UltMod, Activa = @Activa WHERE IDSet = @IDSet
+      -->
+    </SQL>
+    <SQL id="Set_Delete">
+      <!--
+       DELETE FROM [Set] WHERE IDSet = @Id
+      -->
+    </SQL>
+    <SQL id="Set_Get">
+      <!--
+       SELECT * FROM [Set] WHERE IDSet = @Id
+      -->
+    </SQL>
+    <SQL id="Set_GetAll">
+      <!--
+       SELECT s.*, vs.IdVersion FROM [Set] s left join Version_Set vs on s.IDSet = vs.IdSet
+      -->
+    </SQL>
   </queries>
 </top>

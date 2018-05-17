@@ -11,16 +11,16 @@ using System.Threading.Tasks;
 namespace Base.Service.Services
 {
    
-    public class ModeloVersionService : EntityService<ModeloVersion>, IModeloVersionService
+    public class SetService : EntityService<Set>, ISetService
     {
-        public ModeloVersionService(IUnitOfWork unitOfWork, IModeloVersionRepository repository) : base(unitOfWork, repository)
+        public SetService(IUnitOfWork unitOfWork, ISetRepository repository) : base(unitOfWork, repository)
         {
 
         }
 
     }
 
-    public interface IModeloVersionService : IEntityService<ModeloVersion>
+    public interface ISetService : IEntityService<Set>
     {
    
     }

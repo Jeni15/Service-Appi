@@ -17,10 +17,6 @@ namespace SeedProject.Paginas.Administracion
 
         public IModeloService ModeloService { get; set; }
 
-        public IModeloVersionService ModeloVersionService { get; set; }
-
-        public IModeloCasoService ModeloCasoService { get; set; }
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -46,7 +42,7 @@ namespace SeedProject.Paginas.Administracion
 
         protected void btnFiltrar_Click(object sender, EventArgs e)
         {
-            parametroFormViewModel.Parametros = ParametroService.GetAll().ToList();
+            /*parametroFormViewModel.Parametros = ParametroService.GetAll().ToList();
 
             if (this.ddlFiltroModelosCasos.SelectedValue != "0")
             {
@@ -60,7 +56,7 @@ namespace SeedProject.Paginas.Administracion
             if (parametroFormViewModel.Parametros.Count > 0)
             {
                 this.grvParametros.HeaderRow.TableSection = TableRowSection.TableHeader;
-            }
+            }*/
         }
 
         protected void btnAgregar_Click(object sender, EventArgs e)
@@ -146,45 +142,45 @@ namespace SeedProject.Paginas.Administracion
 
         private void CargarModelos(DropDownList ddlDestino)
         {
-            parametroFormViewModel.Modelos = ModeloService.GetAll().ToList();
+            /*parametroFormViewModel.Modelos = ModeloService.GetAll().ToList();
 
             ddlDestino.DataValueField = "IdModelo";
             ddlDestino.DataTextField = "Nombre";
             ddlDestino.DataSource = parametroFormViewModel.Modelos;
             ddlDestino.DataBind();
-            ddlDestino.Items.Insert(0, new ListItem { Value = "0", Text = "(MODELO)" });
+            ddlDestino.Items.Insert(0, new ListItem { Value = "0", Text = "(MODELO)" });*/
         }
 
         private void CargarModelosVersiones(DropDownList ddlDestino, DropDownList ddlPadre)
         {
-            if (ddlPadre.SelectedValue != "0"
+            /*if (ddlPadre.SelectedValue != "0"
                 && ddlPadre.Items.Count > 0)
             {
                 parametroFormViewModel.ModelosVersiones = ModeloVersionService.GetAll().ToList();
                 int idModelo = Convert.ToInt32(ddlPadre.SelectedValue);
                 parametroFormViewModel.ModelosVersiones = parametroFormViewModel.ModelosVersiones.Where(par => par.IdModelo == idModelo && par.IdModeloVersion != 0).ToList();
-            }
+            */
 
             ddlDestino.DataValueField = "IdModeloVersion";
             ddlDestino.DataTextField = "Nombre";
-            ddlDestino.DataSource = parametroFormViewModel.ModelosVersiones;
+            //ddlDestino.DataSource = parametroFormViewModel.ModelosVersiones;
             ddlDestino.DataBind();
             ddlDestino.Items.Insert(0, new ListItem { Value = "0", Text = "(VERSION)" });
         }
 
         private void CargarModelosCasos(DropDownList ddlDestino, DropDownList ddlPadre)
         {
-            if (ddlPadre.SelectedValue != "0"
+            /*if (ddlPadre.SelectedValue != "0"
                 && ddlPadre.Items.Count > 0)
             {
                 parametroFormViewModel.ModelosCasos = ModeloCasoService.GetAll().ToList();
                 int idVersion = Convert.ToInt32(ddlPadre.SelectedValue);
                 parametroFormViewModel.ModelosCasos = parametroFormViewModel.ModelosCasos.Where(par => par.IdModeloVersion == idVersion && par.IdModeloCaso != 0).ToList();
-            }
+            }*/
 
             ddlDestino.DataValueField = "IdModeloCaso";
             ddlDestino.DataTextField = "Nombre";
-            ddlDestino.DataSource = parametroFormViewModel.ModelosCasos;
+            //ddlDestino.DataSource = parametroFormViewModel.ModelosCasos;
             ddlDestino.DataBind();
             ddlDestino.Items.Insert(0, new ListItem { Value = "0", Text = "(CASO)" });
         }
@@ -204,7 +200,7 @@ namespace SeedProject.Paginas.Administracion
 
         private void CargarParametro()
         {
-            if (this.hddIdParametro.Value != "0")
+            /*if (this.hddIdParametro.Value != "0")
             {
                 int idParametro = Convert.ToInt32(this.hddIdParametro.Value);
                 parametroFormViewModel.Parametro = ParametroService.GetById(idParametro);
@@ -220,7 +216,7 @@ namespace SeedProject.Paginas.Administracion
                 this.txtDescripcion.Text = parametroFormViewModel.Parametro.Descripcion;
                 this.txtAlias.Text = parametroFormViewModel.Parametro.Alias;
                 this.chkActivo.Checked = parametroFormViewModel.Parametro.Activo;
-            }
+            }*/
         }
 
         private Parametro LlenarParametro(Parametro parametro)

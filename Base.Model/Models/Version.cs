@@ -4,13 +4,17 @@ using System.Collections.Generic;
 
 namespace Base.Model.Models
 {
-    public class Modelo
+    public class Version
     {
-        public long IdModelo { get; set; }
+        public long IDVersion { get; set; }
+
+        public long IDSubModelo { get; set; }
 
         public string Nombre { get; set; }
 
         public string Descripcion { get; set; }
+
+        public DateTime Fecha_Version { get; set; }
 
         public DateTime Fecha_Creacion { get; set; }
 

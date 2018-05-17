@@ -43,9 +43,9 @@
     <Compile Include="Infrastructure\EntityService.cs" />
     <Compile Include="Infrastructure\IEntityService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\SetService.cs" />
     <Compile Include="Services\ParametroService.cs" />
-    <Compile Include="Services\ModeloVersionService.cs" />
-    <Compile Include="Services\ModeloCasoService.cs" />
+    <Compile Include="Services\VersionService.cs" />
     <Compile Include="Services\ModeloService.cs" />
     <Compile Include="Services\MenuService.cs" />
     <Compile Include="Services\TipoIdentificacionService.cs" />
