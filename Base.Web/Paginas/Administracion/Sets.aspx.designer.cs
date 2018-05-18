@@ -13,6 +13,24 @@ namespace SeedProject.Paginas.Administracion {
     public partial class Sets {
         
         /// <summary>
+        /// Control updDatos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updDatos;
+        
+        /// <summary>
+        /// Control pnlDatos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlDatos;
+        
+        /// <summary>
         /// Control updFiltros.
         /// </summary>
         /// <remarks>
@@ -49,13 +67,13 @@ namespace SeedProject.Paginas.Administracion {
         protected global::System.Web.UI.WebControls.LinkButton btnFiltrar;
         
         /// <summary>
-        /// Control updParametros.
+        /// Control updSets.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel updParametros;
+        protected global::System.Web.UI.UpdatePanel updSets;
         
         /// <summary>
         /// Control grvDatos.
@@ -67,6 +85,15 @@ namespace SeedProject.Paginas.Administracion {
         protected global::System.Web.UI.WebControls.GridView grvDatos;
         
         /// <summary>
+        /// Control btnEliminar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnEliminar;
+        
+        /// <summary>
         /// Control hddIdSet.
         /// </summary>
         /// <remarks>
@@ -74,6 +101,105 @@ namespace SeedProject.Paginas.Administracion {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hddIdSet;
+        
+        /// <summary>
+        /// Control btnCargueMasivo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnCargueMasivo;
+        
+        /// <summary>
+        /// Control btnExportar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnExportar;
+        
+        /// <summary>
+        /// Control updCargueMasivo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updCargueMasivo;
+        
+        /// <summary>
+        /// Control pnlCargueMasivo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlCargueMasivo;
+        
+        /// <summary>
+        /// Control updModalContenidoCargueMasivo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updModalContenidoCargueMasivo;
+        
+        /// <summary>
+        /// Control upfArchivo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputFile upfArchivo;
+        
+        /// <summary>
+        /// Control updSetCargueMasivo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updSetCargueMasivo;
+        
+        /// <summary>
+        /// Control grvCargueMasivo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView grvCargueMasivo;
+        
+        /// <summary>
+        /// Control btnCargarArchivo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCargarArchivo;
+        
+        /// <summary>
+        /// Control btnCargarCargueMasivo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnCargarCargueMasivo;
+        
+        /// <summary>
+        /// Control btnCancelarCargueMasivo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnCancelarCargueMasivo;
         
         /// <summary>
         /// Control updModalTitulo.
@@ -94,13 +220,13 @@ namespace SeedProject.Paginas.Administracion {
         protected global::System.Web.UI.WebControls.Literal lblModalTitulo;
         
         /// <summary>
-        /// Control UpdatePanel1.
+        /// Control updModalContenido.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        protected global::System.Web.UI.UpdatePanel updModalContenido;
         
         /// <summary>
         /// Control pnlIdSet.

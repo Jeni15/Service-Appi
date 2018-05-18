@@ -129,10 +129,10 @@
                                         <Columns>
                                             <asp:TemplateField HeaderText="">
                                                 <ItemTemplate>
-                                                    <asp:LinkButton ID="btnEditar" runat="server" CssClass="btn btn-warning btn-xs" CausesValidation="false" CommandName="EditarParametro" CommandArgument='<%#Eval("IDSet")%>'>
+                                                    <asp:LinkButton ID="btnEditar" runat="server" CssClass="btn btn-warning btn-xs" CausesValidation="false" CommandName="EditarSubset" CommandArgument='<%#Eval("IDSet")%>'>
                                                         <i class="fa fa-pencil"></i>
                                                     </asp:LinkButton>
-                                                    <asp:LinkButton ID="btnEliminar" runat="server" CssClass="btn btn-danger btn-xs" CausesValidation="false" CommandName="EliminarParametro" CommandArgument='<%#Eval("IDSet")%>'>
+                                                    <asp:LinkButton ID="btnEliminar" runat="server" CssClass="btn btn-danger btn-xs" CausesValidation="false" CommandName="EliminarSubset" CommandArgument='<%#Eval("IDSet")%>'>
                                                         <i class="fa fa-trash"></i>
                                                     </asp:LinkButton>
                                                 </ItemTemplate>
@@ -161,6 +161,7 @@
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                         </div>
+
                         <div class="widget-footer">
                             <asp:LinkButton ID="btnCargueMasivo" runat="server" CssClass="btn btn-primary" OnClick="btnCargueMasivo_Click">
                                 <i class="fa fa-upload"></i>

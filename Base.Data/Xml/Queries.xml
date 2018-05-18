@@ -206,7 +206,7 @@
     </SQL>
     <SQL id="Set_Delete">
       <!--
-       DELETE FROM [Set] WHERE IDSet = @Id
+        UPDATE [Set] SET Fecha_UltMod = @Fecha_UltMod, Usuario_UltMod = @Usuario_UltMod, Activa = '2' WHERE IDSet = @IDSet
       -->
     </SQL>
     <SQL id="Set_Get">
@@ -216,7 +216,7 @@
     </SQL>
     <SQL id="Set_GetAll">
       <!--
-       SELECT s.*, vs.IdVersion FROM [Set] s left join Version_Set vs on s.IDSet = vs.IdSet
+       SELECT s.*, vs.IdVersion FROM [Set] s left join Version_Set vs on s.IDSet = vs.IdSet WHERE s.Activa <> '2'
       -->
     </SQL>
   </queries>

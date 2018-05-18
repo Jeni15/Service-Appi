@@ -2,10 +2,13 @@
 using Base.Service.Services;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data;
+using OfficeOpenXml;
 
 namespace SeedProject.Paginas.Administracion
 {
@@ -84,21 +87,116 @@ namespace SeedProject.Paginas.Administracion
 
         protected void grvDatos_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "EditarParametro")
+            this.hddIdSet.Value = e.CommandArgument.ToString();
+
+            if (e.CommandName == "EditarSet")
             {
                 this.lblModalTitulo.Text = "Editar Set";
-                this.hddIdSet.Value = e.CommandArgument.ToString();
-
+                
                 LimpiarCampos(true);
                 CargarSet(Convert.ToInt64(this.hddIdSet.Value));
 
                 ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", "$('#btnAgregarModal').click();", true);
+            }
+            else if (e.CommandName == "EliminarSet")
+            {
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", "mostrarConfirm();", true);
             }
         }
 
         protected void ddlModelosVersiones_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        protected void btnEliminar_Click(object sender, EventArgs e)
+        {
+            if (this.hddIdSet.Value != "0")
+            {
+                long idSet = Convert.ToInt64(this.hddIdSet.Value);
+
+                setFormViewModel.Set = new Set();
+                setFormViewModel.Set.IDSet = idSet;
+                setFormViewModel.Set.Fecha_UltMod = DateTime.Now;
+                setFormViewModel.Set.Usuario_UltMod = "iarias";
+
+                SetService.Delete(setFormViewModel.Set);
+
+                CargarSets();
+            }
+        }
+
+        protected void btnCargueMasivo_Click(object sender, EventArgs e)
+        {
+            this.pnlDatos.Visible = false;
+            this.pnlCargueMasivo.Visible = true;
+
+            this.grvCargueMasivo.DataSource = new List<string>();
+            this.grvCargueMasivo.DataBind();
+        }
+
+        protected void btnExportar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnCargarCargueMasivo_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnCancelarCargueMasivo_Click(object sender, EventArgs e)
+        {
+            this.pnlDatos.Visible = true;
+            this.pnlCargueMasivo.Visible = false;
+        }
+
+        protected void btnCargarArchivo_Click(object sender, EventArgs e)
+        {
+            if (this.upfArchivo.PostedFile != null
+                && (Path.GetExtension(this.upfArchivo.PostedFile.FileName) == ".xlsx"
+                    || Path.GetExtension(this.upfArchivo.PostedFile.FileName) == ".xls"))
+            {
+                ExcelPackage excel = new ExcelPackage(this.upfArchivo.PostedFile.InputStream);
+                DataTable tbl = new DataTable();
+                ExcelWorksheet ws = excel.Workbook.Worksheets.First();
+                bool hasHeader = true;
+
+                foreach (ExcelRangeBase firstRowCell in ws.Cells[1, 1, 1, ws.Dimension.End.Column])
+                {
+                    tbl.Columns.Add(hasHeader ? firstRowCell.Text : String.Format("Column {0}", firstRowCell.Start.Column));
+                }
+
+                if (tbl.Columns.Count > 0)
+                {
+                    int startRow = hasHeader ? 2 : 1;
+
+                    for (int rowNum = startRow; rowNum <= ws.Dimension.End.Row; rowNum++)
+                    {
+                        ExcelRange wsRow = ws.Cells[rowNum, 1, rowNum, ws.Dimension.End.Column];
+                        DataRow row = tbl.NewRow();
+
+                        foreach (ExcelRangeBase cell in wsRow)
+                        {
+                            row[cell.Start.Column - 1] = cell.Text;
+                        }
+
+                        tbl.Rows.Add(row);
+                    }
+                }
+
+                setFormViewModel.Sets = new List<Set>();
+
+                foreach (DataRow dr in tbl.Rows)
+                {
+                    setFormViewModel.Set = new Set();
+                    setFormViewModel.Set.Nombre = dr[0].ToString();
+                    setFormViewModel.Set.Descripcion = dr[1] != null ? dr[1].ToString() : null;
+                    setFormViewModel.Set.AliasGAMS = dr[2] != null ? dr[2].ToString() : null;
+
+                    setFormViewModel.Sets.Add(setFormViewModel.Set);
+                }
+            }
         }
 
         private void BindData()
