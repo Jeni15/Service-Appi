@@ -45,6 +45,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\SetService.cs" />
     <Compile Include="Services\ParametroService.cs" />
+    <Compile Include="Services\MultisetService.cs" />
+    <Compile Include="Services\SubsetService.cs" />
     <Compile Include="Services\VersionService.cs" />
     <Compile Include="Services\ModeloService.cs" />
     <Compile Include="Services\MenuService.cs" />

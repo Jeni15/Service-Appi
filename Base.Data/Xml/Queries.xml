@@ -195,29 +195,61 @@
     <!-- SET -->
 
     <SQL id="Set_Insert">
-      <!--
-        INSERT INTO [Set] (IDSet,Nombre,Descripcion,AliasGAMS,IDSet_Padre,Fecha_Creacion,Usuario_Creacion,Fecha_UltMod,Usuario_UltMod,Activa) VALUES (NEXT VALUE FOR seqMICV,@Nombre,@Descripcion,@AliasGAMS,@IDSet_Padre,@Fecha_Creacion,@Usuario_Creacion,@Fecha_UltMod,@Usuario_UltMod,@Activa)
+      <!-- 
+        INSERT INTO [Set] (IDSet,Nombre,Descripcion,AliasGAMS,Usuario_Creacion) VALUES (NEXT VALUE FOR seqMICV,@Nombre,@Descripcion,@AliasGAMS,@Usuario_Creacion)
       -->
     </SQL>
     <SQL id="Set_Update">
       <!--
-        UPDATE [Set] SET Nombre = @Nombre, Descripcion = @Descripcion, AliasGAMS = @AliasGAMS, IDSet_Padre = @IDSet_Padre, Fecha_Creacion = @Fecha_Creacion, Usuario_Creacion = @Usuario_Creacion, Fecha_UltMod = @Fecha_UltMod, Usuario_UltMod = @Usuario_UltMod, Activa = @Activa WHERE IDSet = @IDSet
+        UPDATE [Set] SET Nombre = @Nombre, Descripcion = @Descripcion, AliasGAMS = @AliasGAMS, Usuario_UltMod = @Usuario_UltMod, Activa = @Activa WHERE IDSet = @IDSet
       -->
     </SQL>
     <SQL id="Set_Delete">
       <!--
-        UPDATE [Set] SET Fecha_UltMod = @Fecha_UltMod, Usuario_UltMod = @Usuario_UltMod, Activa = '2' WHERE IDSet = @IDSet
+        UPDATE [Set] SET Usuario_UltMod = @Usuario_UltMod, Activa = '2' WHERE IDSet = @IDSet
       -->
     </SQL>
     <SQL id="Set_Get">
       <!--
-       SELECT * FROM [Set] WHERE IDSet = @Id
+       SELECT * FROM [Set] WHERE IDSet = @Id And Activa != '2' And IDSet_Padre is Null
       -->
     </SQL>
     <SQL id="Set_GetAll">
       <!--
-       SELECT s.*, vs.IdVersion FROM [Set] s left join Version_Set vs on s.IDSet = vs.IdSet WHERE s.Activa <> '2'
+       SELECT s.*, vs.IdVersion FROM [Set] s left join Version_Set vs on s.IDSet = vs.IdSet  Where s.Activa != '2'  And s.IDSet_Padre is Null
       -->
     </SQL>
+
+    <!-- SUBSET -->
+
+    <SQL id="Subset_Insert">
+      <!-- 
+        INSERT INTO [Set] (IDSet,Nombre,Descripcion,AliasGAMS,Usuario_Creacion, IDSet_Padre) VALUES (NEXT VALUE FOR seqMICV,@Nombre,@Descripcion,@AliasGAMS,@Usuario_Creacion,@IDSet_Padre)
+      -->
+    </SQL>
+    <SQL id="Subset_Update">
+      <!--
+        UPDATE [Set] SET Nombre = @Nombre, Descripcion = @Descripcion, AliasGAMS = @AliasGAMS, Usuario_UltMod = @Usuario_UltMod, Activa = @Activa, IDSet_Padre = @IDSet_Padre WHERE IDSet = @IDSet
+      -->
+    </SQL>
+    <SQL id="Subset_Delete">
+      <!--
+        UPDATE [Set] SET Usuario_UltMod = @Usuario_UltMod, Activa = '2' WHERE IDSet = @IDSet
+      -->
+    </SQL>
+    <SQL id="Subset_Get">
+      <!--
+       SELECT * FROM [Set] WHERE IDSet = @Id And Activa != '2' And IDSet_Padre is Not Null
+      -->
+    </SQL>
+    <SQL id="Subset_GetAll">
+      <!--
+       SELECT s.*, vs.IdVersion, sp.Nombre NMSet_padre
+            FROM [Set] s left join Version_Set vs on s.IDSet = vs.IdSet 
+			             left join [Set] sp on s.IDSet_Padre = sp.IdSet 
+            Where s.Activa != '2'  And s.IDSet_Padre is Not Null
+      -->
+    </SQL>
+ 
   </queries>
 </top>
