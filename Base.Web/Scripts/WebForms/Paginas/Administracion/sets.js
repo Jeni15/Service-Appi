@@ -1,60 +1,52 @@
-//CONTROLES
-var grvDatos;
-var txtParametro;
-var txtDescripcion;
-var txtAlias;
-//---------
+function mostrarConfirm(btnEliminar) {
+    $.SmartMessageBox({
+        title: "Eliminando Registro!",
+        content: "Esta seguro que desea eliminar este registro?",
+        buttons: '[No][Si]'
+    }, function (ButtonPressed) {
+        if (ButtonPressed === "Si") {
+            $(btnEliminar).click();
+        }
+    });
+};
 
-function iniciarControles() {
+function iniciarControles(txtNombre, txtDescripcion, txtAlias) {
     var errorClass = 'invalid';
     var errorElement = 'em';
 
-    var $checkForm = $('#masterForm').validate({
-        errorClass		: errorClass,
-        errorElement	: errorElement,
-        highlight: function(element) {
+    var validation = {
+        errorClass: errorClass,
+        errorElement: errorElement,
+        highlight: function (element) {
             $(element).parent().removeClass('state-success').addClass("state-error");
             $(element).removeClass('valid');
         },
-        unhighlight: function(element) {
+        unhighlight: function (element) {
             $(element).parent().removeClass("state-error").addClass('state-success');
             $(element).addClass('valid');
         },
 
-        // Rules for form validation
-        rules : {
-            txtParametro : {
-                required : true
-            },
-            txtDescripcion : {
-                required : true
-            },
-            txtAlias : {
-                required : true
-            }
-        },
-	
-        // Messages for form validation
-        messages : {
-            txtParametro : {
-                required : 'Please enter the parameter name'
-            },
-            txtDescripcion : {
-                required : 'Please enter the description'
-            },
-            txtAlias : {
-                required : 'Please enter the alias'
-            }
-        },
-	
+        rules: {},
+
+        messages: {},
+
         // Do not change code below
-        errorPlacement : function(error, element) {
+        errorPlacement: function (error, element) {
             error.insertAfter(element.parent());
         }
-    });
-}
+    };
 
-function iniDataTable() {
+    validation.rules[txtNombre] = { required: true };
+    validation.rules[txtDescripcion] = { required: true };
+    validation.rules[txtAlias] = { required: true };
+    validation.messages[txtNombre] = "Por favor escriba un nombre al Set";
+    validation.messages[txtDescripcion] = "Debe colocar una descripcion";
+    validation.messages[txtAlias] = "El alias es requerido";
+
+    $('#masterForm').validate(validation);
+};
+
+function iniDataTable(grvDatos) {
     var responsiveHelper_datatable_fixed_column = undefined;
     var breakpointDefinition = {
         tablet: 1024,
@@ -73,6 +65,10 @@ function iniDataTable() {
         columnDefs: [{
             targets: 0,
             orderable: false
+        },
+        {
+            className: "text-center",
+            targets: "_all"
         }],
         "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6 hidden-xs'f><'col-sm-6 col-xs-12 hidden-xs'<'toolbar'>>r>" +
                 "t" +

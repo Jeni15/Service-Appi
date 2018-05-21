@@ -9,6 +9,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using OfficeOpenXml;
+using System.Web.UI.HtmlControls;
 
 namespace SeedProject.Paginas.Administracion
 {
@@ -100,13 +101,8 @@ namespace SeedProject.Paginas.Administracion
             }
             else if (e.CommandName == "EliminarSet")
             {
-                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", "mostrarConfirm();", true);
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", "mostrarConfirm('#" + this.btnEliminar.ClientID + "');", true);
             }
-        }
-
-        protected void ddlModelosVersiones_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
 
         protected void btnEliminar_Click(object sender, EventArgs e)
@@ -130,25 +126,61 @@ namespace SeedProject.Paginas.Administracion
         {
             this.pnlDatos.Visible = false;
             this.pnlCargueMasivo.Visible = true;
-
-            this.grvCargueMasivo.DataSource = new List<string>();
-            this.grvCargueMasivo.DataBind();
         }
 
         protected void btnExportar_Click(object sender, EventArgs e)
         {
+            this.pnlDatos.Visible = false;
+            this.pnlExportar.Visible = true;
 
+            setFormViewModel.Sets = SetService.GetAll().ToList();
+
+            this.grvExportar.DataSource = setFormViewModel.Sets;
+            this.grvExportar.DataBind();
         }
 
-        protected void btnCargarCargueMasivo_Click(object sender, EventArgs e)
+        protected void btnCargueMasivoCargar_Click(object sender, EventArgs e)
         {
+            foreach (GridViewRow item in this.grvCargueMasivo.Rows)
+            {
+                CheckBox chkActivo = (CheckBox)item.FindControl("chkActivo");
+                HtmlGenericControl spnEstado = (HtmlGenericControl)item.FindControl("spnEstado");
+                Label lblEstado = (Label)item.FindControl("lblEstado");
 
+                if (chkActivo.Checked)
+                {
+                    try
+                    {
+                        setFormViewModel.Set = new Set();
+                        setFormViewModel.Set.Nombre = item.Cells[0].Text;
+                        setFormViewModel.Set.Descripcion = item.Cells[1] != null ? item.Cells[1].Text : null;
+                        setFormViewModel.Set.AliasGAMS = item.Cells[2] != null ? item.Cells[2].Text : null;
+                        setFormViewModel.Set.Fecha_Creacion = DateTime.Now;
+                        setFormViewModel.Set.Fecha_UltMod = DateTime.Now;
+                        setFormViewModel.Set.Usuario_Creacion = "iarias";
+                        setFormViewModel.Set.Usuario_UltMod = "iarias";
+                        setFormViewModel.Set.Activa = "1";
+
+                        SetService.Create(setFormViewModel.Set);
+
+                        spnEstado.Attributes["class"] = "label label-success";
+                        lblEstado.Text = "Cargado";
+                    }
+                    catch (Exception ex)
+                    {
+                        spnEstado.Attributes["class"] = "label label-danger";
+                        lblEstado.Text = "Error";
+                    }
+                }
+            }
         }
 
-        protected void btnCancelarCargueMasivo_Click(object sender, EventArgs e)
+        protected void btnCargueMasivoCerrar_Click(object sender, EventArgs e)
         {
             this.pnlDatos.Visible = true;
             this.pnlCargueMasivo.Visible = false;
+
+            CargarSets();
         }
 
         protected void btnCargarArchivo_Click(object sender, EventArgs e)
@@ -157,46 +189,69 @@ namespace SeedProject.Paginas.Administracion
                 && (Path.GetExtension(this.upfArchivo.PostedFile.FileName) == ".xlsx"
                     || Path.GetExtension(this.upfArchivo.PostedFile.FileName) == ".xls"))
             {
-                ExcelPackage excel = new ExcelPackage(this.upfArchivo.PostedFile.InputStream);
-                DataTable tbl = new DataTable();
-                ExcelWorksheet ws = excel.Workbook.Worksheets.First();
-                bool hasHeader = true;
+                CargarSetsExcel();
+            }
+        }
 
-                foreach (ExcelRangeBase firstRowCell in ws.Cells[1, 1, 1, ws.Dimension.End.Column])
+        protected void btnExportarDescargar_Click(object sender, EventArgs e)
+        {
+            if (this.txtNombreArchivo.Text.Trim() != "")
+            {
+                ExcelPackage excel = new ExcelPackage();
+                ExcelWorksheet workSheet = excel.Workbook.Worksheets.Add("Datos");
+                workSheet.TabColor = System.Drawing.Color.Black;
+                workSheet.DefaultRowHeight = 12;
+
+                workSheet.Row(1).Height = 20;
+                workSheet.Row(1).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                workSheet.Row(1).Style.Font.Bold = true;
+                workSheet.Cells[1, 1].Value = GetCellByName(this.grvExportar.HeaderRow, "Nombre").ContainingField.ToString();
+                workSheet.Cells[1, 2].Value = GetCellByName(this.grvExportar.HeaderRow, "Descripcion").ContainingField.ToString();
+                workSheet.Cells[1, 3].Value = GetCellByName(this.grvExportar.HeaderRow, "AliasGAMS").ContainingField.ToString();
+
+                int recordIndex = 2;
+
+                foreach (GridViewRow row in this.grvExportar.Rows)
                 {
-                    tbl.Columns.Add(hasHeader ? firstRowCell.Text : String.Format("Column {0}", firstRowCell.Start.Column));
-                }
+                    CheckBox chkActivo = (CheckBox)row.FindControl("chkActivo");
 
-                if (tbl.Columns.Count > 0)
-                {
-                    int startRow = hasHeader ? 2 : 1;
-
-                    for (int rowNum = startRow; rowNum <= ws.Dimension.End.Row; rowNum++)
+                    if (chkActivo.Checked)
                     {
-                        ExcelRange wsRow = ws.Cells[rowNum, 1, rowNum, ws.Dimension.End.Column];
-                        DataRow row = tbl.NewRow();
-
-                        foreach (ExcelRangeBase cell in wsRow)
-                        {
-                            row[cell.Start.Column - 1] = cell.Text;
-                        }
-
-                        tbl.Rows.Add(row);
+                        workSheet.Cells[recordIndex, 1].Value = GetCellByName(row, "Nombre").Text;
+                        workSheet.Cells[recordIndex, 2].Value = GetCellByName(row, "Descripcion").Text;
+                        workSheet.Cells[recordIndex, 3].Value = GetCellByName(row, "AliasGAMS").Text;
+                        recordIndex++;
                     }
                 }
 
-                setFormViewModel.Sets = new List<Set>();
-
-                foreach (DataRow dr in tbl.Rows)
+                if (recordIndex > 2)
                 {
-                    setFormViewModel.Set = new Set();
-                    setFormViewModel.Set.Nombre = dr[0].ToString();
-                    setFormViewModel.Set.Descripcion = dr[1] != null ? dr[1].ToString() : null;
-                    setFormViewModel.Set.AliasGAMS = dr[2] != null ? dr[2].ToString() : null;
+                    this.pnlMensajeExportar.Visible = false;
 
-                    setFormViewModel.Sets.Add(setFormViewModel.Set);
+                    workSheet.Column(1).AutoFit();
+                    workSheet.Column(2).AutoFit();
+                    workSheet.Column(3).AutoFit();
+
+                    string excelName = this.txtNombreArchivo.Text;
+                    MemoryStream memoryStream = new MemoryStream();
+                    Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                    Response.AddHeader("content-disposition", "attachment; filename=" + excelName + ".xlsx");
+                    excel.SaveAs(memoryStream);
+                    memoryStream.WriteTo(Response.OutputStream);
+                    Response.Flush();
+                    Response.End();
+                }
+                else
+                {
+                    this.pnlMensajeExportar.Visible = true;
                 }
             }
+        }
+
+        protected void btnExportarCerrar_Click(object sender, EventArgs e)
+        {
+            this.pnlDatos.Visible = true;
+            this.pnlExportar.Visible = false;
         }
 
         private void BindData()
@@ -204,6 +259,9 @@ namespace SeedProject.Paginas.Administracion
             CargarSets();
             CargarModelos();
             CargarVersiones(this.ddlFiltroVersiones, this.ddlFiltroModelos);
+
+            this.grvCargueMasivo.DataSource = new List<string>();
+            this.grvCargueMasivo.DataBind();
         }
 
         private void CargarSets()
@@ -264,6 +322,66 @@ namespace SeedProject.Paginas.Administracion
             }
         }
 
+        private void CargarSetsExcel()
+        {
+            ExcelPackage excel = new ExcelPackage(this.upfArchivo.PostedFile.InputStream);
+            DataTable tbl = new DataTable();
+            ExcelWorksheet ws = excel.Workbook.Worksheets.First();
+            bool hasHeader = true;
+
+            foreach (ExcelRangeBase firstRowCell in ws.Cells[1, 1, 1, ws.Dimension.End.Column])
+            {
+                tbl.Columns.Add(hasHeader ? firstRowCell.Text : String.Format("Column {0}", firstRowCell.Start.Column));
+            }
+
+            if (tbl.Columns.Count > 0)
+            {
+                int startRow = hasHeader ? 2 : 1;
+
+                for (int rowNum = startRow; rowNum <= ws.Dimension.End.Row; rowNum++)
+                {
+                    ExcelRange wsRow = ws.Cells[rowNum, 1, rowNum, ws.Dimension.End.Column];
+                    DataRow row = tbl.NewRow();
+
+                    foreach (ExcelRangeBase cell in wsRow)
+                    {
+                        row[cell.Start.Column - 1] = cell.Text;
+                    }
+
+                    tbl.Rows.Add(row);
+                }
+            }
+
+            setFormViewModel.Sets = new List<Set>();
+
+            foreach (DataRow dr in tbl.Rows)
+            {
+                setFormViewModel.Set = new Set();
+                setFormViewModel.Set.Nombre = dr[0].ToString();
+                setFormViewModel.Set.Descripcion = dr[1] != null ? dr[1].ToString() : null;
+                setFormViewModel.Set.AliasGAMS = dr[2] != null ? dr[2].ToString() : null;
+
+                setFormViewModel.Sets.Add(setFormViewModel.Set);
+            }
+
+            if (setFormViewModel.Sets.Count > 0)
+            {
+                this.pnlMensajeCargueMasivo.Visible = false;
+                this.btnCargueMasivoCargar.CssClass = "btn-sm btn btn-primary";
+                this.btnCargueMasivoCargar.Enabled = true;
+            }
+            else
+            {
+                this.pnlMensajeCargueMasivo.Visible = true;
+                this.btnCargueMasivoCargar.CssClass = "btn-sm btn btn-primary disabled";
+                this.btnCargueMasivoCargar.Enabled = false;
+            }
+            
+
+            this.grvCargueMasivo.DataSource = setFormViewModel.Sets;
+            this.grvCargueMasivo.DataBind();
+        }
+
         private Set LlenarSet(Set set)
         {
             set.Nombre = this.txtNombre.Text;
@@ -280,6 +398,22 @@ namespace SeedProject.Paginas.Administracion
             this.txtDescripcion.Text = "";
             this.txtAlias.Text = "";
             this.pnlActivo.Visible = esUpdate;
+        }
+
+        public DataControlFieldCell GetCellByName(GridViewRow Row, String CellName)
+        {
+            foreach (DataControlFieldCell Cell in Row.Cells)
+            {
+                if (Cell.ContainingField is BoundField)
+                {
+                    if (((BoundField)(Cell.ContainingField)).DataField == CellName)
+                    {
+                        return Cell;
+                    }
+                }
+            }
+
+            return null;
         }
     }
 }
