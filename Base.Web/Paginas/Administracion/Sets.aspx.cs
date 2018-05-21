@@ -300,6 +300,10 @@ namespace SeedProject.Paginas.Administracion
                 int idModelo = Convert.ToInt32(ddlPadre.SelectedValue);
                 setFormViewModel.Versiones = setFormViewModel.Versiones.Where(par => par.IDSubModelo == idModelo).ToList();
             }
+            else
+            {
+                ddlDestino.Items.Clear();
+            }
 
             ddlDestino.DataValueField = "IDVersion";
             ddlDestino.DataTextField = "Nombre";
