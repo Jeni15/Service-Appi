@@ -67,6 +67,24 @@ namespace SeedProject.Paginas.Administracion {
         protected global::System.Web.UI.WebControls.GridView grvDatos;
         
         /// <summary>
+        /// Control btnEliminar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnEliminar;
+        
+        /// <summary>
+        /// Control hddIdSet.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hddIdSet;
+        
+        /// <summary>
         /// Control hddIdSubset.
         /// </summary>
         /// <remarks>

@@ -42,6 +42,8 @@
   <ItemGroup>
     <Compile Include="Models\Menu.cs" />
     <Compile Include="Models\Modelo.cs" />
+    <Compile Include="Models\Multiset.cs" />
+    <Compile Include="Models\Subset.cs" />
     <Compile Include="Models\Version.cs" />
     <Compile Include="Models\Set.cs" />
     <Compile Include="Models\Parametro.cs" />
@@ -51,6 +53,8 @@
     <Compile Include="ViewModels\SetFormViewModel.cs" />
     <Compile Include="ViewModels\ParametroFormViewModel.cs" />
     <Compile Include="ViewModels\ClienteFormViewModel.cs" />
+    <Compile Include="ViewModels\MultisetFormViewModel.cs" />
+    <Compile Include="ViewModels\SubsetFormViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Dtos\" />
