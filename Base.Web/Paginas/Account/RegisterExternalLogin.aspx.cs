@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Web;
+using Base.Model.Models;
+using Base.Service;
+using Base.Service.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Owin;
-using Base.Web.Models;
 
 namespace Base.Web.Account
 {
@@ -24,7 +26,7 @@ namespace Base.Web.Account
 
         private void RedirectOnFail()
         {
-            Response.Redirect((User.Identity.IsAuthenticated) ? "~/Account/Manage" : "~/Account/Login");
+            Response.Redirect((User.Identity.IsAuthenticated) ? "~/Paginas/Account/Manage" : "~/Paginas/Account/Login");
         }
 
         protected void Page_Load()

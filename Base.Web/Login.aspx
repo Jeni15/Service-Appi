@@ -65,25 +65,10 @@
 							</div>
 							<img src="Content/img/demo/iphoneview.png" class="pull-right display-image" alt="" style="width:210px">
 						</div>
-
-						<div class="row">
-							<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-								<h5 class="about-heading">Texto Complementario 1</h5>
-								<p>
-									Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa.
-								</p>
-							</div>
-							<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-								<h5 class="about-heading">Texto Complementario 2</h5>
-								<p>
-									Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi voluptatem accusantium!
-								</p>
-							</div>
-						</div>
 					</div>
 					<div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
 						<div class="well no-padding">
-							<form action="Default.aspx" id="loginForm" class="smart-form client-form" runat="server">
+							<form id="loginForm" class="smart-form client-form" runat="server">
 								<header>
 									Ingreso
 								</header>
@@ -92,7 +77,8 @@
 										<label class="label">E-mail</label>
 										<label class="input">
                                             <i class="icon-append fa fa-user"></i>
-											<input type="email" name="email">
+                                            <asp:TextBox ID="email" runat="server" TextMode="Email"></asp:TextBox>
+
 											<b class="tooltip tooltip-top-right">
                                                 <i class="fa fa-user txt-color-teal"></i>
                                                 Por favor ingrese E-mail/Usuario
@@ -104,7 +90,8 @@
 										<label class="label">Clave</label>
 										<label class="input">
                                             <i class="icon-append fa fa-lock"></i>
-											<input type="password" name="password">
+                                            <asp:TextBox ID="password"  runat="server" TextMode="Password"></asp:TextBox>
+
 											<b class="tooltip tooltip-top-right">
                                                 <i class="fa fa-lock txt-color-teal"></i>
                                                 Ingrese su Clave
@@ -117,7 +104,7 @@
 
 									<section>
 										<label class="checkbox">
-											<input type="checkbox" name="remember" checked="">
+                                            <asp:CheckBox ID="remember" runat="server" Checked="false"></asp:CheckBox>
 											<i></i>Mantener ingreso</label>
 									</section>
 								</fieldset>
@@ -127,20 +114,7 @@
 								</footer>
 							</form>
 						</div>
-						
-						<h5 class="text-center"> - O ingrese usando -</h5>
-															
-						<ul class="list-inline text-center">
-							<li>
-								<a href="javascript:void(0);" class="btn btn-primary btn-circle"><i class="fa fa-facebook"></i></a>
-							</li>
-							<li>
-								<a href="javascript:void(0);" class="btn btn-info btn-circle"><i class="fa fa-twitter"></i></a>
-							</li>
-							<li>
-								<a href="javascript:void(0);" class="btn btn-warning btn-circle"><i class="fa fa-linkedin"></i></a>
-							</li>
-						</ul>
+
 					</div>
 				</div>
 			</div>

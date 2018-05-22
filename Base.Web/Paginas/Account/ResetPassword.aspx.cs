@@ -2,10 +2,11 @@
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using Base.Service;
+using Base.Service.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Owin;
-using Base.Web.Models;
 
 namespace Base.Web.Account
 {
@@ -33,7 +34,7 @@ namespace Base.Web.Account
                 var result = manager.ResetPassword(user.Id, code, Password.Text);
                 if (result.Succeeded)
                 {
-                    Response.Redirect("~/Account/ResetPasswordConfirmation");
+                    Response.Redirect("~/Paginas/Account/ResetPasswordConfirmation");
                     return;
                 }
                 ErrorMessage.Text = result.Errors.FirstOrDefault();

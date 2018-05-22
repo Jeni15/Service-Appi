@@ -73,9 +73,9 @@ namespace SeedProject.Paginas.Administracion
             {
                 setFormViewModel.Set = LlenarSet(new Set());
                 setFormViewModel.Set.Fecha_Creacion = DateTime.Now;
-                setFormViewModel.Set.Fecha_UltMod = DateTime.Now;
+                //setFormViewModel.Set.Fecha_UltMod = DateTime.Now;
                 setFormViewModel.Set.Usuario_Creacion = "iarias";
-                setFormViewModel.Set.Usuario_UltMod = "iarias";
+                //setFormViewModel.Set.Usuario_UltMod = "iarias";
                 setFormViewModel.Set.Activa = "1";
                 SetService.Create(setFormViewModel.Set);
             }
@@ -153,50 +153,50 @@ namespace SeedProject.Paginas.Administracion
 
         protected void btnCargarArchivo_Click(object sender, EventArgs e)
         {
-            if (this.upfArchivo.PostedFile != null
-                && (Path.GetExtension(this.upfArchivo.PostedFile.FileName) == ".xlsx"
-                    || Path.GetExtension(this.upfArchivo.PostedFile.FileName) == ".xls"))
-            {
-                ExcelPackage excel = new ExcelPackage(this.upfArchivo.PostedFile.InputStream);
-                DataTable tbl = new DataTable();
-                ExcelWorksheet ws = excel.Workbook.Worksheets.First();
-                bool hasHeader = true;
+            //if (this.upfArchivo.PostedFile != null
+            //    && (Path.GetExtension(this.upfArchivo.PostedFile.FileName) == ".xlsx"
+            //        || Path.GetExtension(this.upfArchivo.PostedFile.FileName) == ".xls"))
+            //{
+            //    ExcelPackage excel = new ExcelPackage(this.upfArchivo.PostedFile.InputStream);
+            //    DataTable tbl = new DataTable();
+            //    ExcelWorksheet ws = excel.Workbook.Worksheets.First();
+            //    bool hasHeader = true;
 
-                foreach (ExcelRangeBase firstRowCell in ws.Cells[1, 1, 1, ws.Dimension.End.Column])
-                {
-                    tbl.Columns.Add(hasHeader ? firstRowCell.Text : String.Format("Column {0}", firstRowCell.Start.Column));
-                }
+            //    foreach (ExcelRangeBase firstRowCell in ws.Cells[1, 1, 1, ws.Dimension.End.Column])
+            //    {
+            //        tbl.Columns.Add(hasHeader ? firstRowCell.Text : String.Format("Column {0}", firstRowCell.Start.Column));
+            //    }
 
-                if (tbl.Columns.Count > 0)
-                {
-                    int startRow = hasHeader ? 2 : 1;
+            //    if (tbl.Columns.Count > 0)
+            //    {
+            //        int startRow = hasHeader ? 2 : 1;
 
-                    for (int rowNum = startRow; rowNum <= ws.Dimension.End.Row; rowNum++)
-                    {
-                        ExcelRange wsRow = ws.Cells[rowNum, 1, rowNum, ws.Dimension.End.Column];
-                        DataRow row = tbl.NewRow();
+            //        for (int rowNum = startRow; rowNum <= ws.Dimension.End.Row; rowNum++)
+            //        {
+            //            ExcelRange wsRow = ws.Cells[rowNum, 1, rowNum, ws.Dimension.End.Column];
+            //            DataRow row = tbl.NewRow();
 
-                        foreach (ExcelRangeBase cell in wsRow)
-                        {
-                            row[cell.Start.Column - 1] = cell.Text;
-                        }
+            //            foreach (ExcelRangeBase cell in wsRow)
+            //            {
+            //                row[cell.Start.Column - 1] = cell.Text;
+            //            }
 
-                        tbl.Rows.Add(row);
-                    }
-                }
+            //            tbl.Rows.Add(row);
+            //        }
+            //    }
 
-                setFormViewModel.Sets = new List<Set>();
+            //    setFormViewModel.Sets = new List<Set>();
 
-                foreach (DataRow dr in tbl.Rows)
-                {
-                    setFormViewModel.Set = new Set();
-                    setFormViewModel.Set.Nombre = dr[0].ToString();
-                    setFormViewModel.Set.Descripcion = dr[1] != null ? dr[1].ToString() : null;
-                    setFormViewModel.Set.AliasGAMS = dr[2] != null ? dr[2].ToString() : null;
+            //    foreach (DataRow dr in tbl.Rows)
+            //    {
+            //        setFormViewModel.Set = new Set();
+            //        setFormViewModel.Set.Nombre = dr[0].ToString();
+            //        setFormViewModel.Set.Descripcion = dr[1] != null ? dr[1].ToString() : null;
+            //        setFormViewModel.Set.AliasGAMS = dr[2] != null ? dr[2].ToString() : null;
 
-                    setFormViewModel.Sets.Add(setFormViewModel.Set);
-                }
-            }
+            //        setFormViewModel.Sets.Add(setFormViewModel.Set);
+            //    }
+            //}
         }
 
         private void BindData()

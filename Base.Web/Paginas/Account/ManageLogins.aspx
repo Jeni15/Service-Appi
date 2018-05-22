@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ManageLogins.aspx.cs" Inherits="Base.Web.Account.ManageLogins" %>
-<%@ Register Src="~/Account/OpenAuthProviders.ascx" TagPrefix="uc" TagName="OpenAuthProviders" %>
+<%@ Register Src="~/Paginas/Account/OpenAuthProviders.ascx" TagPrefix="uc" TagName="OpenAuthProviders" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <h2>Administre sus inicios de sesión externos.</h2>
@@ -37,6 +37,6 @@
         </section>
     </div>
     <div>
-        <uc:OpenAuthProviders runat="server" ReturnUrl="~/Account/ManageLogins" />
+        <uc:OpenAuthProviders runat="server" ReturnUrl="~/Paginas/Account/ManageLogins" />
     </div>
 </asp:Content>

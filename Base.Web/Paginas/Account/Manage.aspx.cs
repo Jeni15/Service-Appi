@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using Base.Service.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Owin;
-using Base.Web.Models;
 
 namespace Base.Web.Account
 {
@@ -66,7 +66,7 @@ namespace Base.Web.Account
                 if (message != null)
                 {
                     // Seccionar la cadena de consulta desde la acción
-                    Form.Action = ResolveUrl("~/Account/Manage");
+                    Form.Action = ResolveUrl("~/Paginas/Account/Manage");
 
                     SuccessMessage =
                         message == "ChangePwdSuccess" ? "Se cambió la contraseña."

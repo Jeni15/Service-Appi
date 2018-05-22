@@ -1,11 +1,11 @@
 ﻿using Base.Service.Services;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Text;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 
@@ -25,15 +25,18 @@ namespace SeedProject
             
         protected void rptMenu_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
+            var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            var user = manager.FindByName(HttpContext.Current.User.Identity.Name);
+
             if (e.Item.ItemType == ListItemType.Item
                 || e.Item.ItemType == ListItemType.AlternatingItem)
             {
-                List<Base.Model.Models.Menu> menus = MenuService.Execute("GetParents", null).ToList();
+                List<Base.Model.Models.Menu> menus = MenuService.Execute("GetParents", new Base.Model.Models.Menu { Nombre = user.Id }).ToList();
                 Base.Model.Models.Menu subMenu = (Base.Model.Models.Menu)e.Item.DataItem;
                 int ID = Convert.ToInt32(subMenu.IdMenu.ToString());
                 StringBuilder sb = new StringBuilder();
 
-                List<Base.Model.Models.Menu> subMenus = MenuService.Execute("GetChildren", new Base.Model.Models.Menu { IdMenuPadre = subMenu.IdMenu }).ToList();
+                List<Base.Model.Models.Menu> subMenus = MenuService.Execute("GetChildren", new Base.Model.Models.Menu { IdMenuPadre = subMenu.IdMenu, Nombre = user.Id }).ToList();
 
                 if (subMenus.Count > 0)
                 {
@@ -53,16 +56,20 @@ namespace SeedProject
 
         private void CargarMenusPadres()
         {
-            //List<Base.Model.Models.Menu> menus = MenuService.GetAll().OrderBy(men => men.Orden).Where(men => men.IdMenuPadre == null).ToList();
-            List<Base.Model.Models.Menu> menus = MenuService.Execute("GetParents", null).ToList();
+            var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            var user = manager.FindByName(HttpContext.Current.User.Identity.Name);
+
+            List<Base.Model.Models.Menu> menus = MenuService.Execute("GetParents", new Base.Model.Models.Menu { Nombre = user.Id }).ToList();
             this.rptMenu.DataSource = menus;
             this.rptMenu.DataBind();
         }
 
         private StringBuilder AgregarSubMenu(Base.Model.Models.Menu subMenu, StringBuilder sb)
         {
-            //List<Base.Model.Models.Menu> childItems = MenuService.GetAll().OrderBy(men => men.Orden).Where(men => men.IdMenuPadre == subMenu.IdMenu).ToList();
-            List<Base.Model.Models.Menu> childItems = MenuService.Execute("GetChildren", new Base.Model.Models.Menu { IdMenuPadre = subMenu.IdMenu }).ToList();
+            var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            var user = manager.FindByName(HttpContext.Current.User.Identity.Name);
+
+            List<Base.Model.Models.Menu> childItems = MenuService.Execute("GetChildren", new Base.Model.Models.Menu { IdMenuPadre = subMenu.IdMenu, Nombre = user.Id }).ToList();
 
             if (childItems.Count > 0)
             {
@@ -78,7 +85,9 @@ namespace SeedProject
 
                     sb.Append(menu);
 
-                    List<Base.Model.Models.Menu> subChilds = MenuService.GetAll().Where(men => men.IdMenuPadre == subMenu.IdMenu).ToList();
+                    //List<Base.Model.Models.Menu> subChilds = MenuService.GetAll().Where(men => men.IdMenuPadre == subMenu.IdMenu).ToList();
+                    List<Base.Model.Models.Menu> subChilds = MenuService.Execute("GetChildren", new Base.Model.Models.Menu { IdMenuPadre = subMenu.IdMenu, Nombre = user.Id }).ToList();
+
 
                     if (subChilds.Count > 0)
                     {

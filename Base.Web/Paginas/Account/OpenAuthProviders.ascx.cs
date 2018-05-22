@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Web;
+using Base.Service;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
@@ -20,7 +21,7 @@ namespace Base.Web.Account
                     return;
                 }
                 // Solicitar un redireccionamiento al proveedor del inicio de sesión externo
-                string redirectUrl = ResolveUrl(String.Format(CultureInfo.InvariantCulture, "~/Account/RegisterExternalLogin?{0}={1}&returnUrl={2}", IdentityHelper.ProviderNameKey, provider, ReturnUrl));
+                string redirectUrl = ResolveUrl(String.Format(CultureInfo.InvariantCulture, "~/Paginas/Account/RegisterExternalLogin?{0}={1}&returnUrl={2}", IdentityHelper.ProviderNameKey, provider, ReturnUrl));
                 var properties = new AuthenticationProperties() { RedirectUri = redirectUrl };
                 // Agregar verificación de xsrf al vincular cuentas
                 if (Context.User.Identity.IsAuthenticated)

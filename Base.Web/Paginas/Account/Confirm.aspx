@@ -6,7 +6,7 @@
     <div>
         <asp:PlaceHolder runat="server" ID="successPanel" ViewStateMode="Disabled" Visible="true">
             <p>
-                Gracias por confirmar su cuenta. Haga clic <asp:HyperLink ID="login" runat="server" NavigateUrl="~/Account/Login">aquí</asp:HyperLink>  para iniciar sesión             
+                Gracias por confirmar su cuenta. Haga clic <asp:HyperLink ID="login" runat="server" NavigateUrl="~/Paginas/Account/Login">aquí</asp:HyperLink>  para iniciar sesión             
             </p>
         </asp:PlaceHolder>
         <asp:PlaceHolder runat="server" ID="errorPanel" ViewStateMode="Disabled" Visible="false">

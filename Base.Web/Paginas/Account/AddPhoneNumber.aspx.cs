@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System.Threading.Tasks;
-using Base.Web.Models;
+using Base.Service.Services;
 
 namespace Base.Web.Account
 {

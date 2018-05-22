@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Base.Service.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 
@@ -17,7 +18,7 @@ namespace Base.Web.Account
             private set;
         }
 
-        private bool HasPassword(ApplicationUserManager manager)
+        private bool HasPassword(Service.Services.ApplicationUserManager manager)
         {
             return manager.HasPassword(User.Identity.GetUserId());
         }
@@ -44,7 +45,7 @@ namespace Base.Web.Account
                 if (message != null)
                 {
                     // Seccionar la cadena de consulta desde la acción
-                    Form.Action = ResolveUrl("~/Account/Manage");
+                    Form.Action = ResolveUrl("~/Paginas/Account/Manage");
                 }
             }
         }
@@ -60,7 +61,7 @@ namespace Base.Web.Account
                 {
                     var user = manager.FindById(User.Identity.GetUserId());
                     signInManager.SignIn( user, isPersistent: false, rememberBrowser: false);
-                    Response.Redirect("~/Account/Manage?m=ChangePwdSuccess");
+                    Response.Redirect("~/Paginas/Account/Manage?m=ChangePwdSuccess");
                 }
                 else
                 {
@@ -78,7 +79,7 @@ namespace Base.Web.Account
                 IdentityResult result = manager.AddPassword(User.Identity.GetUserId(), password.Text);
                 if (result.Succeeded)
                 {
-                    Response.Redirect("~/Account/Manage?m=SetPwdSuccess");
+                    Response.Redirect("~/Paginas/Account/Manage?m=SetPwdSuccess");
                 }
                 else
                 {

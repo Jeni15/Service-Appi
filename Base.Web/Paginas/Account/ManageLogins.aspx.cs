@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Base.Service.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 
@@ -56,7 +57,7 @@ namespace Base.Web.Account
                 signInManager.SignIn(user, isPersistent: false, rememberBrowser: false);
                 msg = "?m=RemoveLoginSuccess";
             }
-            Response.Redirect("~/Account/ManageLogins" + msg);
+            Response.Redirect("~/Paginas/Account/ManageLogins" + msg);
         }
     }
 }
