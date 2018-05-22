@@ -124,7 +124,7 @@
 					                </div>
 					                <!-- end widget edit box -->
 
-					                <asp:UpdatePanel ID="updSets" runat="server" UpdateMode="Always" ChildrenAsTriggers="true">
+					                <asp:UpdatePanel ID="updGrilla" runat="server" UpdateMode="Always" ChildrenAsTriggers="true">
                                         <ContentTemplate>
                                             <!-- widget content -->
 					                        <div class="widget-body no-padding">
@@ -143,7 +143,7 @@
                                                             <ItemStyle Width="60px"></ItemStyle>
                                                         </asp:TemplateField>
                                                         <asp:BoundField DataField="IDSet" HeaderText="Id" />
-                                                        <asp:BoundField DataField="Nombre" HeaderText="Parámetro" />
+                                                        <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
                                                         <asp:BoundField DataField="Descripcion" HeaderText="Descripción" />
                                                         <asp:BoundField DataField="AliasGAMS" HeaderText="Alias GAMS" />
                                                         <asp:TemplateField HeaderText="Activo">
@@ -379,41 +379,33 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="form-group">
-                                                        <div class="col-md-6">
-									                        <label class="col-md-2 control-label">Archivo</label>
-									                        <div class="col-md-10">
-										                        <div class="input-group">
-													                <asp:TextBox ID="txtNombreArchivo" runat="server" CssClass="form-control"></asp:TextBox>
-													                <span class="input-group-addon">.xlsx</span>
-												                </div>
-                                                            </div>
-									                    </div>
-								                    </div>
+                                                    <div id="frmFile" class="form">
+                                                        <div class="form-group">
+                                                            <fieldset>
+                                                                <div class="col-md-6">
+									                                <label class="col-md-2 control-label">Archivo</label>
+									                                <div class="col-md-10">
+										                                <div class="input-group">
+													                        <asp:TextBox ID="txtNombreArchivo" runat="server" CssClass="form-control"></asp:TextBox>
+													                        <span class="input-group-addon">.xlsx</span>
+												                        </div>
+                                                                    </div>
+									                            </div>
+                                                            </fieldset>
+								                        </div>
 
-                                                    <div class="form-group">
-                                                        <asp:Panel ID="pnlMensajeExportar" runat="server" Visible="false">
-                                                            <div class="alert alert-danger fade in">
-				                                                <button class="close" data-dismiss="alert">
-					                                                ×
-				                                                </button>
-				                                                <i class="fa-fw fa fa-times"></i>
-				                                                <strong>Error!</strong> Debe seleccionar algun registro.
-			                                                </div>
-                                                        </asp:Panel>
-                                                    </div>
+                                                        <div class="smart-form">
+                                                            <section class="col col-12 pull-right">
+                                                                <asp:LinkButton ID="btnExportarDescargar" runat="server" CssClass="btn-sm btn btn-primary submit frmFile" OnClick="btnExportarDescargar_Click">
+                                                                    <i class="fa fa-download"></i>
+                                                                    Descargar
+                                                                </asp:LinkButton>
 
-                                                    <div class="form-group">
-                                                        <section class="col col-12 pull-right">
-                                                            <asp:LinkButton ID="btnExportarDescargar" runat="server" CssClass="btn-sm btn btn-primary" OnClick="btnExportarDescargar_Click">
-                                                                <i class="fa fa-download"></i>
-                                                                Descargar
-                                                            </asp:LinkButton>
-
-                                                            <asp:LinkButton ID="btnExportarCerrar" runat="server" CssClass="btn-sm btn btn-default" OnClick="btnExportarCerrar_Click">
-                                                                Cerrar
-                                                            </asp:LinkButton>
-                                                        </section>
+                                                                <asp:LinkButton ID="btnExportarCerrar" runat="server" CssClass="btn-sm btn btn-default" OnClick="btnExportarCerrar_Click">
+                                                                    Cerrar
+                                                                </asp:LinkButton>
+                                                            </section>
+                                                        </div>
                                                     </div>
                                                 </fieldset>
 					                        </div>
@@ -451,8 +443,8 @@
 			    <div class="modal-body no-padding">
                     <asp:UpdatePanel ID="updModalContenido" runat="server" UpdateMode="Always" ChildrenAsTriggers="true">
                         <ContentTemplate>
-				            <div class="smart-form">
-						        <fieldset>
+				            <div id="frmMain" class="smart-form form">
+                                <fieldset>
                                     <asp:Panel ID="pnlIdSet" runat="server">
                                         <section>
 								            <div class="row">
@@ -515,7 +507,7 @@
 						        </fieldset>
 							
 						        <footer>
-							        <asp:LinkButton ID="btnGuardar" runat="server" CssClass="btn btn-primary" OnClick="btnGuardar_Click" >
+							        <asp:LinkButton ID="btnGuardar" runat="server" CssClass="btn btn-primary submit frmMain" OnClick="btnGuardar_Click" >
                                         <i class="fa fa-floppy-o"></i>
                                         Guardar
                                     </asp:LinkButton>
@@ -532,10 +524,12 @@
 	    </div>
     </div>
 
+    <script src='<%= ResolveUrl("~/Scripts/WebForms/Paginas/general.js") %>'></script>
     <script src='<%= ResolveUrl("~/Scripts/WebForms/Paginas/Administracion/sets.js") %>'></script>
+
     <script>
         function fn_init() {
-            iniciarControles('<%=txtNombre.UniqueID%>', '<%=txtDescripcion.UniqueID%>', '<%=txtAlias.UniqueID%>');
+            iniControles('<%=txtNombre.UniqueID%>', '<%=txtDescripcion.UniqueID%>', '<%=txtAlias.UniqueID%>', '<%=txtNombreArchivo.UniqueID%>');
             iniDataTable($("#<%=grvDatos.ClientID%>"));
 
             // custom toolbar
@@ -556,7 +550,7 @@
         };
 
         function onEachRequest(sender, args) {
-            if ($("#masterForm").valid() == false) {
+            if ($("#masterForm").validateWebForm() == false) {
                 args.set_cancel(true);
             }
         };

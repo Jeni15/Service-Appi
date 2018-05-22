@@ -1,4 +1,4 @@
-function iniControles(txtNombre, txtDescripcion, txtAlias, txtNombreArchivo) {
+function iniControles(txtNombre, txtDescripcion, txtAlias) {
     var errorClass = 'invalid';
     var errorElement = 'em';
 
@@ -29,9 +29,6 @@ function iniControles(txtNombre, txtDescripcion, txtAlias, txtNombreArchivo) {
     validation.messages[txtNombre] = "Por favor escriba un nombre al Set";
     validation.messages[txtDescripcion] = "Debe colocar una descripcion";
     validation.messages[txtAlias] = "El alias es requerido";
-
-    validation.rules[txtNombreArchivo] = { required: true };
-    validation.messages[txtNombreArchivo] = "Debe colocar un nombre de archivo";
 
     $('#masterForm').validateWebForm(validation);
 };

@@ -214,10 +214,9 @@
     <Content Include="Account\ResetPasswordConfirmation.aspx" />
     <Content Include="Account\TwoFactorAuthenticationSignIn.aspx" />
     <Content Include="Account\VerifyPhoneNumber.aspx" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\datepicker3.css" />
     <Content Include="Content\css\demo.css" />
     <Content Include="Content\css\demo.min.css" />
     <Content Include="Content\css\font-awesome.css" />
@@ -483,6 +482,7 @@
     <Content Include="Content\js\libs\jquery-3.2.1.min.js" />
     <Content Include="Content\js\libs\jquery-ui.min.js" />
     <Content Include="Content\js\notification\SmartNotification.min.js" />
+    <Content Include="Content\js\plugin\bootstrap-datapicker\bootstrap-datepicker.js" />
     <Content Include="Content\js\plugin\bootstrap-duallistbox\jquery.bootstrap-duallistbox.min.js" />
     <Content Include="Content\js\plugin\bootstrap-progressbar\bootstrap-progressbar.min.js" />
     <Content Include="Content\js\plugin\bootstrap-slider\bootstrap-slider.min.js" />
@@ -930,7 +930,6 @@
     <Content Include="Content\js\smart-chat-ui\smart.chat.ui.min.js" />
     <Content Include="Content\js\smartwidgets\jarvis.widget.min.js" />
     <Content Include="Content\js\speech\voicecommand.min.js" />
-    <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Forgotpassword.aspx" />
@@ -956,6 +955,8 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery.validation.net.webforms.js" />
+    <Content Include="Scripts\jquery.validation.net.webforms.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -975,9 +976,11 @@
     <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxTimer.js" />
     <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxWebForms.js" />
     <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxWebServices.js" />
+    <Content Include="Scripts\WebForms\Paginas\Administracion\versionamientos.js" />
     <Content Include="Scripts\WebForms\Paginas\Administracion\subsets.js" />
     <Content Include="Scripts\WebForms\Paginas\Administracion\sets.js" />
     <Content Include="Scripts\WebForms\Paginas\Administracion\parametros.js" />
+    <Content Include="Scripts\WebForms\Paginas\general.js" />
     <Content Include="Scripts\WebForms\SmartNav.js" />
     <Content Include="Scripts\WebForms\TreeView.js" />
     <Content Include="Scripts\WebForms\WebForms.js" />

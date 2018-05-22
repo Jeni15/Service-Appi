@@ -101,7 +101,7 @@ namespace SeedProject.Paginas.Administracion
             }
             else if (e.CommandName == "EliminarSet")
             {
-                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", "mostrarConfirm('#" + this.btnEliminar.ClientID + "');", true);
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", "mostrarConfirm('eliminar', '#" + this.btnEliminar.ClientID + "');", true);
             }
         }
 
@@ -226,7 +226,7 @@ namespace SeedProject.Paginas.Administracion
 
                 if (recordIndex > 2)
                 {
-                    this.pnlMensajeExportar.Visible = false;
+                    //this.pnlMensajeExportar.Visible = false;
 
                     workSheet.Column(1).AutoFit();
                     workSheet.Column(2).AutoFit();
@@ -241,10 +241,10 @@ namespace SeedProject.Paginas.Administracion
                     Response.Flush();
                     Response.End();
                 }
-                else
-                {
-                    this.pnlMensajeExportar.Visible = true;
-                }
+                //else
+                //{
+                //    this.pnlMensajeExportar.Visible = true;
+                //}
             }
         }
 
