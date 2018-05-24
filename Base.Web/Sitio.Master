@@ -4,12 +4,13 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head runat="server">
-		<meta charset="utf-8" />
-        <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1" /> 
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta charset="utf-8">
 		<title>Pensemos SI</title>
 		<meta name="description" content="" />
 		<meta name="author" content="" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		
 		<!-- #CSS Links -->
 		<!-- Basic Styles -->
@@ -383,26 +384,17 @@
 
             <!--================================================== -->
 
-		    <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
-		    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		    <script>
-			    if (!window.jQuery) {
-			        document.write('<script src="<%= ResolveUrl("~/Content/js/libs/jquery-3.2.1.min.js") %>"><\/script>');
-			    }
-		    </script>
-
-		    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-		    <script>
-			    if (!window.jQuery.ui) {
-			        document.write('<script src="<%= ResolveUrl("~/Content/js/libs/jquery-ui.min.js") %>"><\/script>');
-			    }
-		    </script>
+		    <!-- jQuery -->
+            <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/libs/jquery-3.2.1.min.js") %>'></script>
+		    
+            <!-- jQueryUI -->
+            <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/libs/jquery-ui.min.js") %>'></script>
 
 		    <!-- IMPORTANT: APP CONFIG -->
-		    <script src='<%= ResolveUrl("~/Content/js/app.config.js") %>'></script>
+		    <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/app.config.js") %>'></script>
 
 		    <!-- MAIN APP JS FILE -->
-		    <script src='<%= ResolveUrl("~/Content/js/app.min.js") %>'></script>
+		    <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/app.min.js") %>'></script>
 
             <!-- MAIN CONTENT -->
 			<div id="content">
@@ -425,74 +417,74 @@
         <!--================================================== -->
 
 		<!-- JS TOUCH : include this plugin for mobile drag / drop touch events-->
-		<script src='<%= ResolveUrl("~/Content/js/plugin/jquery-touch/jquery.ui.touch-punch.min.js") %>'></script>
+		<script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/jquery-touch/jquery.ui.touch-punch.min.js") %>'></script>
 
 		<!-- BOOTSTRAP JS -->
-        <script src='<%= ResolveUrl("~/Content/js/bootstrap/bootstrap.min.js") %>'></script>
+        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/bootstrap/bootstrap.min.js") %>'></script>
 
 		<!-- CUSTOM NOTIFICATION -->
-        <script src='<%= ResolveUrl("~/Content/js/notification/SmartNotification.min.js") %>'></script>
+        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/notification/SmartNotification.min.js") %>'></script>
 
 		<!-- JARVIS WIDGETS -->
-        <script src='<%= ResolveUrl("~/Content/js/smartwidgets/jarvis.widget.min.js") %>'></script>
+        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/smartwidgets/jarvis.widget.min.js") %>'></script>
 
 		<!-- EASY PIE CHARTS -->
-        <script src='<%= ResolveUrl("~/Content/js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js") %>'></script>
+        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js") %>'></script>
 
 		<!-- SPARKLINES -->
-        <script src='<%= ResolveUrl("~/Content/js/plugin/sparkline/jquery.sparkline.min.js") %>'></script>
+        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/sparkline/jquery.sparkline.min.js") %>'></script>
 
 		<!-- JQUERY VALIDATE -->
-        <script src='<%= ResolveUrl("~/Content/js/plugin/jquery-validate/jquery.validate.min.js") %>'></script>
-        <script src='<%= ResolveUrl("~/Scripts/jquery.validation.net.webforms.min.js") %>'></script>
+        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/jquery-validate/jquery.validate.min.js") %>'></script>
+        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Scripts/jquery.validation.net.webforms.min.js") %>'></script>
 
 		<!-- JQUERY MASKED INPUT -->
-        <script src='<%= ResolveUrl("~/Content/js/plugin/masked-input/jquery.maskedinput.min.js") %>'></script>
+        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/masked-input/jquery.maskedinput.min.js") %>'></script>
 
 		<!-- JQUERY SELECT2 INPUT -->
-        <script src='<%= ResolveUrl("~/Content/js/plugin/select2/select2.min.js") %>'></script>
+        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/select2/select2.min.js") %>'></script>
 
 		<!-- JQUERY UI + Bootstrap Slider -->
-        <script src='<%= ResolveUrl("~/Content/js/plugin/bootstrap-slider/bootstrap-slider.min.js") %>'></script>
+        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/bootstrap-slider/bootstrap-slider.min.js") %>'></script>
 
 		<!-- browser msie issue fix -->
-        <script src='<%= ResolveUrl("~/Content/js/plugin/msie-fix/jquery.mb.browser.min.js") %>'></script>
+        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/msie-fix/jquery.mb.browser.min.js") %>'></script>
 
 		<!-- FastClick: For mobile devices -->
-        <script src='<%= ResolveUrl("~/Content/js/plugin/fastclick/fastclick.min.js") %>'></script>
+        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/fastclick/fastclick.min.js") %>'></script>
 
 		<!-- ENHANCEMENT PLUGINS : NOT A REQUIREMENT -->
 		
 		<!-- SmartChat UI : plugin -->
-        <script src='<%= ResolveUrl("~/Content/js/smart-chat-ui/smart.chat.ui.min.js") %>'></script>
-        <script src='<%= ResolveUrl("~/Content/js/smart-chat-ui/smart.chat.manager.min.js") %>'></script>
+        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/smart-chat-ui/smart.chat.ui.min.js") %>'></script>
+        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/smart-chat-ui/smart.chat.manager.min.js") %>'></script>
 		
 		<!-- PAGE RELATED PLUGIN(S) -->
 		
 		<!-- Flot Chart Plugin: Flot Engine, Flot Resizer, Flot Tooltip -->
-        <script src='<%= ResolveUrl("~/Content/js/plugin/flot/jquery.flot.cust.min.js") %>'></script>
-        <script src='<%= ResolveUrl("~/Content/js/plugin/flot/jquery.flot.resize.min.js") %>'></script>
-        <script src='<%= ResolveUrl("~/Content/js/plugin/flot/jquery.flot.time.min.js") %>'></script>
-        <script src='<%= ResolveUrl("~/Content/js/plugin/flot/jquery.flot.tooltip.min.js") %>'></script>
+        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/flot/jquery.flot.cust.min.js") %>'></script>
+        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/flot/jquery.flot.resize.min.js") %>'></script>
+        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/flot/jquery.flot.time.min.js") %>'></script>
+        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/flot/jquery.flot.tooltip.min.js") %>'></script>
 		
 		<!-- Vector Maps Plugin: Vectormap engine, Vectormap language -->
-        <script src='<%= ResolveUrl("~/Content/js/plugin/vectormap/jquery-jvectormap-1.2.2.min.js") %>'></script>
-        <script src='<%= ResolveUrl("~/Content/js/plugin/vectormap/jquery-jvectormap-world-mill-en.js") %>'></script>
+        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/vectormap/jquery-jvectormap-1.2.2.min.js") %>'></script>
+        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/vectormap/jquery-jvectormap-world-mill-en.js") %>'></script>
 		
 		<!-- Full Calendar -->
-        <script src='<%= ResolveUrl("~/Content/js/plugin/moment/moment.min.js") %>'></script>
-        <script src='<%= ResolveUrl("~/Content/js/plugin/fullcalendar/fullcalendar.min.js") %>'></script>
+        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/moment/moment.min.js") %>'></script>
+        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/fullcalendar/fullcalendar.min.js") %>'></script>
 
         <!-- DataTables -->
-        <script src='<%= ResolveUrl("~/Content/js/plugin/datatables/jquery.dataTables.min.js") %>'></script>
-		<script src='<%= ResolveUrl("~/Content/js/plugin/datatables/dataTables.colVis.min.js") %>'></script>
-		<script src='<%= ResolveUrl("~/Content/js/plugin/datatables/dataTables.tableTools.min.js") %>'></script>
-		<script src='<%= ResolveUrl("~/Content/js/plugin/datatables/dataTables.bootstrap.min.js") %>'></script>
-		<script src='<%= ResolveUrl("~/Content/js/plugin/datatable-responsive/datatables.responsive.min.js") %>'></script>
+        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/datatables/jquery.dataTables.min.js") %>'></script>
+		<script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/datatables/dataTables.colVis.min.js") %>'></script>
+		<script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/datatables/dataTables.tableTools.min.js") %>'></script>
+		<script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/datatables/dataTables.bootstrap.min.js") %>'></script>
+		<script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/datatable-responsive/datatables.responsive.min.js") %>'></script>
 
-        <script src='<%= ResolveUrl("~/Content/js/plugin/bootstrap-datapicker/bootstrap-datepicker.js") %>'></script>
+        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/bootstrap-datapicker/bootstrap-datepicker.js") %>'></script>
 
-		<script>
+		<script type="text/javascript" charset="utf8">
 		    // DO NOT REMOVE : GLOBAL FUNCTIONS!
 		
 		    $(document).ready(function() {

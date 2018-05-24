@@ -74,10 +74,12 @@ namespace SeedProject.Paginas.Administracion
             {
                 setFormViewModel.Set = LlenarSet(new Set());
                 setFormViewModel.Set.Fecha_Creacion = DateTime.Now;
-                setFormViewModel.Set.Fecha_UltMod = DateTime.Now;
                 setFormViewModel.Set.Usuario_Creacion = "iarias";
-                setFormViewModel.Set.Usuario_UltMod = "iarias";
                 setFormViewModel.Set.Activa = "1";
+
+                setFormViewModel.Set.Fecha_UltMod = DateTime.Now; //TMP
+                setFormViewModel.Set.Usuario_UltMod = "iarias"; //TMP
+                
                 SetService.Create(setFormViewModel.Set);
             }
 
@@ -156,10 +158,11 @@ namespace SeedProject.Paginas.Administracion
                         setFormViewModel.Set.Descripcion = item.Cells[1] != null ? item.Cells[1].Text : null;
                         setFormViewModel.Set.AliasGAMS = item.Cells[2] != null ? item.Cells[2].Text : null;
                         setFormViewModel.Set.Fecha_Creacion = DateTime.Now;
-                        setFormViewModel.Set.Fecha_UltMod = DateTime.Now;
                         setFormViewModel.Set.Usuario_Creacion = "iarias";
-                        setFormViewModel.Set.Usuario_UltMod = "iarias";
                         setFormViewModel.Set.Activa = "1";
+
+                        setFormViewModel.Set.Fecha_UltMod = DateTime.Now; //TMP
+                        setFormViewModel.Set.Usuario_UltMod = "iarias"; //TMP
 
                         SetService.Create(setFormViewModel.Set);
 
@@ -197,54 +200,7 @@ namespace SeedProject.Paginas.Administracion
         {
             if (this.txtNombreArchivo.Text.Trim() != "")
             {
-                ExcelPackage excel = new ExcelPackage();
-                ExcelWorksheet workSheet = excel.Workbook.Worksheets.Add("Datos");
-                workSheet.TabColor = System.Drawing.Color.Black;
-                workSheet.DefaultRowHeight = 12;
-
-                workSheet.Row(1).Height = 20;
-                workSheet.Row(1).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                workSheet.Row(1).Style.Font.Bold = true;
-                workSheet.Cells[1, 1].Value = GetCellByName(this.grvExportar.HeaderRow, "Nombre").ContainingField.ToString();
-                workSheet.Cells[1, 2].Value = GetCellByName(this.grvExportar.HeaderRow, "Descripcion").ContainingField.ToString();
-                workSheet.Cells[1, 3].Value = GetCellByName(this.grvExportar.HeaderRow, "AliasGAMS").ContainingField.ToString();
-
-                int recordIndex = 2;
-
-                foreach (GridViewRow row in this.grvExportar.Rows)
-                {
-                    CheckBox chkActivo = (CheckBox)row.FindControl("chkActivo");
-
-                    if (chkActivo.Checked)
-                    {
-                        workSheet.Cells[recordIndex, 1].Value = GetCellByName(row, "Nombre").Text;
-                        workSheet.Cells[recordIndex, 2].Value = GetCellByName(row, "Descripcion").Text;
-                        workSheet.Cells[recordIndex, 3].Value = GetCellByName(row, "AliasGAMS").Text;
-                        recordIndex++;
-                    }
-                }
-
-                if (recordIndex > 2)
-                {
-                    //this.pnlMensajeExportar.Visible = false;
-
-                    workSheet.Column(1).AutoFit();
-                    workSheet.Column(2).AutoFit();
-                    workSheet.Column(3).AutoFit();
-
-                    string excelName = this.txtNombreArchivo.Text;
-                    MemoryStream memoryStream = new MemoryStream();
-                    Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-                    Response.AddHeader("content-disposition", "attachment; filename=" + excelName + ".xlsx");
-                    excel.SaveAs(memoryStream);
-                    memoryStream.WriteTo(Response.OutputStream);
-                    Response.Flush();
-                    Response.End();
-                }
-                //else
-                //{
-                //    this.pnlMensajeExportar.Visible = true;
-                //}
+                GenerarExcel();
             }
         }
 
@@ -384,6 +340,52 @@ namespace SeedProject.Paginas.Administracion
 
             this.grvCargueMasivo.DataSource = setFormViewModel.Sets;
             this.grvCargueMasivo.DataBind();
+        }
+
+        private void GenerarExcel()
+        {
+            ExcelPackage excel = new ExcelPackage();
+            ExcelWorksheet workSheet = excel.Workbook.Worksheets.Add("Datos");
+            workSheet.TabColor = System.Drawing.Color.Black;
+            workSheet.DefaultRowHeight = 12;
+
+            workSheet.Row(1).Height = 20;
+            workSheet.Row(1).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+            workSheet.Row(1).Style.Font.Bold = true;
+            workSheet.Cells[1, 1].Value = GetCellByName(this.grvExportar.HeaderRow, "Nombre").ContainingField.ToString();
+            workSheet.Cells[1, 2].Value = GetCellByName(this.grvExportar.HeaderRow, "Descripcion").ContainingField.ToString();
+            workSheet.Cells[1, 3].Value = GetCellByName(this.grvExportar.HeaderRow, "AliasGAMS").ContainingField.ToString();
+
+            int recordIndex = 2;
+
+            foreach (GridViewRow row in this.grvExportar.Rows)
+            {
+                CheckBox chkActivo = (CheckBox)row.FindControl("chkActivo");
+
+                if (chkActivo.Checked)
+                {
+                    workSheet.Cells[recordIndex, 1].Value = GetCellByName(row, "Nombre").Text;
+                    workSheet.Cells[recordIndex, 2].Value = GetCellByName(row, "Descripcion").Text;
+                    workSheet.Cells[recordIndex, 3].Value = GetCellByName(row, "AliasGAMS").Text;
+                    recordIndex++;
+                }
+            }
+
+            if (recordIndex > 2)
+            {
+                workSheet.Column(1).AutoFit();
+                workSheet.Column(2).AutoFit();
+                workSheet.Column(3).AutoFit();
+
+                string excelName = this.txtNombreArchivo.Text;
+                MemoryStream memoryStream = new MemoryStream();
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                Response.AddHeader("content-disposition", "attachment; filename=" + excelName + ".xlsx");
+                excel.SaveAs(memoryStream);
+                memoryStream.WriteTo(Response.OutputStream);
+                Response.Flush();
+                Response.End();
+            }
         }
 
         private Set LlenarSet(Set set)

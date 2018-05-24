@@ -3,7 +3,7 @@
 <asp:Content ID="contentBody" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="row">
 	    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
-		    <h1 class="page-title txt-color-blueDark">
+		    <h1 class="page-title txt-color-greenLight">
 			
 			    <!-- PAGE HEADER -->
 			    <i class="fa-fw fa fa-pencil-square-o"></i> 
@@ -71,7 +71,7 @@
                                                         <div class="row">
                                                             <section class="col col-10">
                                                                 <label class="select">
-                                                                    <asp:DropDownList ID="ddlFiltroVersiones" name="filtermodelsversions" runat="server"></asp:DropDownList>
+                                                                    <asp:DropDownList ID="ddlFiltroVersiones" name="filterversions" runat="server"></asp:DropDownList>
                                                                     <i></i>
                                                                 </label>
                                                             </section>
@@ -124,10 +124,10 @@
 					                </div>
 					                <!-- end widget edit box -->
 
+                                    <!-- widget content -->
 					                <asp:UpdatePanel ID="updGrilla" runat="server" UpdateMode="Always" ChildrenAsTriggers="true">
                                         <ContentTemplate>
-                                            <!-- widget content -->
-					                        <div class="widget-body no-padding">
+                                            <div class="widget-body no-padding">
                                                 <asp:GridView ID="grvDatos" runat="server" AutoGenerateColumns="false" ShowHeaderWhenEmpty="true" CssClass="table table-striped table-bordered" OnRowCommand="grvDatos_RowCommand">
                                                     <Columns>
                                                         <asp:TemplateField HeaderText="">

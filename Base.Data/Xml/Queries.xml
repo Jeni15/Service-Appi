@@ -34,7 +34,6 @@
            SELECT COUNT(*) FROM TIPOIDENTIFICACIONES
           -->
     </SQL>
-
    
     <!-- MENUS -->
 
@@ -63,12 +62,12 @@
        SELECT * FROM MENUS
       -->
     </SQL>
-   <SQL id="Menu_GetParents">
+    <SQL id="Menu_GetParents">
       <!--
        SELECT * FROM MENUS WHERE IdMenuPadre IS NULL  Order by Orden
       -->
     </SQL>
-   <SQL id="Menu_GetChildren">
+    <SQL id="Menu_GetChildren">
       <!--
        SELECT * FROM MENUS WHERE IdMenuPadre = @IdMenuPadre Order by Orden
       -->
@@ -102,38 +101,6 @@
       -->
     </SQL>
 
-
-
-    <!-- MODELOCASO -->
-
-    <SQL id="ModeloCaso_Insert">
-      <!--
-        INSERT INTO MODELOSCASOS (nombre,IdModeloVersion) VALUES (@Nombre, @IdModeloVersion)
-      -->
-    </SQL>
-    <SQL id="ModeloCaso_Update">
-      <!--
-        UPDATE MODELOSCASOS SET nombre = @Nombre, IdModeloVersion = @IdModeloVersion WHERE IDMODELOCASO = @Id
-      -->
-    </SQL>
-    <SQL id="ModeloCaso_Delete">
-      <!--
-       DELETE FROM MODELOSCASOS WHERE IDMODELOCASO = @Id
-      -->
-    </SQL>
-    <SQL id="ModeloCaso_Get">
-      <!--
-       SELECT * FROM MODELOSCASOS WHERE IDMODELOCASO = @Id
-      -->
-    </SQL>
-    <SQL id="ModeloCaso_GetAll">
-      <!--
-       SELECT * FROM MODELOSCASOS
-      -->
-    </SQL>
-
-
-
     <!-- VERSION -->
 
     <SQL id="Version_Insert">
@@ -162,33 +129,31 @@
       -->
     </SQL>
 
-
-
     <!-- PARAMETRO -->
 
     <SQL id="Parametro_Insert">
       <!--
-        INSERT INTO PARAMETROS (nombre,IdModeloCaso,Descripcion,Alias,Activo) VALUES (@Nombre,@IdModeloCaso,@Descripcion,@Alias,@Activo)
+        INSERT INTO [Parameter] (IDParameter,Nombre,Descripcion,AliasGAMS,IdUOM,Cantidad_Dimensiones,Dimension,Entrada_Manual,Resultado,Fecha_Creacion,Usuario_Creacion,Activa) VALUES (NEXT VALUE FOR seqMICV,@Nombre,@Descripcion,@AliasGAMS,@IdUOM,@Cantidad_Dimensiones,@Dimension,@Entrada_Manual,@Resultado,@Fecha_Creacion,@Usuario_Creacion,@Activa)
       -->
     </SQL>
     <SQL id="Parametro_Update">
       <!--
-        UPDATE PARAMETROS SET nombre = @Nombre, IdModeloCaso = @IdModeloCaso, Descripcion = @Descripcion, Alias = @Alias, Activo = @Activo WHERE IdParametro = @IdParametro
+        UPDATE [Parameter] SET Nombre = @Nombre, Descripcion = @Descripcion, AliasGAMS = @AliasGAMS, Usuario_UltMod = @Usuario_UltMod, Activa = @Activa WHERE IDParameter = @IDParameter
       -->
     </SQL>
     <SQL id="Parametro_Delete">
       <!--
-       DELETE FROM PARAMETROS WHERE IdParametro = @IdParametro
+       UPDATE [Parameter] SET Usuario_UltMod = @Usuario_UltMod, Activa = '2' WHERE IDParameter = @IDParameter
       -->
     </SQL>
     <SQL id="Parametro_Get">
       <!--
-       SELECT * FROM PARAMETROS WHERE IdParametro = @Id
+       SELECT * FROM [Parameter] WHERE IDParameter = @Id And Activa != '2'
       -->
     </SQL>
     <SQL id="Parametro_GetAll">
       <!--
-       SELECT * FROM PARAMETROS
+       SELECT p.*, vp.IdParameter FROM [Parameter] p left join Version_Parameter vp on p.IDParameter = vp.IdParameter Where p.Activa != '2'
       -->
     </SQL>
     
@@ -216,7 +181,7 @@
     </SQL>
     <SQL id="Set_GetAll">
       <!--
-       SELECT s.*, vs.IdVersion FROM [Set] s left join Version_Set vs on s.IDSet = vs.IdSet  Where s.Activa != '2'  And s.IDSet_Padre is Null
+       SELECT s.*, vs.IdVersion FROM [Set] s left join Version_Set vs on s.IDSet = vs.IdSet Where s.Activa != '2' And s.IDSet_Padre is Null
       -->
     </SQL>
 
