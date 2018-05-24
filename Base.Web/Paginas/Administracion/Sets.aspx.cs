@@ -154,9 +154,9 @@ namespace SeedProject.Paginas.Administracion
                     try
                     {
                         setFormViewModel.Set = new Set();
-                        setFormViewModel.Set.Nombre = item.Cells[0].Text;
-                        setFormViewModel.Set.Descripcion = item.Cells[1] != null ? item.Cells[1].Text : null;
-                        setFormViewModel.Set.AliasGAMS = item.Cells[2] != null ? item.Cells[2].Text : null;
+                        setFormViewModel.Set.Nombre = HttpUtility.HtmlDecode(item.Cells[0].Text);
+                        setFormViewModel.Set.Descripcion = item.Cells[1] != null ? HttpUtility.HtmlDecode(item.Cells[1].Text) : null;
+                        setFormViewModel.Set.AliasGAMS = item.Cells[2] != null ? HttpUtility.HtmlDecode(item.Cells[2].Text) : null;
                         setFormViewModel.Set.Fecha_Creacion = DateTime.Now;
                         setFormViewModel.Set.Usuario_Creacion = "iarias";
                         setFormViewModel.Set.Activa = "1";
@@ -169,7 +169,7 @@ namespace SeedProject.Paginas.Administracion
                         spnEstado.Attributes["class"] = "label label-success";
                         lblEstado.Text = "Cargado";
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         spnEstado.Attributes["class"] = "label label-danger";
                         lblEstado.Text = "Error";
