@@ -930,7 +930,6 @@
     <Content Include="Content\js\smart-chat-ui\smart.chat.ui.min.js" />
     <Content Include="Content\js\smartwidgets\jarvis.widget.min.js" />
     <Content Include="Content\js\speech\voicecommand.min.js" />
-    <Content Include="Default - Copia.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Forgotpassword.aspx" />
@@ -1102,13 +1101,6 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Default - Copia.aspx.cs">
-      <DependentUpon>Default - Copia.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Default - Copia.aspx.designer.cs">
-      <DependentUpon>Default - Copia.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
