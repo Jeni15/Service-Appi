@@ -154,9 +154,9 @@ namespace SeedProject.Paginas.Administracion
                     try
                     {
                         setFormViewModel.Set = new Set();
-                        setFormViewModel.Set.Nombre = item.Cells[0].Text;
-                        setFormViewModel.Set.Descripcion = item.Cells[1] != null ? item.Cells[1].Text : null;
-                        setFormViewModel.Set.AliasGAMS = item.Cells[2] != null ? item.Cells[2].Text : null;
+                        setFormViewModel.Set.Nombre = HttpUtility.HtmlDecode(item.Cells[0].Text);
+                        setFormViewModel.Set.Descripcion = item.Cells[1] != null ? HttpUtility.HtmlDecode(item.Cells[1].Text) : null;
+                        setFormViewModel.Set.AliasGAMS = item.Cells[2] != null ? HttpUtility.HtmlDecode(item.Cells[2].Text) : null;
                         setFormViewModel.Set.Fecha_Creacion = DateTime.Now;
                         setFormViewModel.Set.Usuario_Creacion = "iarias";
                         setFormViewModel.Set.Activa = "1";
@@ -169,7 +169,7 @@ namespace SeedProject.Paginas.Administracion
                         spnEstado.Attributes["class"] = "label label-success";
                         lblEstado.Text = "Cargado";
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         spnEstado.Attributes["class"] = "label label-danger";
                         lblEstado.Text = "Error";
@@ -348,7 +348,7 @@ namespace SeedProject.Paginas.Administracion
             ExcelWorksheet workSheet = excel.Workbook.Worksheets.Add("Datos");
             workSheet.TabColor = System.Drawing.Color.Black;
             workSheet.DefaultRowHeight = 12;
-
+            
             workSheet.Row(1).Height = 20;
             workSheet.Row(1).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
             workSheet.Row(1).Style.Font.Bold = true;
@@ -364,9 +364,9 @@ namespace SeedProject.Paginas.Administracion
 
                 if (chkActivo.Checked)
                 {
-                    workSheet.Cells[recordIndex, 1].Value = GetCellByName(row, "Nombre").Text;
-                    workSheet.Cells[recordIndex, 2].Value = GetCellByName(row, "Descripcion").Text;
-                    workSheet.Cells[recordIndex, 3].Value = GetCellByName(row, "AliasGAMS").Text;
+                    workSheet.Cells[recordIndex, 1].Value = HttpUtility.HtmlDecode(GetCellByName(row, "Nombre").Text);
+                    workSheet.Cells[recordIndex, 2].Value = HttpUtility.HtmlDecode(GetCellByName(row, "Descripcion").Text);
+                    workSheet.Cells[recordIndex, 3].Value = HttpUtility.HtmlDecode(GetCellByName(row, "AliasGAMS").Text);
                     recordIndex++;
                 }
             }
