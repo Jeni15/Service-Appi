@@ -210,7 +210,7 @@
 
 				<!-- logout button -->
 				<div id="logout" class="btn-header transparent pull-right">
-					<span> <a href="<%= ResolveUrl("~/Login.aspx") %>" title="Sign Out" data-action="userLogout" data-logout-msg="You can improve your security further after logging out by closing this opened browser"><i class="fa fa-sign-out"></i></a> </span>
+					<span> <a href="<%= ResolveUrl("~/Login.aspx") %>" title="Sign Out" data-action="userLogout" data-logout-msg="Puede mejorar su seguridad aún más después de cerrar sesión al cerrar este navegador abierto"><i class="fa fa-sign-out"></i></a> </span>
 				</div>
 				<!-- end logout button -->
 
@@ -364,7 +364,7 @@
 				</span>
 
 				<!-- breadcrumb -->
-				<ol class="breadcrumb">
+				<ol id="olBreadcrumb">
 				</ol>
 				<!-- end breadcrumb -->
 
@@ -385,16 +385,92 @@
             <!--================================================== -->
 
 		    <!-- jQuery -->
-            <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/libs/jquery-3.2.1.min.js") %>'></script>
+            <script src='<%= ResolveUrl("~/Content/js/libs/jquery-3.2.1.min.js") %>'></script>
 		    
             <!-- jQueryUI -->
-            <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/libs/jquery-ui.min.js") %>'></script>
+            <script src='<%= ResolveUrl("~/Content/js/libs/jquery-ui.min.js") %>'></script>
 
 		    <!-- IMPORTANT: APP CONFIG -->
-		    <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/app.config.js") %>'></script>
+		    <script src='<%= ResolveUrl("~/Content/js/app.config.js") %>'></script>
 
 		    <!-- MAIN APP JS FILE -->
-		    <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/app.min.js") %>'></script>
+		    <script src='<%= ResolveUrl("~/Content/js/app.min.js") %>'></script>
+
+            <!-- JS TOUCH : include this plugin for mobile drag / drop touch events-->
+		    <script src='<%= ResolveUrl("~/Content/js/plugin/jquery-touch/jquery.ui.touch-punch.min.js") %>'></script>
+
+		    <!-- BOOTSTRAP JS -->
+            <script src='<%= ResolveUrl("~/Content/js/bootstrap/bootstrap.min.js") %>'></script>
+
+		    <!-- CUSTOM NOTIFICATION -->
+            <script src='<%= ResolveUrl("~/Content/js/notification/SmartNotification.min.js") %>'></script>
+
+		    <!-- JARVIS WIDGETS -->
+            <script src='<%= ResolveUrl("~/Content/js/smartwidgets/jarvis.widget.min.js") %>'></script>
+
+		    <!-- EASY PIE CHARTS -->
+            <script src='<%= ResolveUrl("~/Content/js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js") %>'></script>
+
+		    <!-- SPARKLINES -->
+            <script src='<%= ResolveUrl("~/Content/js/plugin/sparkline/jquery.sparkline.min.js") %>'></script>
+
+		    <!-- JQUERY VALIDATE -->
+            <script src='<%= ResolveUrl("~/Content/js/plugin/jquery-validate/jquery.validate.min.js") %>'></script>
+            <script src='<%= ResolveUrl("~/Scripts/jquery.validation.net.webforms.min.js") %>'></script>
+
+		    <!-- JQUERY MASKED INPUT -->
+            <script src='<%= ResolveUrl("~/Content/js/plugin/masked-input/jquery.maskedinput.min.js") %>'></script>
+
+		    <!-- JQUERY SELECT2 INPUT -->
+            <script src='<%= ResolveUrl("~/Content/js/plugin/select2/select2.min.js") %>'></script>
+
+		    <!-- JQUERY UI + Bootstrap Slider -->
+            <script src='<%= ResolveUrl("~/Content/js/plugin/bootstrap-slider/bootstrap-slider.min.js") %>'></script>
+
+		    <!-- browser msie issue fix -->
+            <script src='<%= ResolveUrl("~/Content/js/plugin/msie-fix/jquery.mb.browser.min.js") %>'></script>
+
+		    <!-- FastClick: For mobile devices -->
+            <script src='<%= ResolveUrl("~/Content/js/plugin/fastclick/fastclick.min.js") %>'></script>
+
+		    <!-- ENHANCEMENT PLUGINS : NOT A REQUIREMENT -->
+		
+		    <!-- SmartChat UI : plugin -->
+            <script src='<%= ResolveUrl("~/Content/js/smart-chat-ui/smart.chat.ui.min.js") %>'></script>
+            <script src='<%= ResolveUrl("~/Content/js/smart-chat-ui/smart.chat.manager.min.js") %>'></script>
+		
+		    <!-- PAGE RELATED PLUGIN(S) -->
+		
+		    <!-- Flot Chart Plugin: Flot Engine, Flot Resizer, Flot Tooltip -->
+            <script src='<%= ResolveUrl("~/Content/js/plugin/flot/jquery.flot.cust.min.js") %>'></script>
+            <script src='<%= ResolveUrl("~/Content/js/plugin/flot/jquery.flot.resize.min.js") %>'></script>
+            <script src='<%= ResolveUrl("~/Content/js/plugin/flot/jquery.flot.time.min.js") %>'></script>
+            <script src='<%= ResolveUrl("~/Content/js/plugin/flot/jquery.flot.tooltip.min.js") %>'></script>
+		
+		    <!-- Vector Maps Plugin: Vectormap engine, Vectormap language -->
+            <script src='<%= ResolveUrl("~/Content/js/plugin/vectormap/jquery-jvectormap-1.2.2.min.js") %>'></script>
+            <script src='<%= ResolveUrl("~/Content/js/plugin/vectormap/jquery-jvectormap-world-mill-en.js") %>'></script>
+		
+		    <!-- Full Calendar -->
+            <script src='<%= ResolveUrl("~/Content/js/plugin/moment/moment.min.js") %>'></script>
+            <script src='<%= ResolveUrl("~/Content/js/plugin/fullcalendar/fullcalendar.min.js") %>'></script>
+
+            <!-- DataTables -->
+            <script src='<%= ResolveUrl("~/Content/js/plugin/datatables/jquery.dataTables.min.js") %>'></script>
+		    <script src='<%= ResolveUrl("~/Content/js/plugin/datatables/dataTables.colVis.min.js") %>'></script>
+		    <script src='<%= ResolveUrl("~/Content/js/plugin/datatables/dataTables.tableTools.min.js") %>'></script>
+		    <script src='<%= ResolveUrl("~/Content/js/plugin/datatables/dataTables.bootstrap.min.js") %>'></script>
+		    <script src='<%= ResolveUrl("~/Content/js/plugin/datatable-responsive/datatables.responsive.min.js") %>'></script>
+
+            <script src='<%= ResolveUrl("~/Content/js/plugin/bootstrap-datapicker/bootstrap-datepicker.js") %>'></script>
+
+		    <script>
+		        // DO NOT REMOVE : GLOBAL FUNCTIONS!
+		
+		        $(document).ready(function() {
+		            pageSetUp();
+		        });
+            </script>
 
             <!-- MAIN CONTENT -->
 			<div id="content">
@@ -410,86 +486,7 @@
                 </form>
 			</div>
 			<!-- END MAIN CONTENT -->
-
 		</div>
 		<!-- END MAIN PANEL -->
-
-        <!--================================================== -->
-
-		<!-- JS TOUCH : include this plugin for mobile drag / drop touch events-->
-		<script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/jquery-touch/jquery.ui.touch-punch.min.js") %>'></script>
-
-		<!-- BOOTSTRAP JS -->
-        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/bootstrap/bootstrap.min.js") %>'></script>
-
-		<!-- CUSTOM NOTIFICATION -->
-        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/notification/SmartNotification.min.js") %>'></script>
-
-		<!-- JARVIS WIDGETS -->
-        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/smartwidgets/jarvis.widget.min.js") %>'></script>
-
-		<!-- EASY PIE CHARTS -->
-        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js") %>'></script>
-
-		<!-- SPARKLINES -->
-        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/sparkline/jquery.sparkline.min.js") %>'></script>
-
-		<!-- JQUERY VALIDATE -->
-        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/jquery-validate/jquery.validate.min.js") %>'></script>
-        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Scripts/jquery.validation.net.webforms.min.js") %>'></script>
-
-		<!-- JQUERY MASKED INPUT -->
-        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/masked-input/jquery.maskedinput.min.js") %>'></script>
-
-		<!-- JQUERY SELECT2 INPUT -->
-        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/select2/select2.min.js") %>'></script>
-
-		<!-- JQUERY UI + Bootstrap Slider -->
-        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/bootstrap-slider/bootstrap-slider.min.js") %>'></script>
-
-		<!-- browser msie issue fix -->
-        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/msie-fix/jquery.mb.browser.min.js") %>'></script>
-
-		<!-- FastClick: For mobile devices -->
-        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/fastclick/fastclick.min.js") %>'></script>
-
-		<!-- ENHANCEMENT PLUGINS : NOT A REQUIREMENT -->
-		
-		<!-- SmartChat UI : plugin -->
-        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/smart-chat-ui/smart.chat.ui.min.js") %>'></script>
-        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/smart-chat-ui/smart.chat.manager.min.js") %>'></script>
-		
-		<!-- PAGE RELATED PLUGIN(S) -->
-		
-		<!-- Flot Chart Plugin: Flot Engine, Flot Resizer, Flot Tooltip -->
-        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/flot/jquery.flot.cust.min.js") %>'></script>
-        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/flot/jquery.flot.resize.min.js") %>'></script>
-        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/flot/jquery.flot.time.min.js") %>'></script>
-        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/flot/jquery.flot.tooltip.min.js") %>'></script>
-		
-		<!-- Vector Maps Plugin: Vectormap engine, Vectormap language -->
-        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/vectormap/jquery-jvectormap-1.2.2.min.js") %>'></script>
-        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/vectormap/jquery-jvectormap-world-mill-en.js") %>'></script>
-		
-		<!-- Full Calendar -->
-        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/moment/moment.min.js") %>'></script>
-        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/fullcalendar/fullcalendar.min.js") %>'></script>
-
-        <!-- DataTables -->
-        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/datatables/jquery.dataTables.min.js") %>'></script>
-		<script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/datatables/dataTables.colVis.min.js") %>'></script>
-		<script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/datatables/dataTables.tableTools.min.js") %>'></script>
-		<script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/datatables/dataTables.bootstrap.min.js") %>'></script>
-		<script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/datatable-responsive/datatables.responsive.min.js") %>'></script>
-
-        <script type="text/javascript" charset="utf8" src='<%= ResolveUrl("~/Content/js/plugin/bootstrap-datapicker/bootstrap-datepicker.js") %>'></script>
-
-		<script type="text/javascript" charset="utf8">
-		    // DO NOT REMOVE : GLOBAL FUNCTIONS!
-		
-		    $(document).ready(function() {
-		        pageSetUp();
-		    });
-        </script>
     </body>
 </html>

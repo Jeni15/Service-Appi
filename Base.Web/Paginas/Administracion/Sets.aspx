@@ -19,6 +19,8 @@
     <section id="widget-grid" class="">
 	    <!-- START ROW -->
 	    <div class="row">
+            <div id="divMensajeMain"></div>
+
 		    <!-- NEW COL START -->
             <asp:UpdatePanel ID="updDatos" runat="server" UpdateMode="Always">
                 <ContentTemplate>
@@ -234,18 +236,6 @@
 									                    </div>
 								                    </div>
 
-                                                    <div class="form-group">
-                                                        <asp:Panel ID="pnlMensajeCargueMasivo" runat="server" Visible="false">
-                                                            <div class="alert alert-danger fade in">
-				                                                <button class="close" data-dismiss="alert">
-					                                                ×
-				                                                </button>
-				                                                <i class="fa-fw fa fa-times"></i>
-				                                                <strong>Error!</strong> El archivo seleccionado no tiene una estructura valida.
-			                                                </div>
-                                                        </asp:Panel>
-                                                    </div>
-
                                                     <div class="form-group text-center">
                                                         <div class="col-md-12">
                                                             <asp:UpdatePanel ID="updSetCargueMasivo" runat="server" UpdateMode="Always" ChildrenAsTriggers="true">
@@ -443,6 +433,8 @@
 			    <div class="modal-body no-padding">
                     <asp:UpdatePanel ID="updModalContenido" runat="server" UpdateMode="Always" ChildrenAsTriggers="true">
                         <ContentTemplate>
+                            <div id="divMensajeModal"></div>
+
 				            <div id="frmMain" class="smart-form form">
                                 <fieldset>
                                     <asp:Panel ID="pnlIdSet" runat="server">

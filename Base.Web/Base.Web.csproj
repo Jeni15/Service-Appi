@@ -931,6 +931,9 @@
     <Content Include="Content\js\smartwidgets\jarvis.widget.min.js" />
     <Content Include="Content\js\speech\voicecommand.min.js" />
     <Content Include="Default.aspx" />
+    <Content Include="Error404.aspx" />
+    <Content Include="Error500.aspx" />
+    <Content Include="ErrorApp.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Forgotpassword.aspx" />
     <Content Include="Global.asax" />
@@ -1107,6 +1110,27 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Error404.aspx.cs">
+      <DependentUpon>error404.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Error404.aspx.designer.cs">
+      <DependentUpon>error404.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Error500.aspx.cs">
+      <DependentUpon>Error500.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Error500.aspx.designer.cs">
+      <DependentUpon>Error500.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorApp.aspx.cs">
+      <DependentUpon>ErrorApp.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ErrorApp.aspx.designer.cs">
+      <DependentUpon>ErrorApp.aspx</DependentUpon>
     </Compile>
     <Compile Include="Forgotpassword.aspx.cs">
       <DependentUpon>Forgotpassword.aspx</DependentUpon>

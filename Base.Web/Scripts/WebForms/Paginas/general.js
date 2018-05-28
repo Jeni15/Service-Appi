@@ -1,9 +1,54 @@
+function mostrarMensajeEtiqueta(divMensaje, tipoMensaje, msgEtiqueta) {
+    var alertType = 'alert-warning';
+    var alertIcon = 'fa-check';
+    var alertTitle = 'Info!';
+    var alertHtml = "<div class='alert %TYPE% fade in'><button class='close' data-dismiss='alert'>&#215</button><i class='fa-fw fa %ICON%'></i><strong>%TITLE%</strong> %MENSAJE%</div>";
+
+    $(divMensaje).empty();
+
+    if (tipoMensaje == 'error') {
+        alertType = 'alert-danger';
+        alertIcon = 'fa-times';
+        alertTitle = 'Error!';
+    }
+    else if (tipoMensaje == 'warning') {
+        alertType = 'alert-warning';
+        alertIcon = 'fa-warning';
+        alertTitle = 'Advertencia';
+    }
+    else if (tipoMensaje == 'success') {
+        alertType = 'alert-success';
+        alertIcon = 'fa-check';
+        alertTitle = 'Exito';
+    }
+    else if (tipoMensaje == 'info') {
+        alertType = 'alert-info';
+        alertIcon = 'fa-info';
+        alertTitle = 'Info!';
+    };
+
+    alertHtml = alertHtml.replace("%TYPE%", alertType);
+    alertHtml = alertHtml.replace("%ICON%", alertIcon);
+    alertHtml = alertHtml.replace("%TITLE%", alertTitle);
+    alertHtml = alertHtml.replace("%MENSAJE%", msgEtiqueta);
+
+    $(divMensaje).html(alertHtml).show(0).delay(5000).hide('slow');
+};
+
+function mostrarMensajePopup(msgError) {
+    $.SmartMessageBox({
+        title: '<i class="fa fa-exclamation txt-color-red"></i> Se presento un <span class="txt-color-red"><strong>Error</strong></span>',
+        content: msgError,
+        buttons: '[Aceptar]'
+    });
+};
+
 function mostrarConfirm(tipoMensaje, btnPostback) {
     var titulo = '';
     var mensaje = '';
 
     if (tipoMensaje == 'eliminar') {
-        titulo = 'Eliminando Registro!';
+        titulo = '<i class="fa fa-trash-o txt-color-orangeDark"></i> Eliminando Registro!';
         mensaje = 'Esta seguro que desea eliminar este registro?';
     };
 

@@ -10,6 +10,8 @@ using System.Web.UI.WebControls;
 using System.Data;
 using OfficeOpenXml;
 using System.Web.UI.HtmlControls;
+using System.Web.Script.Serialization;
+using System.Data.SqlClient;
 
 namespace SeedProject.Paginas.Administracion
 {
@@ -25,102 +27,158 @@ namespace SeedProject.Paginas.Administracion
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                BindData();
-            }
+                if (!IsPostBack)
+                {
+                    BindData();
+                }
 
-            this.grvDatos.HeaderRow.TableSection = TableRowSection.TableHeader;
+                this.grvDatos.HeaderRow.TableSection = TableRowSection.TableHeader;
+            }
+            catch (Exception ex)
+            {
+                var message = new JavaScriptSerializer().Serialize(ExceptionService.ConvertirError(ex));
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", string.Format("mostrarMensajeEtiqueta({0},{1},{2});", "'#divMensajeMain'", "'error'", message), true);
+            }
         }
 
         protected void ddlFiltroModelos_SelectedIndexChanged(object sender, EventArgs e)
         {
-            CargarVersiones(this.ddlFiltroVersiones, this.ddlFiltroModelos);
+            try
+            {
+                CargarVersiones(this.ddlFiltroVersiones, this.ddlFiltroModelos);
+            }
+            catch (Exception ex)
+            {
+                var message = new JavaScriptSerializer().Serialize(ExceptionService.ConvertirError(ex));
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", string.Format("mostrarMensajeEtiqueta({0},{1},{2});", "'#divMensajeMain'", "'error'", message), true);
+            }
         }
 
         protected void btnFiltrar_Click(object sender, EventArgs e)
         {
-            CargarSets();
+            try
+            {
+                CargarSets();
+            }
+            catch (Exception ex)
+            {
+                var message = new JavaScriptSerializer().Serialize(ExceptionService.ConvertirError(ex));
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", string.Format("mostrarMensajeEtiqueta({0},{1},{2});", "'#divMensajeMain'", "'error'", message), true);
+            }
         }
 
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
-            this.lblModalTitulo.Text = "Agregar Set";
-            this.hddIdSet.Value = "0";
+            try
+            {
+                this.lblModalTitulo.Text = "Agregar Set";
+                this.hddIdSet.Value = "0";
 
-            LimpiarCampos(false);
+                LimpiarCampos(false);
 
-            ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", "$('#btnAgregarModal').click();", true);
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", "$('#btnAgregarModal').click();", true);
+            }
+            catch (Exception ex)
+            {
+                var message = new JavaScriptSerializer().Serialize(ExceptionService.ConvertirError(ex));
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", string.Format("mostrarMensajeEtiqueta({0},{1},{2});", "'#divMensajeMain'", "'error'", message), true);
+            }
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
-            if (this.hddIdSet.Value != "0")
+            try
             {
-                long idSet = Convert.ToInt64(this.hddIdSet.Value);
-                setFormViewModel.Set = SetService.GetById(Convert.ToInt32(idSet));
-
-                if (setFormViewModel.Set != null)
+                if (this.hddIdSet.Value != "0")
                 {
-                    setFormViewModel.Set = LlenarSet(setFormViewModel.Set);
-                    setFormViewModel.Set.Fecha_UltMod = DateTime.Now;
-                    setFormViewModel.Set.Usuario_UltMod = "iarias";
-                    setFormViewModel.Set.Activa = this.chkActivo.Checked ? "1" : "0";
+                    long idSet = Convert.ToInt64(this.hddIdSet.Value);
+                    setFormViewModel.Set = SetService.GetById(Convert.ToInt32(idSet));
 
-                    SetService.Update(setFormViewModel.Set);
+                    if (setFormViewModel.Set != null)
+                    {
+                        setFormViewModel.Set = LlenarSet(setFormViewModel.Set);
+                        setFormViewModel.Set.Fecha_UltMod = DateTime.Now;
+                        setFormViewModel.Set.Usuario_UltMod = "iarias";
+                        setFormViewModel.Set.Activa = this.chkActivo.Checked ? "1" : "0";
+
+                        SetService.Update(setFormViewModel.Set);
+                    }
                 }
+                else
+                {
+                    setFormViewModel.Set = LlenarSet(new Set());
+                    setFormViewModel.Set.Fecha_Creacion = DateTime.Now;
+                    setFormViewModel.Set.Usuario_Creacion = "iarias";
+                    setFormViewModel.Set.Activa = "1";
+
+                    setFormViewModel.Set.Fecha_UltMod = DateTime.Now; //TMP
+                    setFormViewModel.Set.Usuario_UltMod = "iarias"; //TMP
+
+                    SetService.Create(setFormViewModel.Set);
+                }
+
+                CargarSets();
+
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", "$('#btnCerrarModal').click();", true);
             }
-            else
+            catch(Exception ex)
             {
-                setFormViewModel.Set = LlenarSet(new Set());
-                setFormViewModel.Set.Fecha_Creacion = DateTime.Now;
-                setFormViewModel.Set.Usuario_Creacion = "iarias";
-                setFormViewModel.Set.Activa = "1";
-
-                setFormViewModel.Set.Fecha_UltMod = DateTime.Now; //TMP
-                setFormViewModel.Set.Usuario_UltMod = "iarias"; //TMP
-                
-                SetService.Create(setFormViewModel.Set);
+                var message = new JavaScriptSerializer().Serialize(ExceptionService.ConvertirError(ex));
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", string.Format("mostrarMensajeEtiqueta({0},{1},{2});", "'#divMensajeModal'", "'error'", message), true);
             }
-
-            CargarSets();
-
-            ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", "$('#btnCerrarModal').click();", true);
         }
 
         protected void grvDatos_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            this.hddIdSet.Value = e.CommandArgument.ToString();
-
-            if (e.CommandName == "EditarSet")
+            try
             {
-                this.lblModalTitulo.Text = "Editar Set";
+                this.hddIdSet.Value = e.CommandArgument.ToString();
+
+                if (e.CommandName == "EditarSet")
+                {
+                    this.lblModalTitulo.Text = "Editar Set";
                 
-                LimpiarCampos(true);
-                CargarSet(Convert.ToInt64(this.hddIdSet.Value));
+                    LimpiarCampos(true);
+                    CargarSet(Convert.ToInt64(this.hddIdSet.Value));
 
-                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", "$('#btnAgregarModal').click();", true);
+                    ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", "$('#btnAgregarModal').click();", true);
+                }
+                else if (e.CommandName == "EliminarSet")
+                {
+                    ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", "mostrarConfirm('eliminar', '#" + this.btnEliminar.ClientID + "');", true);
+                }
             }
-            else if (e.CommandName == "EliminarSet")
+            catch (Exception ex)
             {
-                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", "mostrarConfirm('eliminar', '#" + this.btnEliminar.ClientID + "');", true);
+                var message = new JavaScriptSerializer().Serialize(ExceptionService.ConvertirError(ex));
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", string.Format("mostrarMensajeEtiqueta({0},{1},{2});", "'#divMensajeMain'", "'error'", message), true);
             }
         }
 
         protected void btnEliminar_Click(object sender, EventArgs e)
         {
-            if (this.hddIdSet.Value != "0")
+            try
             {
-                long idSet = Convert.ToInt64(this.hddIdSet.Value);
+                if (this.hddIdSet.Value != "0")
+                {
+                    long idSet = Convert.ToInt64(this.hddIdSet.Value);
 
-                setFormViewModel.Set = new Set();
-                setFormViewModel.Set.IDSet = idSet;
-                setFormViewModel.Set.Fecha_UltMod = DateTime.Now;
-                setFormViewModel.Set.Usuario_UltMod = "iarias";
+                    setFormViewModel.Set = new Set();
+                    setFormViewModel.Set.IDSet = idSet;
+                    setFormViewModel.Set.Fecha_UltMod = DateTime.Now;
+                    setFormViewModel.Set.Usuario_UltMod = "iarias";
 
-                SetService.Delete(setFormViewModel.Set);
+                    SetService.Delete(setFormViewModel.Set);
 
-                CargarSets();
+                    CargarSets();
+                }
+            }
+            catch (Exception ex)
+            {
+                var message = new JavaScriptSerializer().Serialize(ExceptionService.ConvertirError(ex));
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", string.Format("mostrarMensajeEtiqueta({0},{1},{2});", "'#divMensajeMain'", "'error'", message), true);
             }
         }
 
@@ -128,79 +186,143 @@ namespace SeedProject.Paginas.Administracion
         {
             this.pnlDatos.Visible = false;
             this.pnlCargueMasivo.Visible = true;
+
+            this.grvCargueMasivo.DataSource = new List<string>();
+            this.grvCargueMasivo.DataBind();
         }
 
         protected void btnExportar_Click(object sender, EventArgs e)
         {
-            this.pnlDatos.Visible = false;
-            this.pnlExportar.Visible = true;
+            try
+            {
+                this.pnlDatos.Visible = false;
+                this.pnlExportar.Visible = true;
 
-            setFormViewModel.Sets = SetService.GetAll().ToList();
+                setFormViewModel.Sets = SetService.GetAll().ToList();
 
-            this.grvExportar.DataSource = setFormViewModel.Sets;
-            this.grvExportar.DataBind();
+                this.grvExportar.DataSource = setFormViewModel.Sets;
+                this.grvExportar.DataBind();
+            }
+            catch (Exception ex)
+            {
+                var message = new JavaScriptSerializer().Serialize(ExceptionService.ConvertirError(ex));
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", string.Format("mostrarMensajeEtiqueta({0},{1},{2});", "'#divMensajeMain'", "'error'", message), true);
+            }
         }
 
         protected void btnCargueMasivoCargar_Click(object sender, EventArgs e)
         {
-            foreach (GridViewRow item in this.grvCargueMasivo.Rows)
+            try
             {
-                CheckBox chkActivo = (CheckBox)item.FindControl("chkActivo");
-                HtmlGenericControl spnEstado = (HtmlGenericControl)item.FindControl("spnEstado");
-                Label lblEstado = (Label)item.FindControl("lblEstado");
+                Exception errorCargue = null;
+                bool esMarcado = false;
 
-                if (chkActivo.Checked)
+                foreach (GridViewRow item in this.grvCargueMasivo.Rows)
                 {
-                    try
+                    CheckBox chkActivo = (CheckBox)item.FindControl("chkActivo");
+                    HtmlGenericControl spnEstado = (HtmlGenericControl)item.FindControl("spnEstado");
+                    Label lblEstado = (Label)item.FindControl("lblEstado");
+                    
+                    if (chkActivo.Checked)
                     {
-                        setFormViewModel.Set = new Set();
-                        setFormViewModel.Set.Nombre = HttpUtility.HtmlDecode(item.Cells[0].Text);
-                        setFormViewModel.Set.Descripcion = item.Cells[1] != null ? HttpUtility.HtmlDecode(item.Cells[1].Text) : null;
-                        setFormViewModel.Set.AliasGAMS = item.Cells[2] != null ? HttpUtility.HtmlDecode(item.Cells[2].Text) : null;
-                        setFormViewModel.Set.Fecha_Creacion = DateTime.Now;
-                        setFormViewModel.Set.Usuario_Creacion = "iarias";
-                        setFormViewModel.Set.Activa = "1";
+                        esMarcado = true;
 
-                        setFormViewModel.Set.Fecha_UltMod = DateTime.Now; //TMP
-                        setFormViewModel.Set.Usuario_UltMod = "iarias"; //TMP
+                        try
+                        {
+                            setFormViewModel.Set = new Set();
+                            setFormViewModel.Set.Nombre = HttpUtility.HtmlDecode(item.Cells[0].Text);
+                            setFormViewModel.Set.Descripcion = item.Cells[1] != null ? HttpUtility.HtmlDecode(item.Cells[1].Text) : null;
+                            setFormViewModel.Set.AliasGAMS = item.Cells[2] != null ? HttpUtility.HtmlDecode(item.Cells[2].Text) : null;
+                            setFormViewModel.Set.Fecha_Creacion = DateTime.Now;
+                            setFormViewModel.Set.Usuario_Creacion = "iarias";
+                            setFormViewModel.Set.Activa = "1";
 
-                        SetService.Create(setFormViewModel.Set);
+                            setFormViewModel.Set.Fecha_UltMod = DateTime.Now; //TMP
+                            setFormViewModel.Set.Usuario_UltMod = "iarias"; //TMP
 
-                        spnEstado.Attributes["class"] = "label label-success";
-                        lblEstado.Text = "Cargado";
+                            SetService.Create(setFormViewModel.Set);
+
+                            spnEstado.Attributes["class"] = "label label-success";
+                            lblEstado.Text = "Cargado";
+                        }
+                        catch (Exception ex)
+                        {
+                            errorCargue = ex;
+                            spnEstado.Attributes["class"] = "label label-danger";
+                            lblEstado.Text = "Error";
+                        }
                     }
-                    catch (Exception)
+                    else
                     {
-                        spnEstado.Attributes["class"] = "label label-danger";
-                        lblEstado.Text = "Error";
+                        spnEstado.Attributes["class"] = "label label-warning";
+                        lblEstado.Text = "Espera";
                     }
                 }
+
+                if (errorCargue != null)
+                {
+                    throw errorCargue;
+                }
+
+                if (!esMarcado)
+                {
+                    throw new Exception("No se ha seleccionado ningun registro.");
+                }
+            }
+            catch (Exception ex)
+            {
+                var message = new JavaScriptSerializer().Serialize(ExceptionService.ConvertirError(ex));
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", string.Format("mostrarMensajeEtiqueta({0},{1},{2});", "'#divMensajeMain'", "'error'", message), true);
             }
         }
 
         protected void btnCargueMasivoCerrar_Click(object sender, EventArgs e)
         {
-            this.pnlDatos.Visible = true;
-            this.pnlCargueMasivo.Visible = false;
+            try
+            {
+                this.pnlDatos.Visible = true;
+                this.pnlCargueMasivo.Visible = false;
 
-            CargarSets();
+                CargarSets();
+            }
+            catch (Exception ex)
+            {
+                var message = new JavaScriptSerializer().Serialize(ExceptionService.ConvertirError(ex));
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", string.Format("mostrarMensajeEtiqueta({0},{1},{2});", "'#divMensajeMain'", "'error'", message), true);
+            }
         }
 
         protected void btnCargarArchivo_Click(object sender, EventArgs e)
         {
-            if (this.upfArchivo.PostedFile != null
-                && (Path.GetExtension(this.upfArchivo.PostedFile.FileName) == ".xlsx"
-                    || Path.GetExtension(this.upfArchivo.PostedFile.FileName) == ".xls"))
+            try
             {
-                CargarSetsExcel();
+                if (this.upfArchivo.PostedFile != null
+                    && (Path.GetExtension(this.upfArchivo.PostedFile.FileName) == ".xlsx"
+                        || Path.GetExtension(this.upfArchivo.PostedFile.FileName) == ".xls"))
+                {
+                    CargarSetsExcel();
+                }
+            }
+            catch (Exception ex)
+            {
+                var message = new JavaScriptSerializer().Serialize(ExceptionService.ConvertirError(ex));
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", string.Format("mostrarMensajeEtiqueta({0},{1},{2});", "'#divMensajeMain'", "'error'", message), true);
             }
         }
 
         protected void btnExportarDescargar_Click(object sender, EventArgs e)
         {
-            if (this.txtNombreArchivo.Text.Trim() != "")
+            try
             {
-                GenerarExcel();
+                if (this.txtNombreArchivo.Text.Trim() != "")
+                {
+                    GenerarExcel();
+                }
+            }
+            catch (Exception ex)
+            {
+                var message = new JavaScriptSerializer().Serialize(ExceptionService.ConvertirError(ex));
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", string.Format("mostrarMensajeEtiqueta({0},{1},{2});", "'#divMensajeMain'", "'error'", message), true);
             }
         }
 
@@ -215,9 +337,6 @@ namespace SeedProject.Paginas.Administracion
             CargarSets();
             CargarModelos();
             CargarVersiones(this.ddlFiltroVersiones, this.ddlFiltroModelos);
-
-            this.grvCargueMasivo.DataSource = new List<string>();
-            this.grvCargueMasivo.DataBind();
         }
 
         private void CargarSets()
@@ -324,22 +443,21 @@ namespace SeedProject.Paginas.Administracion
                 setFormViewModel.Sets.Add(setFormViewModel.Set);
             }
 
+            this.grvCargueMasivo.DataSource = setFormViewModel.Sets;
+            this.grvCargueMasivo.DataBind();
+
             if (setFormViewModel.Sets.Count > 0)
             {
-                this.pnlMensajeCargueMasivo.Visible = false;
                 this.btnCargueMasivoCargar.CssClass = "btn-sm btn btn-primary";
                 this.btnCargueMasivoCargar.Enabled = true;
             }
             else
             {
-                this.pnlMensajeCargueMasivo.Visible = true;
                 this.btnCargueMasivoCargar.CssClass = "btn-sm btn btn-primary disabled";
                 this.btnCargueMasivoCargar.Enabled = false;
-            }
-            
 
-            this.grvCargueMasivo.DataSource = setFormViewModel.Sets;
-            this.grvCargueMasivo.DataBind();
+                throw new Exception("El archivo seleccionado no tiene una estructura valida.");
+            }
         }
 
         private void GenerarExcel()
