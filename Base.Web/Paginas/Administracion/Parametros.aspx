@@ -19,6 +19,8 @@
     <section id="widget-grid" class="">
 	    <!-- START ROW -->
 	    <div class="row">
+            <div id="divMensajeMain"></div>
+
 		    <!-- NEW COL START -->
             <asp:UpdatePanel ID="updDatos" runat="server" UpdateMode="Always">
                 <ContentTemplate>
@@ -252,7 +254,7 @@
                                                                 <ContentTemplate>
                                                                     <!-- widget content -->
 					                                                <div class="widget-body no-padding">
-                                                                        <asp:GridView ID="grvCargueMasivo" runat="server" AutoGenerateColumns="false" ShowHeaderWhenEmpty="true" CssClass="table table-striped table-bordered" OnRowCommand="grvDatos_RowCommand" EmptyDataText="No se han cargado registros">
+                                                                        <asp:GridView ID="grvCargueMasivo" runat="server" AutoGenerateColumns="false" ShowHeaderWhenEmpty="true" CssClass="table table-striped table-bordered" OnRowCommand="grvDatos_RowCommand">
                                                                             <Columns>
                                                                                 <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
                                                                                 <asp:BoundField DataField="Descripcion" HeaderText="Descripción" />
@@ -355,7 +357,7 @@
                                                                 <ContentTemplate>
                                                                     <!-- widget content -->
 					                                                <div class="widget-body no-padding">
-                                                                        <asp:GridView ID="grvExportar" runat="server" AutoGenerateColumns="false" ShowHeaderWhenEmpty="true" CssClass="table table-striped table-bordered" OnRowCommand="grvDatos_RowCommand" EmptyDataText="No se han cargado registros">
+                                                                        <asp:GridView ID="grvExportar" runat="server" AutoGenerateColumns="false" ShowHeaderWhenEmpty="true" CssClass="table table-striped table-bordered" OnRowCommand="grvDatos_RowCommand">
                                                                             <Columns>
                                                                                 <asp:BoundField DataField="IDParameter" HeaderText="Id" />
                                                                                 <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
@@ -443,6 +445,8 @@
 			    <div class="modal-body no-padding">
                     <asp:UpdatePanel ID="updModalContenido" runat="server" UpdateMode="Always" ChildrenAsTriggers="true">
                         <ContentTemplate>
+                            <div id="divMensajeModal"></div>
+
                             <div id="frmMain" class="smart-form form">
 						        <fieldset>
                                     <asp:Panel ID="pnlIdParametro" runat="server">
@@ -506,7 +510,7 @@
                                         <div id="divDimensionControles" style="display:none;">
                                             <section>
                                                 <div class="row">
-                                                    <label id="lblDimension" class="label col col-3">Dimension</label>
+                                                    <label id="lblDimension" class="label col col-3">Dimensión</label>
                                                     <div class="col col-9">
                                                         <label id="lblSelectDimension" class="select" runat="server">
                                                             <asp:DropDownList ID="ddlDimension" runat="server" onchange="ddlDimensionOnChange();"></asp:DropDownList>
@@ -570,6 +574,9 @@
                     '</asp:LinkButton>' +
                 '</div>');
 
+            iniDataTableRead($("#<%=grvCargueMasivo.ClientID%>"));
+            iniDataTableRead($("#<%=grvExportar.ClientID%>"));
+
             $("#<%=upfArchivo.ClientID%>").on('change', function () {
                 $("#<%=btnCargarArchivo.ClientID%>").click();
             });
@@ -585,7 +592,7 @@
         };
 
         function ddlDimensionOnChange() {
-            
+            guardarDimensionesValores($("#<%=hddDimensionVals.ClientID%>"));
         };
 
         function onEachRequest(sender, args) {

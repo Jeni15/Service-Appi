@@ -58,13 +58,13 @@ function establecerDimensionesControles(txtDimension, hddDimensionVals) {
 
         for (i = 0; i < numDimensiones; i++) {
             var divDimensionControles = $("#divDimensionControles").clone().show();
-            var lblDimension = divDimensionControles.find("label[id=lblDimension]").text("Dimensión " + (i + 1));
+            divDimensionControles.find("label[id=lblDimension]").text(divDimensionControles.find("label[id=lblDimension]").text() + ' ' + (i + 1));
 
             if (dimensionVals.length == 0) {
                 dimensionVals.push('0');
             }
             else {
-                var ddlDimensiones = divDimensionControles.find("select").val(dimensionVals[i]);
+                divDimensionControles.find("select").val(dimensionVals[i]);
             };
 
             divDimensionControles.appendTo($("#divDimensiones"));
@@ -72,4 +72,16 @@ function establecerDimensionesControles(txtDimension, hddDimensionVals) {
 
         hddDimensionVals.val(dimensionVals);
     };
+};
+
+function guardarDimensionesValores(hddDimensionVals) {
+    var ddlDimensiones = $("#divDimensiones").find("select");
+    var dimensionVals = '';
+
+    $.each(ddlDimensiones, function (i, item) {
+        dimensionVals = dimensionVals + $(item).val() + ',';
+    });
+
+    dimensionVals = dimensionVals.slice(0, -1);
+    $(hddDimensionVals).val(dimensionVals);
 };

@@ -242,7 +242,7 @@
                                                                 <ContentTemplate>
                                                                     <!-- widget content -->
 					                                                <div class="widget-body no-padding">
-                                                                        <asp:GridView ID="grvCargueMasivo" runat="server" AutoGenerateColumns="false" ShowHeaderWhenEmpty="true" CssClass="table table-striped table-bordered" OnRowCommand="grvDatos_RowCommand" EmptyDataText="No se han cargado registros">
+                                                                        <asp:GridView ID="grvCargueMasivo" runat="server" AutoGenerateColumns="false" ShowHeaderWhenEmpty="true" CssClass="table table-striped table-bordered" OnRowCommand="grvDatos_RowCommand">
                                                                             <Columns>
                                                                                 <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
                                                                                 <asp:BoundField DataField="Descripcion" HeaderText="Descripción" />
@@ -532,6 +532,9 @@
                         'Agregar' +
                     '</asp:LinkButton>' +
                 '</div>');
+
+            iniDataTableRead($("#<%=grvCargueMasivo.ClientID%>"));
+            iniDataTableRead($("#<%=grvExportar.ClientID%>"));
 
             $("#<%=upfArchivo.ClientID%>").on('change', function () {
                 $("#<%=btnCargarArchivo.ClientID%>").click();

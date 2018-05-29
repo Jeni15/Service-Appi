@@ -8,6 +8,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Script.Serialization;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
@@ -28,108 +29,169 @@ namespace SeedProject.Paginas.Administracion
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                BindData();
-            }
+                if (!IsPostBack)
+                {
+                    BindData();
+                }
 
-            this.grvDatos.HeaderRow.TableSection = TableRowSection.TableHeader;
+                this.grvDatos.HeaderRow.TableSection = TableRowSection.TableHeader;
+                this.grvCargueMasivo.HeaderRow.TableSection = TableRowSection.TableHeader;
+                this.grvExportar.HeaderRow.TableSection = TableRowSection.TableHeader;
+            }
+            catch (Exception ex)
+            {
+                var message = new JavaScriptSerializer().Serialize(ExceptionService.ConvertirError(ex));
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", string.Format("mostrarMensajeEtiqueta({0},{1},{2});", "'#divMensajeMain'", "'error'", message), true);
+            }
         }
 
         protected void ddlFiltroModelos_SelectedIndexChanged(object sender, EventArgs e)
         {
-            CargarVersiones(this.ddlFiltroVersiones, this.ddlFiltroModelos);
+            try
+            {
+                CargarVersiones(this.ddlFiltroVersiones, this.ddlFiltroModelos);
+            }
+            catch (Exception ex)
+            {
+                var message = new JavaScriptSerializer().Serialize(ExceptionService.ConvertirError(ex));
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", string.Format("mostrarMensajeEtiqueta({0},{1},{2});", "'#divMensajeMain'", "'error'", message), true);
+            }
         }
 
         protected void btnFiltrar_Click(object sender, EventArgs e)
         {
-            CargarParametros();
+            try
+            {
+                CargarParametros();
+            }
+            catch (Exception ex)
+            {
+                var message = new JavaScriptSerializer().Serialize(ExceptionService.ConvertirError(ex));
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", string.Format("mostrarMensajeEtiqueta({0},{1},{2});", "'#divMensajeMain'", "'error'", message), true);
+            }
         }
 
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
-            this.lblModalTitulo.Text = "Agregar Parametro";
-            this.hddIdParametro.Value = "0";
-            this.hddDimensionVals.Value = "";
+            try
+            {
+                this.lblModalTitulo.Text = "Agregar Parametro";
+                this.hddIdParametro.Value = "0";
+                this.hddDimensionVals.Value = "";
 
-            LimpiarCampos(false);
+                LimpiarCampos(false);
 
-            ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", "$('#btnAgregarModal').click();", true);
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", "$('#btnAgregarModal').click();", true);
+            }
+            catch (Exception ex)
+            {
+                var message = new JavaScriptSerializer().Serialize(ExceptionService.ConvertirError(ex));
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", string.Format("mostrarMensajeEtiqueta({0},{1},{2});", "'#divMensajeMain'", "'error'", message), true);
+            }
         }
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
-            if (this.hddIdParametro.Value != "0")
+            try
             {
-                long idParametro = Convert.ToInt64(this.hddIdParametro.Value);
-                parametroFormViewModel.Parametro = ParametroService.GetById(Convert.ToInt32(idParametro));
-
-                if (parametroFormViewModel.Parametro != null)
+                if (this.hddIdParametro.Value != "0")
                 {
-                    parametroFormViewModel.Parametro = LlenarParameter(parametroFormViewModel.Parametro);
-                    parametroFormViewModel.Parametro.Fecha_UltMod = DateTime.Now;
-                    parametroFormViewModel.Parametro.Usuario_UltMod = "iarias";
-                    parametroFormViewModel.Parametro.Activa = this.chkActivo.Checked ? "1" : "0";
+                    long idParametro = Convert.ToInt64(this.hddIdParametro.Value);
+                    parametroFormViewModel.Parametro = ParametroService.GetById(Convert.ToInt32(idParametro));
 
-                    ParametroService.Update(parametroFormViewModel.Parametro);
+                    if (parametroFormViewModel.Parametro != null)
+                    {
+                        parametroFormViewModel.Parametro = LlenarParameter(parametroFormViewModel.Parametro);
+                        parametroFormViewModel.Parametro.Fecha_UltMod = DateTime.Now;
+                        parametroFormViewModel.Parametro.Usuario_UltMod = "iarias";
+                        parametroFormViewModel.Parametro.Activa = this.chkActivo.Checked ? "1" : "0";
+
+                        ParametroService.Update(parametroFormViewModel.Parametro);
+                    }
                 }
+                else
+                {
+                    parametroFormViewModel.Parametro = LlenarParameter(new Parametro());
+                    parametroFormViewModel.Parametro.Cantidad_Dimensiones = Convert.ToInt64(this.txtDimension.Text) > 10 ? 10 : Convert.ToInt64(this.txtDimension.Text);
+                    parametroFormViewModel.Parametro.Dimension = this.hddDimensionVals.Value;
+                    parametroFormViewModel.Parametro.Fecha_Creacion = DateTime.Now;
+                    parametroFormViewModel.Parametro.Usuario_Creacion = "iarias";
+                    parametroFormViewModel.Parametro.Activa = "1";
+
+                    parametroFormViewModel.Parametro.IdUOM = 1; //TMP
+                    parametroFormViewModel.Parametro.Entrada_Manual = ""; //TMP
+                    parametroFormViewModel.Parametro.Resultado = "S"; //TMP
+                    parametroFormViewModel.Parametro.Fecha_UltMod = DateTime.Now; //TMP
+                    parametroFormViewModel.Parametro.Usuario_UltMod = "iarias"; //TMP
+
+                    ParametroService.Create(parametroFormViewModel.Parametro);
+                }
+
+                CargarParametros();
+
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "CloseModal", "$('#btnCerrarModal').click();", true);
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", string.Format("mostrarMensajeEtiqueta({0},{1},{2});", "'#divMensajeMain'", "'success'", "'Registro guardado con exito!'"), true);
             }
-            else
+            catch (Exception ex)
             {
-                parametroFormViewModel.Parametro = LlenarParameter(new Parametro());
-                parametroFormViewModel.Parametro.Cantidad_Dimensiones = Convert.ToInt64(this.txtDimension.Text) > 10 ? 10 : Convert.ToInt64(this.txtDimension.Text);
-                parametroFormViewModel.Parametro.Dimension = this.hddDimensionVals.Value;
-                parametroFormViewModel.Parametro.Fecha_Creacion = DateTime.Now;
-                parametroFormViewModel.Parametro.Usuario_Creacion = "iarias";
-                parametroFormViewModel.Parametro.Activa = "1";
-
-                parametroFormViewModel.Parametro.IdUOM = 1; //TMP
-                parametroFormViewModel.Parametro.Entrada_Manual = ""; //TMP
-                parametroFormViewModel.Parametro.Resultado = "S"; //TMP
-                parametroFormViewModel.Parametro.Fecha_UltMod = DateTime.Now; //TMP
-                parametroFormViewModel.Parametro.Usuario_UltMod = "iarias"; //TMP
-
-                ParametroService.Create(parametroFormViewModel.Parametro);
+                var message = new JavaScriptSerializer().Serialize(ExceptionService.ConvertirError(ex));
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", string.Format("mostrarMensajeEtiqueta({0},{1},{2});", "'#divMensajeModal'", "'error'", message), true);
             }
-
-            CargarParametros();
-
-            ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", "$('#btnCerrarModal').click();", true);
         }
 
         protected void grvDatos_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            this.hddIdParametro.Value = e.CommandArgument.ToString();
-
-            if (e.CommandName == "EditarParametro")
+            try
             {
-                this.lblModalTitulo.Text = "Editar Parametro";
+                this.hddIdParametro.Value = e.CommandArgument.ToString();
 
-                LimpiarCampos(true);
-                CargarParametro(Convert.ToInt64(this.hddIdParametro.Value));
+                if (e.CommandName == "EditarParametro")
+                {
+                    this.lblModalTitulo.Text = "Editar Parametro";
 
-                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", "$('#btnAgregarModal').click();txtDimensionOnKeyPress();", true);
+                    LimpiarCampos(true);
+                    CargarParametro(Convert.ToInt64(this.hddIdParametro.Value));
+
+                    ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", "$('#btnAgregarModal').click();txtDimensionOnKeyPress();", true);
+                }
+                else if (e.CommandName == "EliminarParametro")
+                {
+                    ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", "mostrarConfirm('eliminar', '#" + this.btnEliminar.ClientID + "');", true);
+                }
             }
-            else if (e.CommandName == "EliminarParametro")
+            catch (Exception ex)
             {
-                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", "mostrarConfirm('eliminar', '#" + this.btnEliminar.ClientID + "');", true);
+                var message = new JavaScriptSerializer().Serialize(ExceptionService.ConvertirError(ex));
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", string.Format("mostrarMensajeEtiqueta({0},{1},{2});", "'#divMensajeMain'", "'error'", message), true);
             }
         }
 
         protected void btnEliminar_Click(object sender, EventArgs e)
         {
-            if (this.hddIdParametro.Value != "0")
+            try
             {
-                long idParametro = Convert.ToInt64(this.hddIdParametro.Value);
+                if (this.hddIdParametro.Value != "0")
+                {
+                    long idParametro = Convert.ToInt64(this.hddIdParametro.Value);
 
-                parametroFormViewModel.Parametro = new Parametro();
-                parametroFormViewModel.Parametro.IDParameter = idParametro;
-                parametroFormViewModel.Parametro.Fecha_UltMod = DateTime.Now;
-                parametroFormViewModel.Parametro.Usuario_UltMod = "iarias";
+                    parametroFormViewModel.Parametro = new Parametro();
+                    parametroFormViewModel.Parametro.IDParameter = idParametro;
+                    parametroFormViewModel.Parametro.Fecha_UltMod = DateTime.Now;
+                    parametroFormViewModel.Parametro.Usuario_UltMod = "iarias";
 
-                ParametroService.Delete(parametroFormViewModel.Parametro);
+                    ParametroService.Delete(parametroFormViewModel.Parametro);
 
-                CargarParametros();
+                    CargarParametros();
+
+                    ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", string.Format("mostrarMensajeEtiqueta({0},{1},{2});", "'#divMensajeMain'", "'success'", "'Registro eliminado con exito!'"), true);
+                }
+            }
+            catch (Exception ex)
+            {
+                var message = new JavaScriptSerializer().Serialize(ExceptionService.ConvertirError(ex));
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", string.Format("mostrarMensajeEtiqueta({0},{1},{2});", "'#divMensajeMain'", "'error'", message), true);
             }
         }
 
@@ -137,84 +199,147 @@ namespace SeedProject.Paginas.Administracion
         {
             this.pnlDatos.Visible = false;
             this.pnlCargueMasivo.Visible = true;
+
+            this.grvCargueMasivo.DataSource = new List<string>();
+            this.grvCargueMasivo.DataBind();
+            this.grvCargueMasivo.HeaderRow.TableSection = TableRowSection.TableHeader;
         }
 
         protected void btnExportar_Click(object sender, EventArgs e)
         {
-            this.pnlDatos.Visible = false;
-            this.pnlExportar.Visible = true;
+            try
+            {
+                this.pnlDatos.Visible = false;
+                this.pnlExportar.Visible = true;
 
-            parametroFormViewModel.Parametros = ParametroService.GetAll().ToList();
+                parametroFormViewModel.Parametros = ParametroService.GetAll().ToList();
 
-            this.grvExportar.DataSource = parametroFormViewModel.Parametros;
-            this.grvExportar.DataBind();
+                this.grvExportar.DataSource = parametroFormViewModel.Parametros;
+                this.grvExportar.DataBind();
+                this.grvExportar.HeaderRow.TableSection = TableRowSection.TableHeader;
+            }
+            catch (Exception ex)
+            {
+                var message = new JavaScriptSerializer().Serialize(ExceptionService.ConvertirError(ex));
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", string.Format("mostrarMensajeEtiqueta({0},{1},{2});", "'#divMensajeMain'", "'error'", message), true);
+            }
         }
 
         protected void btnCargueMasivoCargar_Click(object sender, EventArgs e)
         {
-            foreach (GridViewRow item in this.grvCargueMasivo.Rows)
+            try
             {
-                CheckBox chkActivo = (CheckBox)item.FindControl("chkActivo");
-                HtmlGenericControl spnEstado = (HtmlGenericControl)item.FindControl("spnEstado");
-                Label lblEstado = (Label)item.FindControl("lblEstado");
+                Exception errorCargue = null;
+                bool esMarcado = false;
 
-                if (chkActivo.Checked)
+                foreach (GridViewRow item in this.grvCargueMasivo.Rows)
                 {
-                    try
-                    {
-                        parametroFormViewModel.Parametro = new Parametro();
-                        parametroFormViewModel.Parametro.Nombre = item.Cells[0].Text;
-                        parametroFormViewModel.Parametro.Descripcion = item.Cells[1] != null ? item.Cells[1].Text : null;
-                        parametroFormViewModel.Parametro.AliasGAMS = item.Cells[2] != null ? item.Cells[2].Text : null;
-                        parametroFormViewModel.Parametro.Fecha_Creacion = DateTime.Now;
-                        parametroFormViewModel.Parametro.Usuario_Creacion = "iarias";
-                        parametroFormViewModel.Parametro.Activa = "1";
+                    CheckBox chkActivo = (CheckBox)item.FindControl("chkActivo");
+                    HtmlGenericControl spnEstado = (HtmlGenericControl)item.FindControl("spnEstado");
+                    Label lblEstado = (Label)item.FindControl("lblEstado");
 
-                        parametroFormViewModel.Parametro.Cantidad_Dimensiones = 0; //TMP
-                        parametroFormViewModel.Parametro.Dimension = ""; //TMP
-                        parametroFormViewModel.Parametro.IdUOM = 1; //TMP
-                        parametroFormViewModel.Parametro.Entrada_Manual = ""; //TMP
-                        parametroFormViewModel.Parametro.Resultado = "S"; //TMP
-                        parametroFormViewModel.Parametro.Fecha_UltMod = DateTime.Now; //TMP
-                        parametroFormViewModel.Parametro.Usuario_UltMod = "iarias"; //TMP
+                    if (chkActivo.Checked)
+                    {
+                        try
+                        {
+                            parametroFormViewModel.Parametro = new Parametro();
+                            parametroFormViewModel.Parametro.Nombre = item.Cells[0].Text;
+                            parametroFormViewModel.Parametro.Descripcion = item.Cells[1] != null ? item.Cells[1].Text : null;
+                            parametroFormViewModel.Parametro.AliasGAMS = item.Cells[2] != null ? item.Cells[2].Text : null;
+                            parametroFormViewModel.Parametro.Fecha_Creacion = DateTime.Now;
+                            parametroFormViewModel.Parametro.Usuario_Creacion = "iarias";
+                            parametroFormViewModel.Parametro.Activa = "1";
+
+                            parametroFormViewModel.Parametro.Cantidad_Dimensiones = 0; //TMP
+                            parametroFormViewModel.Parametro.Dimension = ""; //TMP
+                            parametroFormViewModel.Parametro.IdUOM = 1; //TMP
+                            parametroFormViewModel.Parametro.Entrada_Manual = ""; //TMP
+                            parametroFormViewModel.Parametro.Resultado = "S"; //TMP
+                            parametroFormViewModel.Parametro.Fecha_UltMod = DateTime.Now; //TMP
+                            parametroFormViewModel.Parametro.Usuario_UltMod = "iarias"; //TMP
                         
-                        ParametroService.Create(parametroFormViewModel.Parametro);
+                            ParametroService.Create(parametroFormViewModel.Parametro);
 
-                        spnEstado.Attributes["class"] = "label label-success";
-                        lblEstado.Text = "Cargado";
-                    }
-                    catch (Exception ex)
-                    {
-                        spnEstado.Attributes["class"] = "label label-danger";
-                        lblEstado.Text = "Error";
+                            spnEstado.Attributes["class"] = "label label-success";
+                            lblEstado.Text = "Cargado";
+                        }
+                        catch (Exception ex)
+                        {
+                            errorCargue = ex;
+                            spnEstado.Attributes["class"] = "label label-danger";
+                            lblEstado.Text = "Error";
+                        }
                     }
                 }
+
+                if (errorCargue != null)
+                {
+                    throw errorCargue;
+                }
+
+                if (!esMarcado)
+                {
+                    throw new Exception("No se ha seleccionado ningun registro.");
+                }
+
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", string.Format("mostrarMensajeEtiqueta({0},{1},{2});", "'#divMensajeMain'", "'success'", "'Cargue realizado con exito!'"), true);
+            }
+            catch (Exception ex)
+            {
+                var message = new JavaScriptSerializer().Serialize(ExceptionService.ConvertirError(ex));
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", string.Format("mostrarMensajeEtiqueta({0},{1},{2});", "'#divMensajeMain'", "'error'", message), true);
             }
         }
 
         protected void btnCargueMasivoCerrar_Click(object sender, EventArgs e)
         {
-            this.pnlDatos.Visible = true;
-            this.pnlCargueMasivo.Visible = false;
+            try
+            {
+                this.pnlDatos.Visible = true;
+                this.pnlCargueMasivo.Visible = false;
 
-            CargarParametros();
+                CargarParametros();
+            }
+            catch (Exception ex)
+            {
+                var message = new JavaScriptSerializer().Serialize(ExceptionService.ConvertirError(ex));
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", string.Format("mostrarMensajeEtiqueta({0},{1},{2});", "'#divMensajeMain'", "'error'", message), true);
+            }
         }
 
         protected void btnCargarArchivo_Click(object sender, EventArgs e)
         {
-            if (this.upfArchivo.PostedFile != null
-                && (Path.GetExtension(this.upfArchivo.PostedFile.FileName) == ".xlsx"
-                    || Path.GetExtension(this.upfArchivo.PostedFile.FileName) == ".xls"))
+            try
             {
-                CargarParametrosExcel();
+                if (this.upfArchivo.PostedFile != null
+                    && (Path.GetExtension(this.upfArchivo.PostedFile.FileName) == ".xlsx"
+                        || Path.GetExtension(this.upfArchivo.PostedFile.FileName) == ".xls"))
+                {
+                    CargarParametrosExcel();
+
+                    ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", string.Format("mostrarMensajeEtiqueta({0},{1},{2});", "'#divMensajeMain'", "'success'", "'Cargue de archivo" + this.upfArchivo.PostedFile.FileName + " exito!'"), true);
+                }
+            }
+            catch (Exception ex)
+            {
+                var message = new JavaScriptSerializer().Serialize(ExceptionService.ConvertirError(ex));
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", string.Format("mostrarMensajeEtiqueta({0},{1},{2});", "'#divMensajeMain'", "'error'", message), true);
             }
         }
 
         protected void btnExportarDescargar_Click(object sender, EventArgs e)
         {
-            if (this.txtNombreArchivo.Text.Trim() != "")
+            try
             {
-                GenerarExcel();
+                if (this.txtNombreArchivo.Text.Trim() != "")
+                {
+                    GenerarExcel();
+                }
+            }
+            catch (Exception ex)
+            {
+                var message = new JavaScriptSerializer().Serialize(ExceptionService.ConvertirError(ex));
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", string.Format("mostrarMensajeEtiqueta({0},{1},{2});", "'#divMensajeMain'", "'error'", message), true);
             }
         }
 
@@ -233,6 +358,9 @@ namespace SeedProject.Paginas.Administracion
 
             this.grvCargueMasivo.DataSource = new List<string>();
             this.grvCargueMasivo.DataBind();
+
+            this.grvExportar.DataSource = new List<string>();
+            this.grvExportar.DataBind();
         }
 
         private void CargarParametros()
@@ -352,22 +480,22 @@ namespace SeedProject.Paginas.Administracion
                 parametroFormViewModel.Parametros.Add(parametroFormViewModel.Parametro);
             }
 
+            this.grvCargueMasivo.DataSource = parametroFormViewModel.Parametros;
+            this.grvCargueMasivo.DataBind();
+            this.grvCargueMasivo.HeaderRow.TableSection = TableRowSection.TableHeader;
+
             if (parametroFormViewModel.Parametros.Count > 0)
             {
-                this.pnlMensajeCargueMasivo.Visible = false;
                 this.btnCargueMasivoCargar.CssClass = "btn-sm btn btn-primary";
                 this.btnCargueMasivoCargar.Enabled = true;
             }
             else
             {
-                this.pnlMensajeCargueMasivo.Visible = true;
                 this.btnCargueMasivoCargar.CssClass = "btn-sm btn btn-primary disabled";
                 this.btnCargueMasivoCargar.Enabled = false;
+
+                throw new Exception("El archivo seleccionado no tiene una estructura valida.");
             }
-
-
-            this.grvCargueMasivo.DataSource = parametroFormViewModel.Parametros;
-            this.grvCargueMasivo.DataBind();
         }
 
         private void GenerarExcel()

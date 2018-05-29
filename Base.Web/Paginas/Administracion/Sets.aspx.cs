@@ -35,6 +35,8 @@ namespace SeedProject.Paginas.Administracion
                 }
 
                 this.grvDatos.HeaderRow.TableSection = TableRowSection.TableHeader;
+                this.grvCargueMasivo.HeaderRow.TableSection = TableRowSection.TableHeader;
+                this.grvExportar.HeaderRow.TableSection = TableRowSection.TableHeader;
             }
             catch (Exception ex)
             {
@@ -121,7 +123,8 @@ namespace SeedProject.Paginas.Administracion
 
                 CargarSets();
 
-                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", "$('#btnCerrarModal').click();", true);
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "CloseModal", "$('#btnCerrarModal').click();", true);
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", string.Format("mostrarMensajeEtiqueta({0},{1},{2});", "'#divMensajeMain'", "'success'", "'Registro guardado con exito!'"), true);
             }
             catch(Exception ex)
             {
@@ -173,6 +176,8 @@ namespace SeedProject.Paginas.Administracion
                     SetService.Delete(setFormViewModel.Set);
 
                     CargarSets();
+
+                    ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", string.Format("mostrarMensajeEtiqueta({0},{1},{2});", "'#divMensajeMain'", "'success'", "'Registro eliminado con exito!'"), true);
                 }
             }
             catch (Exception ex)
@@ -189,6 +194,7 @@ namespace SeedProject.Paginas.Administracion
 
             this.grvCargueMasivo.DataSource = new List<string>();
             this.grvCargueMasivo.DataBind();
+            this.grvCargueMasivo.HeaderRow.TableSection = TableRowSection.TableHeader;
         }
 
         protected void btnExportar_Click(object sender, EventArgs e)
@@ -202,6 +208,7 @@ namespace SeedProject.Paginas.Administracion
 
                 this.grvExportar.DataSource = setFormViewModel.Sets;
                 this.grvExportar.DataBind();
+                this.grvExportar.HeaderRow.TableSection = TableRowSection.TableHeader;
             }
             catch (Exception ex)
             {
@@ -268,6 +275,8 @@ namespace SeedProject.Paginas.Administracion
                 {
                     throw new Exception("No se ha seleccionado ningun registro.");
                 }
+
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", string.Format("mostrarMensajeEtiqueta({0},{1},{2});", "'#divMensajeMain'", "'success'", "'Cargue realizado con exito!'"), true);
             }
             catch (Exception ex)
             {
@@ -301,6 +310,8 @@ namespace SeedProject.Paginas.Administracion
                         || Path.GetExtension(this.upfArchivo.PostedFile.FileName) == ".xls"))
                 {
                     CargarSetsExcel();
+
+                    ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "AlertMessage", string.Format("mostrarMensajeEtiqueta({0},{1},{2});", "'#divMensajeMain'", "'success'", "'Cargue de archivo" + this.upfArchivo.PostedFile.FileName + " exito!'"), true);
                 }
             }
             catch (Exception ex)
@@ -337,6 +348,12 @@ namespace SeedProject.Paginas.Administracion
             CargarSets();
             CargarModelos();
             CargarVersiones(this.ddlFiltroVersiones, this.ddlFiltroModelos);
+
+            this.grvCargueMasivo.DataSource = new List<string>();
+            this.grvCargueMasivo.DataBind();
+
+            this.grvExportar.DataSource = new List<string>();
+            this.grvExportar.DataBind();
         }
 
         private void CargarSets()
@@ -445,6 +462,7 @@ namespace SeedProject.Paginas.Administracion
 
             this.grvCargueMasivo.DataSource = setFormViewModel.Sets;
             this.grvCargueMasivo.DataBind();
+            this.grvCargueMasivo.HeaderRow.TableSection = TableRowSection.TableHeader;
 
             if (setFormViewModel.Sets.Count > 0)
             {
