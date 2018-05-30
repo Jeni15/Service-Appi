@@ -28,6 +28,12 @@ namespace SeedProject
                 return;
             }
 
+            
+            //var token = manager.GeneratePasswordResetToken(user.Id);
+            //var result2 = manager.ResetPassword(user.Id, token, newpassword.Text);
+            //if (!result2.Succeeded)
+            //{ }
+           
             if (!manager.CheckPassword(user, currentpassword.Text))
             {
                 return;
