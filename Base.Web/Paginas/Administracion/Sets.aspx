@@ -3,7 +3,7 @@
 <asp:Content ID="contentBody" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="row">
 	    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
-		    <h1 class="page-title txt-color-blueDark">
+		    <h1 class="page-title txt-color-greenLight">
 			
 			    <!-- PAGE HEADER -->
 			    <i class="fa-fw fa fa-pencil-square-o"></i> 
@@ -19,79 +19,80 @@
     <section id="widget-grid" class="">
 	    <!-- START ROW -->
 	    <div class="row">
+            <div id="divMensajeMain"></div>
+
 		    <!-- NEW COL START -->
             <asp:UpdatePanel ID="updDatos" runat="server" UpdateMode="Always">
                 <ContentTemplate>
                     <asp:Panel ID="pnlDatos" runat="server">
 		                <article class="col-sm-12 col-md-5">
-			            <!-- Widget ID (each widget will need unique ID)-->
-			            <div class="jarviswidget jarviswidget-color-greenLight" id="wid-id-2" data-widget-editbutton="false" data-widget-custombutton="false">
-				            <!-- widget options:
-					            usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+			                <!-- Widget ID (each widget will need unique ID)-->
+			                <div class="jarviswidget jarviswidget-color-greenLight" id="wid-id-2" data-widget-editbutton="false" data-widget-custombutton="false">
+				                <!-- widget options:
+					                usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 					
-					            data-widget-colorbutton="false"	
-					            data-widget-editbutton="false"
-					            data-widget-togglebutton="false"
-					            data-widget-deletebutton="false"
-					            data-widget-fullscreenbutton="false"
-					            data-widget-custombutton="false"
-					            data-widget-collapsed="true" 
-					            data-widget-sortable="false"
+					                data-widget-colorbutton="false"	
+					                data-widget-editbutton="false"
+					                data-widget-togglebutton="false"
+					                data-widget-deletebutton="false"
+					                data-widget-fullscreenbutton="false"
+					                data-widget-custombutton="false"
+					                data-widget-collapsed="true" 
+					                data-widget-sortable="false"
 					
-				            -->
-				            <header>
-					            <span class="widget-icon">
-                                    <i class="fa fa-edit"></i>
-					            </span>
-					            <h2>Filtros</h2>
-				            </header>
+				                -->
+				                <header>
+					                <span class="widget-icon">
+                                        <i class="fa fa-edit"></i>
+					                </span>
+					                <h2>Filtros</h2>
+				                </header>
 
-                            <div>
-					            <!-- widget edit box -->
-					            <div class="jarviswidget-editbox">
-                                    <!-- This area used as dropdown edit box -->
-					            </div>
-					            <!-- end widget edit box -->
+                                <div>
+					                <!-- widget edit box -->
+					                <div class="jarviswidget-editbox">
+                                        <!-- This area used as dropdown edit box -->
+					                </div>
+					                <!-- end widget edit box -->
 					
-					            <!-- widget content -->
-					            <div class="widget-body no-padding">
-                                    <asp:UpdatePanel ID="updFiltros" runat="server" UpdateMode="Always">
-                                        <ContentTemplate>
-                                            <div class="smart-form">
-                                                <fieldset>
-                                                    <div class="row">
-                                                        <section class="col col-10">
-										                    <label class="select">
-                                                                <asp:DropDownList ID="ddlFiltroModelos" name="filtermodels" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlFiltroModelos_SelectedIndexChanged"></asp:DropDownList>
-                                                                <i></i>
-                                                            </label>
-									                    </section>
-                                                    </div>
+					                <!-- widget content -->
+					                <div class="widget-body no-padding">
+                                        <asp:UpdatePanel ID="updFiltros" runat="server" UpdateMode="Always">
+                                            <ContentTemplate>
+                                                <div class="smart-form">
+                                                    <fieldset>
+                                                        <div class="row">
+                                                            <section class="col col-10">
+										                        <label class="select">
+                                                                    <asp:DropDownList ID="ddlFiltroModelos" name="filtermodels" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlFiltroModelos_SelectedIndexChanged"></asp:DropDownList>
+                                                                    <i></i>
+                                                                </label>
+									                        </section>
+                                                        </div>
 
-                                                    <div class="row">
-                                                        <section class="col col-10">
-                                                            <label class="select">
-                                                                <asp:DropDownList ID="ddlFiltroVersiones" name="filtermodelsversions" runat="server"></asp:DropDownList>
-                                                                <i></i>
-                                                            </label>
-                                                        </section>
-                                                    </div>
-                                                </fieldset>
+                                                        <div class="row">
+                                                            <section class="col col-10">
+                                                                <label class="select">
+                                                                    <asp:DropDownList ID="ddlFiltroVersiones" name="filterversions" runat="server"></asp:DropDownList>
+                                                                    <i></i>
+                                                                </label>
+                                                            </section>
+                                                        </div>
+                                                    </fieldset>
 
-                                                <section class="col col-12 pull-right">
-                                                    <asp:LinkButton ID="btnFiltrar" runat="server" CssClass="btn-sm btn btn-primary" OnClick="btnFiltrar_Click">
-                                                        <i class="fa fa-search"></i>
-                                                        Filtrar
-                                                    </asp:LinkButton>
-                                                </section>
-                                            </div>
-                                        </ContentTemplate>
-                                    </asp:UpdatePanel>
+                                                    <section class="col col-12 pull-right">
+                                                        <asp:LinkButton ID="btnFiltrar" runat="server" CssClass="btn-sm btn btn-primary" OnClick="btnFiltrar_Click">
+                                                            <i class="fa fa-search"></i>
+                                                            Filtrar
+                                                        </asp:LinkButton>
+                                                    </section>
+                                                </div>
+                                            </ContentTemplate>
+                                        </asp:UpdatePanel>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-
-                    </article>
+                        </article>
 
                         <article class="col-sm-12 col-md-12">
                             <div class="jarviswidget jarviswidget-color-greenLight" id="wid-id-1" data-widget-editbutton="false">
@@ -125,10 +126,10 @@
 					                </div>
 					                <!-- end widget edit box -->
 
-					                <asp:UpdatePanel ID="updSets" runat="server" UpdateMode="Always" ChildrenAsTriggers="true">
+                                    <!-- widget content -->
+					                <asp:UpdatePanel ID="updGrilla" runat="server" UpdateMode="Always" ChildrenAsTriggers="true">
                                         <ContentTemplate>
-                                            <!-- widget content -->
-					                        <div class="widget-body no-padding">
+                                            <div class="widget-body no-padding">
                                                 <asp:GridView ID="grvDatos" runat="server" AutoGenerateColumns="false" ShowHeaderWhenEmpty="true" CssClass="table table-striped table-bordered" OnRowCommand="grvDatos_RowCommand">
                                                     <Columns>
                                                         <asp:TemplateField HeaderText="">
@@ -140,9 +141,11 @@
                                                                     <i class="fa fa-trash"></i>
                                                                 </asp:LinkButton>
                                                             </ItemTemplate>
+
+                                                            <ItemStyle Width="60px"></ItemStyle>
                                                         </asp:TemplateField>
                                                         <asp:BoundField DataField="IDSet" HeaderText="Id" />
-                                                        <asp:BoundField DataField="Nombre" HeaderText="Parámetro" />
+                                                        <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
                                                         <asp:BoundField DataField="Descripcion" HeaderText="Descripción" />
                                                         <asp:BoundField DataField="AliasGAMS" HeaderText="Alias GAMS" />
                                                         <asp:TemplateField HeaderText="Activo">
@@ -187,97 +190,224 @@
                 </ContentTemplate>
             </asp:UpdatePanel>
 
-            
             <asp:UpdatePanel ID="updCargueMasivo" runat="server" UpdateMode="Always">
                 <ContentTemplate>
                     <asp:Panel ID="pnlCargueMasivo" runat="server" Visible="false">
                         <article class="col-sm-12 col-md-12">
-                    <div class="jarviswidget jarviswidget-color-greenLight" id="wid-id-3" data-widget-editbutton="false">
-				        <!-- widget options:
-				        usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+                            <div class="jarviswidget jarviswidget-color-greenLight" id="wid-id-3" data-widget-editbutton="false">
+				                <!-- widget options:
+				                usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 
-				        data-widget-colorbutton="false"
-				        data-widget-editbutton="false"
-				        data-widget-togglebutton="false"
-				        data-widget-deletebutton="false"
-				        data-widget-fullscreenbutton="false"
-				        data-widget-custombutton="false"
-				        data-widget-collapsed="true"
-				        data-widget-sortable="false"
+				                data-widget-colorbutton="false"
+				                data-widget-editbutton="false"
+				                data-widget-togglebutton="false"
+				                data-widget-deletebutton="false"
+				                data-widget-fullscreenbutton="false"
+				                data-widget-custombutton="false"
+				                data-widget-collapsed="true"
+				                data-widget-sortable="false"
 
-				        -->
-				        <header>
-					        <span class="widget-icon">
-                                <i class="fa fa-table"></i>
-					        </span>
-					        <h2>Cargue Masivos Sets</h2>
-				        </header>
+				                -->
+				                <header>
+					                <span class="widget-icon">
+                                        <i class="fa fa-table"></i>
+					                </span>
+					                <h2>Cargue Masivo Sets</h2>
+				                </header>
 
-				        <!-- widget div-->
-				        <div>
+				                <!-- widget div-->
+				                <div>
 
-					        <!-- widget edit box -->
-					        <div class="jarviswidget-editbox">
-						        <!-- This area used as dropdown edit box -->
+					                <!-- widget edit box -->
+					                <div class="jarviswidget-editbox">
+						                <!-- This area used as dropdown edit box -->
 
-					        </div>
-					        <!-- end widget edit box -->
-
-					        <asp:UpdatePanel ID="updModalContenidoCargueMasivo" runat="server" UpdateMode="Always" ChildrenAsTriggers="true">
-                                <ContentTemplate>
-				                    <div class="form-horizontal">
-						                <fieldset>
-								            <div class="form-group">
-									            <label class="col-md-2 control-label">Archivo</label>
-									            <div class="col-md-10">
-										            <input type="file" class="btn btn-default" id="upfArchivo" runat="server" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" />
-									            </div>
-								            </div>
-                                        </fieldset>
-                                    </div>
-							        <div class="smart-form">
-                                        <asp:UpdatePanel ID="updSetCargueMasivo" runat="server" UpdateMode="Always" ChildrenAsTriggers="true">
-                                            <ContentTemplate>
-                                                <!-- widget content -->
-					                            <div class="widget-body no-padding">
-                                                    <asp:GridView ID="grvCargueMasivo" runat="server" AutoGenerateColumns="false" ShowHeaderWhenEmpty="true" CssClass="table table-striped table-bordered" OnRowCommand="grvDatos_RowCommand" EmptyDataText="No se han cargado registros">
-                                                        <Columns>
-                                                            <asp:BoundField DataField="Nombre" HeaderText="Parámetro" />
-                                                            <asp:BoundField DataField="Descripcion" HeaderText="Descripción" />
-                                                            <asp:BoundField DataField="AliasGAMS" HeaderText="Alias GAMS" />
-                                                            <asp:TemplateField HeaderText="Cargar">
-                                                                <ItemTemplate>
-                                                                    <label class="checkbox state-disabled">
-											                            <asp:CheckBox ID="chkActivo" runat="server" Checked="true" />
-											                            <i></i>
-                                                                    </label>
-                                                                </ItemTemplate>
-                                                            </asp:TemplateField>
-                                                        </Columns>
-                                                    </asp:GridView>
-
-                                                    <asp:Button ID="btnCargarArchivo" runat="server" OnClick="btnCargarArchivo_Click" style="display:none" />
-                                                </div>
-                                            </ContentTemplate>
-                                            <Triggers>
-                                                <asp:PostBackTrigger ControlID="btnCargarArchivo" />
-                                            </Triggers>
-                                        </asp:UpdatePanel>
-                                        
-                                        <asp:LinkButton ID="btnCargarCargueMasivo" runat="server" CssClass="btn btn-primary disabled" OnClick="btnCargarCargueMasivo_Click" Enabled="false">
-                                            <i class="fa fa-upload"></i>
-                                            Cargar
-                                        </asp:LinkButton>
-
-                                        <asp:LinkButton ID="btnCancelarCargueMasivo" runat="server" CssClass="btn btn-default" OnClick="btnCancelarCargueMasivo_Click">
-                                            Cancelar
-                                        </asp:LinkButton>
 					                </div>
-                                </ContentTemplate>
-                            </asp:UpdatePanel>
-                        </div>
-                    </div>
-                </article>
+					                <!-- end widget edit box -->
+
+					                <asp:UpdatePanel ID="updContenidoCargueMasivo" runat="server" UpdateMode="Always" ChildrenAsTriggers="true">
+                                        <ContentTemplate>
+				                            <div class="form-horizontal">
+						                        <fieldset>
+								                    <div class="form-group">
+									                    <label class="col-md-1 control-label">Archivo</label>
+									                    <div class="col-md-11">
+										                    <input type="file" class="btn btn-default" id="upfArchivo" runat="server" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" />
+									                    </div>
+								                    </div>
+
+                                                    <div class="form-group text-center">
+                                                        <div class="col-md-12">
+                                                            <asp:UpdatePanel ID="updSetCargueMasivo" runat="server" UpdateMode="Always" ChildrenAsTriggers="true">
+                                                                <ContentTemplate>
+                                                                    <!-- widget content -->
+					                                                <div class="widget-body no-padding">
+                                                                        <asp:GridView ID="grvCargueMasivo" runat="server" AutoGenerateColumns="false" ShowHeaderWhenEmpty="true" CssClass="table table-striped table-bordered" OnRowCommand="grvDatos_RowCommand">
+                                                                            <Columns>
+                                                                                <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
+                                                                                <asp:BoundField DataField="Descripcion" HeaderText="Descripción" />
+                                                                                <asp:BoundField DataField="AliasGAMS" HeaderText="Alias GAMS" />
+                                                                                <asp:TemplateField HeaderText="Cargar" ItemStyle-HorizontalAlign="Center">
+                                                                                    <ItemTemplate>
+                                                                                        <div class="col-md-12 text-center">
+                                                                                            <label class="checkbox checkbox-inline">
+											                                                    <asp:CheckBox ID="chkActivo" runat="server" Checked="true" />
+											                                                    <i></i>
+                                                                                            </label>
+                                                                                        </div>
+                                                                                    </ItemTemplate>
+                                                                                </asp:TemplateField>
+                                                                                <asp:TemplateField HeaderText="Estado">
+                                                                                    <ItemTemplate>
+                                                                                        <span id="spnEstado" runat="server" class="label label-warning">
+                                                                                            <asp:Label ID="lblEstado" runat="server" Text="Espera"></asp:Label>
+                                                                                        </span>
+                                                                                    </ItemTemplate>
+                                                                                </asp:TemplateField>
+                                                                            </Columns>
+                                                                        </asp:GridView>
+
+                                                                        <asp:Button ID="btnCargarArchivo" runat="server" OnClick="btnCargarArchivo_Click" style="display:none" />
+                                                                    </div>
+                                                                </ContentTemplate>
+                                                                <Triggers>
+                                                                    <asp:PostBackTrigger ControlID="btnCargarArchivo" />
+                                                                </Triggers>
+                                                            </asp:UpdatePanel>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <section class="col col-12 pull-right">
+                                                            <asp:LinkButton ID="btnCargueMasivoCargar" runat="server" CssClass="btn-sm btn btn-primary disabled" OnClick="btnCargueMasivoCargar_Click" Enabled="false">
+                                                                <i class="fa fa-upload"></i>
+                                                                Cargar
+                                                            </asp:LinkButton>
+
+                                                            <asp:LinkButton ID="btnCargueMasivoCerrar" runat="server" CssClass="btn-sm btn btn-default" OnClick="btnCargueMasivoCerrar_Click">
+                                                                Cerrar
+                                                            </asp:LinkButton>
+                                                        </section>
+                                                    </div>
+                                                </fieldset>
+					                        </div>
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+                                </div>
+                            </div>
+                        </article>
+                    </asp:Panel>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+
+            <asp:UpdatePanel ID="updExportar" runat="server" UpdateMode="Always">
+                <ContentTemplate>
+                    <asp:Panel ID="pnlExportar" runat="server" Visible="false">
+                        <article class="col-sm-12 col-md-12">
+                            <div class="jarviswidget jarviswidget-color-greenLight" id="wid-id-4" data-widget-editbutton="false">
+				                <!-- widget options:
+				                usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+				                data-widget-colorbutton="false"
+				                data-widget-editbutton="false"
+				                data-widget-togglebutton="false"
+				                data-widget-deletebutton="false"
+				                data-widget-fullscreenbutton="false"
+				                data-widget-custombutton="false"
+				                data-widget-collapsed="true"
+				                data-widget-sortable="false"
+
+				                -->
+				                <header>
+					                <span class="widget-icon">
+                                        <i class="fa fa-table"></i>
+					                </span>
+					                <h2>Exportar Sets</h2>
+				                </header>
+
+				                <!-- widget div-->
+				                <div>
+
+					                <!-- widget edit box -->
+					                <div class="jarviswidget-editbox">
+						                <!-- This area used as dropdown edit box -->
+
+					                </div>
+					                <!-- end widget edit box -->
+
+					                <asp:UpdatePanel ID="updContenidoExportar" runat="server" UpdateMode="Always" ChildrenAsTriggers="true">
+                                        <ContentTemplate>
+				                            <div class="form-horizontal">
+						                        <fieldset>
+								                    <div class="form-group text-center">
+                                                        <div class="col-md-12">
+                                                            <asp:UpdatePanel ID="updSetExportar" runat="server" UpdateMode="Always" ChildrenAsTriggers="true">
+                                                                <ContentTemplate>
+                                                                    <!-- widget content -->
+					                                                <div class="widget-body no-padding">
+                                                                        <asp:GridView ID="grvExportar" runat="server" AutoGenerateColumns="false" ShowHeaderWhenEmpty="true" CssClass="table table-striped table-bordered" OnRowCommand="grvDatos_RowCommand" EmptyDataText="No se han cargado registros">
+                                                                            <Columns>
+                                                                                <asp:BoundField DataField="IDSet" HeaderText="Id" />
+                                                                                <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
+                                                                                <asp:BoundField DataField="Descripcion" HeaderText="Descripción" />
+                                                                                <asp:BoundField DataField="AliasGAMS" HeaderText="Alias GAMS" />
+                                                                                <asp:TemplateField HeaderText="Cargar" ItemStyle-HorizontalAlign="Center">
+                                                                                    <ItemTemplate>
+                                                                                        <div class="col-md-12 text-center">
+                                                                                            <label class="checkbox checkbox-inline">
+											                                                    <asp:CheckBox ID="chkActivo" runat="server" Checked="true" />
+											                                                    <i></i>
+                                                                                            </label>
+                                                                                        </div>
+                                                                                    </ItemTemplate>
+                                                                                </asp:TemplateField>
+                                                                            </Columns>
+                                                                        </asp:GridView>
+                                                                    </div>
+                                                                </ContentTemplate>
+                                                            </asp:UpdatePanel>
+                                                        </div>
+                                                    </div>
+
+                                                    <div id="frmFile" class="form">
+                                                        <div class="form-group">
+                                                            <fieldset>
+                                                                <div class="col-md-6">
+									                                <label class="col-md-2 control-label">Archivo</label>
+									                                <div class="col-md-10">
+										                                <div class="input-group">
+													                        <asp:TextBox ID="txtNombreArchivo" runat="server" CssClass="form-control"></asp:TextBox>
+													                        <span class="input-group-addon">.xlsx</span>
+												                        </div>
+                                                                    </div>
+									                            </div>
+                                                            </fieldset>
+								                        </div>
+
+                                                        <div class="smart-form">
+                                                            <section class="col col-12 pull-right">
+                                                                <asp:LinkButton ID="btnExportarDescargar" runat="server" CssClass="btn-sm btn btn-primary submit frmFile" OnClick="btnExportarDescargar_Click">
+                                                                    <i class="fa fa-download"></i>
+                                                                    Descargar
+                                                                </asp:LinkButton>
+
+                                                                <asp:LinkButton ID="btnExportarCerrar" runat="server" CssClass="btn-sm btn btn-default" OnClick="btnExportarCerrar_Click">
+                                                                    Cerrar
+                                                                </asp:LinkButton>
+                                                            </section>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+					                        </div>
+                                        </ContentTemplate>
+
+                                        <Triggers>
+                                            <asp:PostBackTrigger ControlID="btnExportarDescargar" />
+                                        </Triggers>
+                                    </asp:UpdatePanel>
+                                </div>
+                            </div>
+                        </article>
                     </asp:Panel>
                 </ContentTemplate>
             </asp:UpdatePanel>
@@ -303,8 +433,10 @@
 			    <div class="modal-body no-padding">
                     <asp:UpdatePanel ID="updModalContenido" runat="server" UpdateMode="Always" ChildrenAsTriggers="true">
                         <ContentTemplate>
-				            <div class="smart-form">
-						        <fieldset>
+                            <div id="divMensajeModal"></div>
+
+				            <div id="frmMain" class="smart-form form">
+                                <fieldset>
                                     <asp:Panel ID="pnlIdSet" runat="server">
                                         <section>
 								            <div class="row">
@@ -367,7 +499,7 @@
 						        </fieldset>
 							
 						        <footer>
-							        <asp:LinkButton ID="btnGuardar" runat="server" CssClass="btn btn-primary" OnClick="btnGuardar_Click" OnClientClick="return $('#masterForm').valid();">
+							        <asp:LinkButton ID="btnGuardar" runat="server" CssClass="btn btn-primary submit frmMain" OnClick="btnGuardar_Click" >
                                         <i class="fa fa-floppy-o"></i>
                                         Guardar
                                     </asp:LinkButton>
@@ -384,17 +516,13 @@
 	    </div>
     </div>
 
+    <script src='<%= ResolveUrl("~/Scripts/WebForms/Paginas/general.js") %>'></script>
     <script src='<%= ResolveUrl("~/Scripts/WebForms/Paginas/Administracion/sets.js") %>'></script>
+
     <script>
-        $(document).ready(function () {
-            grvDatos = $("#<%=grvDatos.ClientID%>");
-
-            iniciarControles();
-            iniciarDataTable();
-        });
-
-        var pagefunction = function () {
-            iniDataTable();
+        function fn_init() {
+            iniControles('<%=txtNombre.UniqueID%>', '<%=txtDescripcion.UniqueID%>', '<%=txtAlias.UniqueID%>', '<%=txtNombreArchivo.UniqueID%>');
+            iniDataTable($("#<%=grvDatos.ClientID%>"));
 
             // custom toolbar
             $("div.toolbar").html('' +
@@ -405,36 +533,25 @@
                     '</asp:LinkButton>' +
                 '</div>');
 
-            /* END TABLETOOLS */
-        };
-
-        function iniciarDataTable() {
-            pagefunction();
-        };
-
-        function mostrarConfirm() {
-            $.SmartMessageBox({
-                title: "Eliminando Registro!",
-                content: "Esta seguro que desea eliminar este registro?",
-                buttons: '[No][Si]'
-            }, function (ButtonPressed) {
-                if (ButtonPressed === "Si") {
-                    $("#<%=btnEliminar.ClientID%>").click();
-                }
-            });
-        };
-
-        var prm = Sys.WebForms.PageRequestManager.getInstance();
-
-        function EndRequestHandler(sender, args) {
-            grvDatos = $("#<%=grvDatos.ClientID%>");
-            iniciarDataTable();
+            iniDataTableRead($("#<%=grvCargueMasivo.ClientID%>"));
+            iniDataTableRead($("#<%=grvExportar.ClientID%>"));
 
             $("#<%=upfArchivo.ClientID%>").on('change', function () {
                 $("#<%=btnCargarArchivo.ClientID%>").click();
             });
+
+            var prm = Sys.WebForms.PageRequestManager.getInstance();
+            prm.add_initializeRequest(onEachRequest);
         };
 
-        prm.add_endRequest(EndRequestHandler);
+        function onEachRequest(sender, args) {
+            if ($("#masterForm").validateWebForm() == false) {
+                args.set_cancel(true);
+            }
+        };
+
+        function pageLoad() {
+            fn_init();
+        };
     </script>
 </asp:Content>

@@ -87,6 +87,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\SetRepository.cs" />
     <Compile Include="Repositories\ParametroRepository.cs" />
+    <Compile Include="Repositories\MultisetRepository.cs" />
+    <Compile Include="Repositories\SubsetRepository.cs" />
     <Compile Include="Repositories\VersionRepository.cs" />
     <Compile Include="Repositories\MenuRepository.cs" />
     <Compile Include="Repositories\ModeloRepository.cs" />

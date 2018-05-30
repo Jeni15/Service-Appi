@@ -111,7 +111,7 @@ var calc_navbar_height = function() {
 					// ask verification
 					$.SmartMessageBox({
 						title : "<i class='fa fa-sign-out txt-color-orangeDark'></i> Logout <span class='txt-color-orangeDark'><strong>" + $('#show-shortcut').text() + "</strong></span> ?",
-						content : $this.data('logout-msg') || "You can improve your security further after logging out by closing this opened browser",
+						content: $this.data('logout-msg') || "Puede mejorar su seguridad aún más después de cerrar sesión al cerrar este navegador abierto",
 						buttons : '[No][Yes]'
 			
 					}, function(ButtonPressed) {

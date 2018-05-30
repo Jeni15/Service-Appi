@@ -7,9 +7,9 @@
 			
 			    <!-- PAGE HEADER -->
 			    <i class="fa-fw fa fa-pencil-square-o"></i> 
-				    Configuración
-			    <span>>  
-				    Subsets
+				    Sistema de Información MICV
+			    <span>-  
+				    Configuración de Subsets
 			    </span>
 		    </h1>
 	    </div>
@@ -149,13 +149,16 @@
                                                     </label>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
-                                            <asp:BoundField DataField="AliasGAMS" HeaderText="Set" />
+                                            <asp:BoundField DataField="NMSet_Padre" HeaderText="Set" />
                                         </Columns>
                                     </asp:GridView>
 
                                     <button id="btnAgregarModal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalParametro" style="display: none;">
                                         ShowModal
                                     </button>
+
+                                    <asp:Button ID="btnEliminar" runat="server" OnClick="btnEliminar_Click" style="display:none" />
+                                    <asp:HiddenField ID="hddIdSet" runat="server" Value="0" />  
 
                                     <asp:HiddenField ID="hddIdSubset" runat="server" Value="0" />
                                 </ContentTemplate>
@@ -291,7 +294,7 @@
 	    </div>
     </div>
 
-    <script src='<%= ResolveUrl("~/Scripts/WebForms/Paginas/Administracion/subsets.js") %>'></script>
+    <script src='<%= ResolveUrl("~/Scripts/WebForms/Paginas/Administracion/sets.js") %>'></script>
     <script>
         $(document).ready(function () {
             grvDatos = $("#<%=grvDatos.ClientID%>");
@@ -319,11 +322,24 @@
             pagefunction();
         };
 
+        function mostrarConfirm() {
+            $.SmartMessageBox({
+                title: "Eliminando Registro!",
+                content: "Esta seguro que desea eliminar este registro?",
+                buttons: '[No][Si]'
+            }, function (ButtonPressed) {
+                if (ButtonPressed === "Si") {
+                    $("#<%=btnEliminar.ClientID%>").click();
+                    }
+                });
+        };
+
         var prm = Sys.WebForms.PageRequestManager.getInstance();
 
         function EndRequestHandler(sender, args) {
             grvDatos = $("#<%=grvDatos.ClientID%>");
             iniciarDataTable();
+
         };
 
         prm.add_endRequest(EndRequestHandler);

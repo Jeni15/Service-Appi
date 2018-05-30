@@ -1,97 +1,87 @@
-//CONTROLES
-var grvDatos;
-var txtParametro;
-var txtDescripcion;
-var txtAlias;
-//---------
-
-function iniciarControles() {
+function iniControles(txtNombre, txtDescripcion, txtAlias, txtDimension, ddlDimension, txtNombreArchivo) {
     var errorClass = 'invalid';
     var errorElement = 'em';
 
-    var $checkForm = $('#masterForm').validate({
-        errorClass		: errorClass,
-        errorElement	: errorElement,
-        highlight: function(element) {
+    var validation = {
+        errorClass: errorClass,
+        errorElement: errorElement,
+        highlight: function (element) {
             $(element).parent().removeClass('state-success').addClass("state-error");
             $(element).removeClass('valid');
         },
-        unhighlight: function(element) {
+        unhighlight: function (element) {
             $(element).parent().removeClass("state-error").addClass('state-success');
             $(element).addClass('valid');
         },
 
-        // Rules for form validation
-        rules : {
-            txtParametro : {
-                required : true
-            },
-            txtDescripcion : {
-                required : true
-            },
-            txtAlias : {
-                required : true
-            }
-        },
-	
-        // Messages for form validation
-        messages : {
-            txtParametro : {
-                required : 'Please enter the parameter name'
-            },
-            txtDescripcion : {
-                required : 'Please enter the description'
-            },
-            txtAlias : {
-                required : 'Please enter the alias'
-            }
-        },
-	
+        rules: {},
+        messages: {},
+
         // Do not change code below
-        errorPlacement : function(error, element) {
+        errorPlacement: function (error, element) {
             error.insertAfter(element.parent());
         }
-    });
-}
-
-function iniDataTable() {
-    var responsiveHelper_datatable_fixed_column = undefined;
-    var breakpointDefinition = {
-        tablet: 1024,
-        phone: 480
     };
 
-    /* COLUMN FILTER  */
-    var otable = grvDatos.DataTable({
-        //"bFilter": false,
-        //"bInfo": false,
-        //"bLengthChange": false
-        //"bAutoWidth": false,
-        "bPaginate": false,
-        //"bStateSave": true // saves sort state using localStorage
-        "order": [[1, "asc"]],
-        "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6 hidden-xs'f><'col-sm-6 col-xs-12 hidden-xs'<'toolbar'>>r>" +
-                "t" +
-                "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",
-        "oLanguage": {
-            "sSearch": '<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>'
-        },
-        "autoWidth": true,
-        "preDrawCallback": function () {
-            // Initialize the responsive datatables helper once.
-            if (!responsiveHelper_datatable_fixed_column) {
-                responsiveHelper_datatable_fixed_column = new ResponsiveDatatablesHelper(grvDatos, breakpointDefinition);
+    validation.rules[txtNombre] = { required: true };
+    validation.rules[txtDescripcion] = { required: true };
+    validation.rules[txtAlias] = { required: true };
+    validation.rules[txtDimension] = { required: true };
+    validation.rules[ddlDimension] = { required: true };
+    validation.messages[txtNombre] = "Por favor escriba un nombre del Parametro";
+    validation.messages[txtDescripcion] = "Debe colocar una descripci&#243n";
+    validation.messages[txtAlias] = "El alias es requerido";
+    validation.messages[txtDimension] = "Debe especificar la dimensi&#243n";
+    validation.messages[ddlDimension] = "Debe seleccionar un Set";
+
+    validation.rules[txtNombreArchivo] = { required: true };
+    validation.messages[txtNombreArchivo] = "Debe colocar un nombre de archivo";
+
+    $('#masterForm').validateWebForm(validation);
+};
+
+function establecerDimensionesControles(txtDimension, hddDimensionVals) {
+    if (txtDimension != 'undefined' && txtDimension.val() != '') {
+        var numDimensiones = txtDimension.val();
+        var dimensionVals = [];
+        var i = 0;
+
+        if (numDimensiones > 10) {
+            numDimensiones = 10;
+        };
+
+        if (hddDimensionVals.val() != '') {
+            dimensionVals = hddDimensionVals.val().split(",");
+        };
+
+        $("#divDimensiones").empty();
+
+        for (i = 0; i < numDimensiones; i++) {
+            var divDimensionControles = $("#divDimensionControles").clone().show();
+            divDimensionControles.find("label[id=lblDimension]").text(divDimensionControles.find("label[id=lblDimension]").text() + ' ' + (i + 1));
+
+            if (dimensionVals.length == 0) {
+                dimensionVals.push('0');
             }
-        },
-        "rowCallback": function (nRow) {
-            responsiveHelper_datatable_fixed_column.createExpandIcon(nRow);
-        },
-        "drawCallback": function (oSettings) {
-            responsiveHelper_datatable_fixed_column.respond();
-        },
-        columnDefs: [{
-            targets: 0,
-            orderable: false
-        }]
+            else {
+                divDimensionControles.find("select").val(dimensionVals[i]);
+            };
+
+            divDimensionControles.appendTo($("#divDimensiones"));
+        };
+
+        hddDimensionVals.val(dimensionVals);
+    };
+};
+
+function guardarDimensionesValores(hddDimensionVals) {
+    var ddlDimensiones = $("#divDimensiones").find("select");
+    var dimensionVals = '';
+
+    $.each(ddlDimensiones, function (i, item) {
+        dimensionVals = dimensionVals + $(item).val() + ',';
     });
+
+    dimensionVals = dimensionVals.slice(0, -1);
+    $(hddDimensionVals).val(dimensionVals);
 };

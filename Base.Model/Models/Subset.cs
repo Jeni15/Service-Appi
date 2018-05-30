@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace Base.Model.Models
 {
-    public class Parametro
+    public class Subset
     {
-        public long IDParameter { get; set; }
+        public long IDSet { get; set; }
 
         public string Nombre { get; set; }
 
@@ -14,15 +14,9 @@ namespace Base.Model.Models
 
         public string AliasGAMS { get; set; }
 
-        public long IdUOM { get; set; }
+        public long IDSet_Padre { get; set; }
 
-        public long Cantidad_Dimensiones { get; set; }
-
-        public string Dimension { get; set; }
-
-        public string Entrada_Manual { get; set; }
-
-        public string Resultado { get; set; }
+        public string NMSet_Padre { get; set; }
 
         public DateTime Fecha_Creacion { get; set; }
 

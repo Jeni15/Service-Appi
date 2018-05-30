@@ -7,9 +7,9 @@
 			
 			    <!-- PAGE HEADER -->
 			    <i class="fa-fw fa fa-pencil-square-o"></i> 
-				    Parametros
+				    Configuración
 			    <span>>  
-				    Registrar Parametros
+				    Versionamientos
 			    </span>
 		    </h1>
 	    </div>
@@ -20,165 +20,155 @@
 	    <!-- START ROW -->
 	    <div class="row">
 		    <!-- NEW COL START -->
-		    <article class="col-sm-12 col-md-5">
-			    <!-- Widget ID (each widget will need unique ID)-->
-			    <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-2" data-widget-editbutton="false" data-widget-custombutton="false">
-				    <!-- widget options:
-					    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+            <asp:UpdatePanel ID="updDatos" runat="server" UpdateMode="Always">
+                <ContentTemplate>
+                    <asp:Panel ID="pnlDatos" runat="server">
+		                <article class="col-sm-12 col-md-5">
+			                <!-- Widget ID (each widget will need unique ID)-->
+			                <div class="jarviswidget jarviswidget-color-greenLight" id="wid-id-2" data-widget-editbutton="false" data-widget-custombutton="false">
+				                <!-- widget options:
+					                usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 					
-					    data-widget-colorbutton="false"	
-					    data-widget-editbutton="false"
-					    data-widget-togglebutton="false"
-					    data-widget-deletebutton="false"
-					    data-widget-fullscreenbutton="false"
-					    data-widget-custombutton="false"
-					    data-widget-collapsed="true" 
-					    data-widget-sortable="false"
+					                data-widget-colorbutton="false"	
+					                data-widget-editbutton="false"
+					                data-widget-togglebutton="false"
+					                data-widget-deletebutton="false"
+					                data-widget-fullscreenbutton="false"
+					                data-widget-custombutton="false"
+					                data-widget-collapsed="true" 
+					                data-widget-sortable="false"
 					
-				    -->
-				    <header>
-					    <span class="widget-icon">
-                            <i class="fa fa-edit"></i>
-					    </span>
-					    <h2>Filtros</h2>
-				    </header>
+				                -->
+				                <header>
+					                <span class="widget-icon">
+                                        <i class="fa fa-edit"></i>
+					                </span>
+					                <h2>Filtros</h2>
+				                </header>
 
-                    <div>
-					    <!-- widget edit box -->
-					    <div class="jarviswidget-editbox">
-                            <!-- This area used as dropdown edit box -->
-					    </div>
-					    <!-- end widget edit box -->
+                                <div>
+					                <!-- widget edit box -->
+					                <div class="jarviswidget-editbox">
+                                        <!-- This area used as dropdown edit box -->
+					                </div>
+					                <!-- end widget edit box -->
 					
-					    <!-- widget content -->
-					    <div class="widget-body no-padding">
-                            <asp:UpdatePanel ID="updFiltros" runat="server" UpdateMode="Always">
-                                <ContentTemplate>
-                                    <div class="smart-form">
-                                        <fieldset>
-                                            <div class="row">
-                                                <section class="col col-10">
-										            <label class="select">
-                                                        <asp:DropDownList ID="ddlFiltroModelos" name="filtermodels" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlFiltroModelos_SelectedIndexChanged"></asp:DropDownList>
-                                                        <i></i>
-                                                    </label>
-									            </section>
-                                            </div>
+					                <!-- widget content -->
+					                <div class="widget-body no-padding">
+                                        <asp:UpdatePanel ID="updFiltros" runat="server" UpdateMode="Always">
+                                            <ContentTemplate>
+                                                <div class="smart-form">
+                                                    <fieldset>
+                                                        <div class="row">
+                                                            <section class="col col-10">
+										                        <label class="select">
+                                                                    <asp:DropDownList ID="ddlFiltroModelos" name="filtermodels" runat="server"></asp:DropDownList>
+                                                                    <i></i>
+                                                                </label>
+									                        </section>
+                                                        </div>
+                                                    </fieldset>
 
-                                            <div class="row">
-                                                <section class="col col-10">
-                                                    <label class="select">
-                                                        <asp:DropDownList ID="ddlFiltroModelosVersiones" name="filtermodelsversions" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlFiltroModelosVersiones_SelectedIndexChanged"></asp:DropDownList>
-                                                        <i></i>
-                                                    </label>
-                                                </section>
-                                            </div>
-
-                                            <div class="row">
-                                                <section class="col col-10">
-                                                    <label class="select">
-                                                        <asp:DropDownList ID="ddlFiltroModelosCasos" name="filtermodelscases" runat="server"></asp:DropDownList>
-                                                        <i></i>
-                                                    </label>
-                                                </section>
-                                            </div>
-                                        </fieldset>
-
-                                        <footer>
-                                            <div class="row">
-                                                <section class="col col-12 pull-right">
-                                                    <asp:LinkButton ID="btnFiltrar" runat="server" CssClass="btn btn-primary" OnClick="btnFiltrar_Click">
-                                                        <i class="fa fa-search"></i>
-                                                        Filtrar
-                                                    </asp:LinkButton>
-                                                </section>
-                                            </div>
-							            </footer>
+                                                    <section class="col col-12 pull-right">
+                                                        <asp:LinkButton ID="btnFiltrar" runat="server" CssClass="btn-sm btn btn-primary" OnClick="btnFiltrar_Click">
+                                                            <i class="fa fa-search"></i>
+                                                            Filtrar
+                                                        </asp:LinkButton>
+                                                    </section>
+                                                </div>
+                                            </ContentTemplate>
+                                        </asp:UpdatePanel>
                                     </div>
-                                </ContentTemplate>
-                            </asp:UpdatePanel>
-                        </div>
-                    </div>
-                </div>
+                                </div>
+                            </div>
+                        </article>
 
-            </article>
+                        <article class="col-sm-12 col-md-12">
+                            <div class="jarviswidget jarviswidget-color-greenLight" id="wid-id-1" data-widget-editbutton="false">
+				                <!-- widget options:
+				                usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 
-            <article class="col-sm-12 col-md-12">
-                <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-1" data-widget-editbutton="false">
-				    <!-- widget options:
-				    usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+				                data-widget-colorbutton="false"
+				                data-widget-editbutton="false"
+				                data-widget-togglebutton="false"
+				                data-widget-deletebutton="false"
+				                data-widget-fullscreenbutton="false"
+				                data-widget-custombutton="false"
+				                data-widget-collapsed="true"
+				                data-widget-sortable="false"
 
-				    data-widget-colorbutton="false"
-				    data-widget-editbutton="false"
-				    data-widget-togglebutton="false"
-				    data-widget-deletebutton="false"
-				    data-widget-fullscreenbutton="false"
-				    data-widget-custombutton="false"
-				    data-widget-collapsed="true"
-				    data-widget-sortable="false"
+				                -->
+				                <header>
+					                <span class="widget-icon">
+                                        <i class="fa fa-table"></i>
+					                </span>
+					                <h2>Lista Versionamientos</h2>
+				                </header>
 
-				    -->
-				    <header>
-					    <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-					    <h2>Lista Parametros</h2>
+				                <!-- widget div-->
+				                <div>
 
-				    </header>
+					                <!-- widget edit box -->
+					                <div class="jarviswidget-editbox">
+						                <!-- This area used as dropdown edit box -->
 
-				    <!-- widget div-->
-				    <div>
+					                </div>
+					                <!-- end widget edit box -->
 
-					    <!-- widget edit box -->
-					    <div class="jarviswidget-editbox">
-						    <!-- This area used as dropdown edit box -->
+					                <asp:UpdatePanel ID="updGrilla" runat="server" UpdateMode="Always" ChildrenAsTriggers="true">
+                                        <ContentTemplate>
+                                            <!-- widget content -->
+					                        <div class="widget-body no-padding">
+                                                <asp:GridView ID="grvDatos" runat="server" AutoGenerateColumns="false" ShowHeaderWhenEmpty="true" CssClass="table table-striped table-bordered" OnRowCommand="grvDatos_RowCommand">
+                                                    <Columns>
+                                                        <asp:TemplateField HeaderText="">
+                                                            <ItemTemplate>
+                                                                <asp:LinkButton ID="btnEditar" runat="server" CssClass="btn btn-warning btn-xs" CausesValidation="false" CommandName="EditarVersionamiento" CommandArgument='<%#Eval("IDSet")%>'>
+                                                                    <i class="fa fa-pencil"></i>
+                                                                </asp:LinkButton>
+                                                                <asp:LinkButton ID="btnEliminar" runat="server" CssClass="btn btn-danger btn-xs" CausesValidation="false" CommandName="EliminarVersionamiento" CommandArgument='<%#Eval("IDSet")%>'>
+                                                                    <i class="fa fa-trash"></i>
+                                                                </asp:LinkButton>
+                                                            </ItemTemplate>
 
-					    </div>
-					    <!-- end widget edit box -->
+                                                            <ItemStyle Width="60px"></ItemStyle>
+                                                        </asp:TemplateField>
+                                                        <asp:BoundField DataField="IDSet" HeaderText="Id" />
+                                                        <asp:BoundField DataField="Nombre" HeaderText="Parámetro" />
+                                                        <asp:BoundField DataField="Descripcion" HeaderText="Descripción" />
+                                                        <asp:BoundField DataField="AliasGAMS" HeaderText="Alias GAMS" />
+                                                        <asp:TemplateField HeaderText="Activo">
+                                                            <ItemTemplate>
+                                                                <label class="checkbox state-disabled">
+											                        <asp:CheckBox ID="chkActivo" runat="server" Checked='<%#Eval("Activa").ToString() == "1"%>' Enabled="false" />
+											                        <i></i>
+                                                                </label>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                    </Columns>
+                                                </asp:GridView>
 
-					    <!-- widget content -->
-					    <div class="widget-body no-padding">
-                            <asp:UpdatePanel ID="updParametros" runat="server" UpdateMode="Always" ChildrenAsTriggers="true">
-                                <ContentTemplate>
-                                    <asp:GridView ID="grvParametros" runat="server" AutoGenerateColumns="false" CssClass="table table-striped table-bordered" OnRowCommand="grvParametros_RowCommand">
-                                        <Columns>
-                                            <asp:TemplateField HeaderText="">
-                                                <ItemTemplate>
-                                                    <asp:LinkButton ID="btnEditar" runat="server" CssClass="btn btn-warning btn-xs" CausesValidation="false" CommandName="EditarParametro" CommandArgument='<%#Eval("IdParametro")%>'>
-                                                        <i class="fa fa-pencil"></i>
-                                                    </asp:LinkButton>
-                                                </ItemTemplate>
-                                            </asp:TemplateField>
-                                            <asp:BoundField DataField="IdParametro" HeaderText="Id" />
-                                            <asp:BoundField DataField="Nombre" HeaderText="Parámetro" />
-                                            <asp:BoundField DataField="Descripcion" HeaderText="Descripción" />
-                                            <asp:BoundField DataField="Alias" HeaderText="Alias GAMS" />
-                                            <asp:TemplateField HeaderText="Activo">
-                                                <ItemTemplate>
-                                                    <label class="checkbox state-disabled">
-											            <asp:CheckBox ID="chkParametroActivo" runat="server" Checked='<%#Bind("Activo")%>' Enabled="false" />
-											            <i></i>
-                                                    </label>
-                                                </ItemTemplate>
-                                            </asp:TemplateField>
-                                        </Columns>
-                                    </asp:GridView>
+                                                <button id="btnAgregarModal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalSet" style="display: none;">
+                                                    ShowModal
+                                                </button>
 
-                                    <button id="btnAgregarModal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalParametro" style="display: none;">
-                                        ShowModal
-                                    </button>
-
-                                    <asp:HiddenField ID="hddIdParametro" runat="server" Value="0" />
-                                </ContentTemplate>
-                            </asp:UpdatePanel>
-                        </div>
-                    </div>
-                </div>
-            </article>
+                                                <asp:Button ID="btnEliminar" runat="server" OnClick="btnEliminar_Click" style="display:none" />
+                                                <asp:HiddenField ID="hddIdVersionamiento" runat="server" Value="0" />  
+                                            </div>
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+                                </div>
+                            </div>
+                        </article>
+                    </asp:Panel>
+                </ContentTemplate>
+            </asp:UpdatePanel>
         </div>
     </section>
 
     <!-- Modal -->
-    <div class="modal fade" id="modalParametro" tabindex="-1" role="dialog">
-	    <div class="modal-dialog">
+    <div class="modal fade" id="modalSet" tabindex="-1" role="dialog">
+	    <div class="modal-dialog modal-lg">
 		    <div class="modal-content">
 			    <div class="modal-header">
                     <asp:UpdatePanel ID="updModalTitulo" runat="server">
@@ -192,50 +182,30 @@
                         </ContentTemplate>
                     </asp:UpdatePanel>
 			    </div>
-			    <div class="modal-body no-padding">
-                    <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Always" ChildrenAsTriggers="true">
+			    <div class="modal-body">
+                    <asp:UpdatePanel ID="updModalContenido" runat="server" UpdateMode="Always" ChildrenAsTriggers="true">
                         <ContentTemplate>
-				            <div class="smart-form">
-						        <fieldset>
-                                    <section>
-                                        <div class="row">
-                                            <section class="col col-10">
-										        <label class="select">
-                                                    <asp:DropDownList ID="ddlModelos" name="models" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlModelos_SelectedIndexChanged"></asp:DropDownList>
-                                                    <i></i>
-                                                </label>
-									        </section>
-                                        </div>
-                                    </section>
+				            <div id="frmMain" class="smart-form form">
+                                <fieldset>
+                                    <asp:Panel ID="pnlIdVersionamiento" runat="server">
+                                        <section>
+								            <div class="row">
+									            <label class="label col col-2">Id</label>
+									            <div class="col col-10">
+										            <label class="input">
+                                                        <asp:Label ID="lblIdVersionamiento" runat="server"></asp:Label>
+										            </label>
+									            </div>
+								            </div>
+							            </section>
+                                    </asp:Panel>
 
                                     <section>
-                                        <div class="row">
-                                            <section class="col col-10">
-                                                <label class="select">
-                                                    <asp:DropDownList ID="ddlModelosVersiones" name="modelsversions" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlModelosVersiones_SelectedIndexChanged"></asp:DropDownList>
-                                                    <i></i>
-                                                </label>
-                                            </section>
-                                        </div>
-                                    </section>
-
-                                    <section>
-                                        <div class="row">
-                                            <section class="col col-10">
-                                                <label class="select">
-                                                    <asp:DropDownList ID="ddlModelosCasos" name="modelscases" runat="server"></asp:DropDownList>
-                                                    <i></i>
-                                                </label>
-                                            </section>
-                                        </div>
-                                    </section>
-
-							        <section>
 								        <div class="row">
-									        <label class="label col col-2">Parametro</label>
+									        <label class="label col col-2">Versión</label>
 									        <div class="col col-10">
-										        <label class="input"> <i class="icon-append fa fa-cog"></i>
-                                                    <asp:TextBox ID="txtParametro" runat="server"></asp:TextBox>
+										        <label class="input">
+                                                    <asp:TextBox ID="txtVersion" runat="server"></asp:TextBox>
 										        </label>
 									        </div>
 								        </div>
@@ -252,41 +222,186 @@
 								        </div>
 							        </section>
 
-							        <section>
-								        <div class="row">
-									        <label class="label col col-2">Alias</label>
-									        <div class="col col-10">
-										        <label class="input">
-											        <asp:TextBox ID="txtAlias" runat="server"></asp:TextBox>
-										        </label>
-									        </div>
-								        </div>
-							        </section>
+                                    
+                                    <div class="row">
+                                        <section class="col col-lg-6">
+									        <label class="label col col-4">Fecha Versión</label>
+                                            <div class="col col-lg-8">
+                                                <div class="input-group">
+                                                    <asp:TextBox ID="txtFechaVersion" CssClass="form-control isDatepicker" runat="server"></asp:TextBox>
+                                                    <span class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+								        </section>
 
-							        <section>
-								        <div class="row">
-									        <label class="label col col-2">Activo</label>
-									        <div class="col col-10">
-										        <label class="checkbox">
-                                                    <asp:CheckBox ID="chkActivo" runat="server" Checked="true" />
-											        <i></i>
+                                        <section class="col col-lg-6">
+                                            <label class="label col col-4">Fecha Actual</label>
+									        <div class="col col-8">
+										        <div class="input-group state-disabled">
+											        <asp:TextBox ID="txtFechaActual" CssClass="form-control" runat="server" Enabled="false"></asp:TextBox>
+                                                    <span class="input-group-addon">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </span>
 										        </label>
 									        </div>
-								        </div>
-							        </section>
+								        </section>
+                                    </div>
+
+                                    <asp:Panel ID="pnlCopiar" runat="server">
+                                        <div class="row">
+                                            <section class="col col-lg-6">
+								                <label class="label col col-4">Copiar Existente</label>
+									            <div class="col col-8">
+										            <label class="checkbox">
+                                                        <asp:CheckBox ID="chkCopiarExistente" runat="server" onclick="ShowHideDiv(this);" />
+											            <i></i>
+										            </label>
+									            </div>
+							                </section>
+
+                                            <div id="divCopiarVersion" style="display:none">
+                                                <section class="col col-lg-6">
+								                    <label class="label col col-4">Versión</label>
+									                <div class="col col-8">
+										                <label class="select">
+                                                            <asp:DropDownList ID="ddlCopiarVersion" runat="server"></asp:DropDownList>
+                                                            <i></i>
+                                                        </label>
+									                </div>
+							                    </section>
+                                            </div>
+                                        </div>
+                                    </asp:Panel>
 						        </fieldset>
 							
 						        <footer>
-							        <asp:LinkButton ID="btnGuardar" runat="server" CssClass="btn btn-primary" OnClick="btnGuardar_Click" OnClientClick="return $('#masterForm').valid();">
+							        <asp:LinkButton ID="btnGuardar" runat="server" CssClass="btn btn-primary submit frmMain" OnClick="btnGuardar_Click" >
                                         <i class="fa fa-floppy-o"></i>
                                         Guardar
+                                    </asp:LinkButton>
+						        </footer>
+					        </div>
+
+                            <div id="frmChildren" class="smart-form form">
+                                <ul id="tabMain" class="nav nav-tabs bordered">
+								    <li class="active">
+									    <a href="#tabSet" data-toggle="tab"><i class="fa fa-fw fa-lg fa-gear"></i> Set</a>
+								    </li>
+								    <li>
+									    <a href="#tabSubset" data-toggle="tab"><i class="fa fa-fw fa-lg fa-cube"></i> Subset</a>
+								    </li>
+                                    <li>
+									    <a href="#tabMultiset" data-toggle="tab"><i class="fa fa-fw fa-lg fa-cubes"></i> Multiset</a>
+								    </li>
+                                    <li>
+									    <a href="#tabParametro" data-toggle="tab"><i class="fa fa-fw fa-lg fa-sliders"></i> Parametro</a>
+								    </li>
+                                    <li>
+									    <a href="#tabEscalar" data-toggle="tab"><i class="fa fa-fw fa-lg fa-database"></i> Escalar</a>
+								    </li>
+							    </ul>
+
+                                <div class="tab-content">
+                                    <div id="tabSet" class="tab-pane active">
+                                        <asp:GridView ID="grvSets" runat="server" AutoGenerateColumns="false" ShowHeaderWhenEmpty="true" CssClass="table table-bordered" EmptyDataText="Ningún dato disponible en esta tabla">
+                                            <Columns>
+                                                <asp:BoundField DataField="IDSet" HeaderText="Id" />
+                                                <asp:BoundField DataField="Nombre" HeaderText="Set" />
+                                                <asp:BoundField DataField="Descripcion" HeaderText="Descripción" />
+                                                <asp:TemplateField HeaderText="Asociar">
+                                                    <ItemTemplate>
+                                                        <label class="checkbox">
+										                    <asp:CheckBox ID="chkActivo" runat="server" />
+										                    <i></i>
+                                                        </label>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                            </Columns>
+                                        </asp:GridView>
+								    </div>
+								    <div id="tabSubset" class="tab-pane fade">
+									    <asp:GridView ID="grvSubset" runat="server" AutoGenerateColumns="false" ShowHeaderWhenEmpty="true" CssClass="table table-bordered" EmptyDataText="Ningún dato disponible en esta tabla">
+                                            <Columns>
+                                                <asp:BoundField DataField="IDSubset" HeaderText="Id" />
+                                                <asp:BoundField DataField="Nombre" HeaderText="Subset" />
+                                                <asp:BoundField DataField="Descripcion" HeaderText="Descripción" />
+                                                <asp:TemplateField HeaderText="Asociar">
+                                                    <ItemTemplate>
+                                                        <label class="checkbox">
+										                    <asp:CheckBox ID="chkActivo" runat="server" />
+										                    <i></i>
+                                                        </label>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                            </Columns>
+                                        </asp:GridView>
+								    </div>
+								    <div class="tab-pane fade" id="tabMultiset">
+									    <asp:GridView ID="grvMultiset" runat="server" AutoGenerateColumns="false" ShowHeaderWhenEmpty="true" CssClass="table table-bordered" EmptyDataText="Ningún dato disponible en esta tabla">
+                                            <Columns>
+                                                <asp:BoundField DataField="IDSubset" HeaderText="Id" />
+                                                <asp:BoundField DataField="Nombre" HeaderText="Multiset" />
+                                                <asp:BoundField DataField="Descripcion" HeaderText="Descripción" />
+                                                <asp:TemplateField HeaderText="Asociar">
+                                                    <ItemTemplate>
+                                                        <label class="checkbox">
+										                    <asp:CheckBox ID="chkActivo" runat="server" />
+										                    <i></i>
+                                                        </label>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                            </Columns>
+                                        </asp:GridView>
+								    </div>
+								    <div class="tab-pane fade" id="tabParametro">
+									    <asp:GridView ID="grvParametro" runat="server" AutoGenerateColumns="false" ShowHeaderWhenEmpty="true" CssClass="table table-bordered" EmptyDataText="Ningún dato disponible en esta tabla">
+                                            <Columns>
+                                                <asp:BoundField DataField="IDSubset" HeaderText="Id" />
+                                                <asp:BoundField DataField="Nombre" HeaderText="Parametro" />
+                                                <asp:BoundField DataField="Descripcion" HeaderText="Descripción" />
+                                                <asp:TemplateField HeaderText="Asociar">
+                                                    <ItemTemplate>
+                                                        <label class="checkbox">
+										                    <asp:CheckBox ID="chkActivo" runat="server" />
+										                    <i></i>
+                                                        </label>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                            </Columns>
+                                        </asp:GridView>
+								    </div>
+                                    <div class="tab-pane fade" id="tabEscalar">
+									    <asp:GridView ID="grvEscalar" runat="server" AutoGenerateColumns="false" ShowHeaderWhenEmpty="true" CssClass="table table-bordered" EmptyDataText="Ningún dato disponible en esta tabla">
+                                            <Columns>
+                                                <asp:BoundField DataField="IDSubset" HeaderText="Id" />
+                                                <asp:BoundField DataField="Nombre" HeaderText="Escalar" />
+                                                <asp:BoundField DataField="Descripcion" HeaderText="Descripción" />
+                                                <asp:TemplateField HeaderText="Asociar">
+                                                    <ItemTemplate>
+                                                        <label class="checkbox">
+										                    <asp:CheckBox ID="chkActivo" runat="server" />
+										                    <i></i>
+                                                        </label>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                            </Columns>
+                                        </asp:GridView>
+								    </div>
+                                </div>
+
+                                <footer>
+							        <asp:LinkButton ID="LinkButton1" runat="server" CssClass="btn btn-primary submit frmMain" OnClick="btnGuardar_Click" >
+                                        <i class="fa fa-retweet"></i>
+                                        Asociar
                                     </asp:LinkButton>
 
 							        <button id="btnCerrarModal" type="button" class="btn btn-default" data-dismiss="modal">
 								        Cancelar
 							        </button>
 						        </footer>
-					        </div>
+                            </div>
                         </ContentTemplate>
                     </asp:UpdatePanel>
 			    </div>
@@ -294,21 +409,28 @@
 	    </div>
     </div>
 
-    <script src='<%= ResolveUrl("~/Scripts/Paginas/Administracion/Parametros/parametros.js") %>'></script>
+    <script src='<%= ResolveUrl("~/Scripts/WebForms/Paginas/general.js") %>'></script>
+    <script src='<%= ResolveUrl("~/Scripts/WebForms/Paginas/Administracion/versionamientos.js") %>'></script>
 
     <script>
-        $(document).ready(function () {
-            grvParametros = $("#<%=grvParametros.ClientID%>");
-            txtParametro = $("#<%=txtParametro.ClientID%>");
-            txtDescripcion = $("#<%=txtDescripcion.ClientID%>");
-            txtAlias = $("#<%=txtAlias.ClientID%>");
+        function ShowHideDiv(chkPassport) {
+            var dvPassport = document.getElementById("divCopiarVersion");
+            dvPassport.style.display = chkPassport.checked ? "block" : "none";
+        }
 
-            iniciarControles();
-            iniciarDataTable();
-        });
+        function fn_init() {
+            
+            iniDataTable($("#<%=grvDatos.ClientID%>"));
 
-        var pagefunction = function () {
-            iniDataTable();
+            $('.isDatepicker').datepicker({
+                format: 'dd/mm/yyyy',
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true,
+                todayHighlight: true
+            });
 
             // custom toolbar
             $("div.toolbar").html('' +
@@ -319,20 +441,18 @@
                     '</asp:LinkButton>' +
                 '</div>');
 
-            /* END TABLETOOLS */
+            var prm = Sys.WebForms.PageRequestManager.getInstance();
+            prm.add_initializeRequest(onEachRequest);
         };
 
-        function iniciarDataTable() {
-            pagefunction();
+        function onEachRequest(sender, args) {
+            if ($("#masterForm").validateWebForm() == false) {
+                args.set_cancel(true);
+            }
         };
 
-        var prm = Sys.WebForms.PageRequestManager.getInstance();
-
-        function EndRequestHandler(sender, args) {
-            grvParametros = $("#<%=grvParametros.ClientID%>");
-            iniciarDataTable();
+        function pageLoad() {
+            fn_init();
         };
-
-        prm.add_endRequest(EndRequestHandler);
     </script>
 </asp:Content>
