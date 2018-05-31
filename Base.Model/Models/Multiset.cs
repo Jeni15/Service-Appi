@@ -29,5 +29,9 @@ namespace Base.Model.Models
         public string Activa { get; set; }
 
         public long IdVersion { get; set; }
+
+        public string Dimensiones { get; set; }
+        public string IDsDimensiones { get; set; }
+        public long tieneElementos { get; set; }
     }
 }

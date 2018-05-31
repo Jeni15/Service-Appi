@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Base.Data.Infrastructure
 {
-    public abstract class AdoNetRepository<T> : IRepository<T> where T : class
+    public class AdoNetRepository<T> : IRepository<T> where T : class
     {
 
         #region Fields and Properties
@@ -48,7 +48,7 @@ namespace Base.Data.Infrastructure
 
         public void Add(T entity)
         {
-            
+
             using (var command = (_uow?.CreateCommand() ?? DbContext.Connection.CreateCommand()))
             {
 
@@ -185,21 +185,34 @@ namespace Base.Data.Infrastructure
         {
             var pattern = "@([a-zA-Z_]+)";
 
+            List<string> listParameters = new List<string>();
+
             DbParameter[] parameters = new DbParameter[0];
 
             MatchCollection matches = Regex.Matches(sql, pattern);
 
             foreach (Match param in matches)
             {
-                foreach (var property in typeof(T).GetProperties())
+                var index = listParameters.IndexOf(param.Value);
+
+                if (index == -1)
                 {
-                    if ($"@{property.Name}".ToUpper().Equals(param.Value.ToUpper()))
+                    foreach (var property in typeof(T).GetProperties())
                     {
-                        Array.Resize(ref parameters, parameters.Length + 1);
-                        parameters[parameters.Length - 1] = (DbParameter)command.CreateParameter(param.Value, property.GetValue(entity).ToString());
-                        break;
+                        if ($"@{property.Name}".ToUpper().Equals(param.Value.ToUpper()))
+                        {
+                            object value = property.GetValue(entity, null);
+
+                            if (property.PropertyType == typeof(DateTime))
+                                if (!((DateTime?)value).HasValue || (DateTime?)value == default(DateTime)) value = null;
+
+                            Array.Resize(ref parameters, parameters.Length + 1);
+                            parameters[parameters.Length - 1] = (DbParameter)command.CreateParameter(param.Value, value ?? DBNull.Value);
+                            break;
+                        }
                     }
                 }
+                listParameters.Add(param.Value);
             }
             return parameters;
         }

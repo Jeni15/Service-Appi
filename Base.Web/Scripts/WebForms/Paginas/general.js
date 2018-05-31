@@ -189,3 +189,24 @@ function iniDataTableRead(grvDatos, colsNoOrdenable) {
         }
     });
 };
+
+//Adicionado por JBCA
+//No permite Caracteres especiales
+function txtValidarCaracteres(txtCampo) {
+    //Caracteres validos
+    var rgexp = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_';
+    var string = txtCampo.val();
+    var resultado = '';
+
+    for (var i = 0; i < string.length; i++) {
+        if (rgexp.indexOf(string.charAt(i)) != -1)
+            resultado += string.charAt(i);
+    }
+
+    $(txtCampo).val(resultado);
+};
+
+//Eliminar espacios al inicio y al final
+function txtQuitarEspaciosIniFin(txtCampo) {
+    $(txtCampo).val(resultado.trim());
+};

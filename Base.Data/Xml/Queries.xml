@@ -64,12 +64,24 @@
     </SQL>
     <SQL id="Menu_GetParents">
       <!--
-       SELECT * FROM MENUS WHERE IdMenuPadre IS NULL  Order by Orden
+       SELECT DISTINCT ME.* 
+        FROM MENUS ME
+             INNER JOIN MENUROLES			MR ON MR.IdMenu = ME.IdMenu
+             INNER JOIN AspNetRoles		RO ON RO.Id		= MR.RoleId
+	         INNER JOIN AspNetUserRoles	UR ON UR.RoleId	= MR.RoleId 
+       WHERE IdMenuPadre IS NULL AND UR.UserId = @Nombre
+       ORDER BY Orden
       -->
     </SQL>
-    <SQL id="Menu_GetChildren">
-      <!--
-       SELECT * FROM MENUS WHERE IdMenuPadre = @IdMenuPadre Order by Orden
+   <SQL id="Menu_GetChildren">
+      <!--       
+       SELECT DISTINCT ME.* 
+        FROM MENUS ME
+             INNER JOIN MENUROLES			MR ON MR.IdMenu = ME.IdMenu
+             INNER JOIN AspNetRoles		RO ON RO.Id		= MR.RoleId
+	         INNER JOIN AspNetUserRoles	UR ON UR.RoleId	= MR.RoleId 
+       WHERE IdMenuPadre = @IdMenuPadre AND UR.UserId =  @Nombre
+       ORDER BY Orden
       -->
     </SQL>
 
@@ -131,9 +143,14 @@
 
     <!-- PARAMETRO -->
 
-    <SQL id="Parametro_Insert">
+    <SQL id="Parametro_Insert1">
       <!--
         INSERT INTO [Parameter] (IDParameter,Nombre,Descripcion,AliasGAMS,IdUOM,Cantidad_Dimensiones,Dimension,Entrada_Manual,Resultado,Fecha_Creacion,Usuario_Creacion,Activa) VALUES (NEXT VALUE FOR seqMICV,@Nombre,@Descripcion,@AliasGAMS,@IdUOM,@Cantidad_Dimensiones,@Dimension,@Entrada_Manual,@Resultado,@Fecha_Creacion,@Usuario_Creacion,@Activa)
+      -->
+    </SQL>
+    <SQL id="Parametro_Insert">
+      <!-- 
+        exec dbo.sp_CrearParameter @Nombre,@Descripcion,@AliasGAMS,@Cantidad_Dimensiones,@Dimension,@Usuario_Creacion
       -->
     </SQL>
     <SQL id="Parametro_Update">
@@ -215,6 +232,61 @@
             Where s.Activa != '2'  And s.IDSet_Padre is Not Null
       -->
     </SQL>
- 
+
+    <!-- MULTISET -->
+
+    <SQL id="Multiset_Insert2">
+      <!-- 
+        INSERT INTO [MultiSet] (IDMultiSet,Nombre,Descripcion,AliasGAMS,Usuario_Creacion, Cantidad_Dimensiones, Dimension) VALUES (NEXT VALUE FOR seqMICV,@Nombre,@Descripcion,@AliasGAMS,@Usuario_Creacion,@Cantidad_Dimensiones, @Dimension)
+      -->
+    </SQL>
+    <SQL id="Multiset_Insert">
+      <!-- 
+        exec dbo.sp_CrearMultiset @Nombre,@Descripcion,@AliasGAMS,@Cantidad_Dimensiones,@Dimension,@Usuario_Creacion
+      -->
+    </SQL>
+    <SQL id="Multiset_Update1">
+      <!--
+        UPDATE [MultiSet] SET Nombre = @Nombre, Descripcion = @Descripcion, AliasGAMS = @AliasGAMS, Usuario_UltMod = @Usuario_UltMod, Fecha_UltMod = @Fecha_UltMod, Activa = @Activa, Cantidad_Dimensiones = @Cantidad_Dimensiones, Dimension = @Dimension WHERE IDMultiSet = @IDMultiSet
+      -->
+    </SQL>
+    <SQL id="Multiset_Update">
+      <!--
+        exec dbo.sp_ActualizarMultiset @IDMultiSet,@Nombre,@Descripcion,@AliasGAMS,@Cantidad_Dimensiones,@Dimension,@Usuario_UltMod,@Activa
+      -->
+    </SQL>
+    <SQL id="Multiset_Delete">
+      <!--
+        UPDATE [MultiSet] SET Usuario_UltMod = @Usuario_UltMod, Fecha_UltMod = @Fecha_UltMod, Activa = '2' WHERE IDMultiSet = @IDMultiSet
+      -->
+    </SQL>
+    <SQL id="Multiset_Get">
+      <!--
+       SELECT ms.*,
+ STUFF((SELECT ','  + s.Nombre from Multiset_Set mss left join [Set] s on mss.IDSet = s.IDSet where mss.IDMultiset = ms.IDMultiSet
+    FOR XML PATH('')),1, 1, '') As Dimensiones
+ ,STUFF((SELECT ','  + convert(varchar,s.IDSet,1) from Multiset_Set mss left join [Set] s on mss.IDSet = s.IDSet where mss.IDMultiset = ms.IDMultiSet
+    FOR XML PATH('')),1, 1, '') As IDsDimensiones
+	, dbo.fn_multiset_tiene_elementos(ms.IDMultiSet) tieneElementos
+FROM MultiSet ms where ms.Activa != '2' and ms.IDMultiSet = @Id
+      -->
+    </SQL>
+    <SQL id="Multiset_GetAll_old">
+      <!--
+       SELECT ms.*, vm.IdVersion, mss.IdSet Dimensiones FROM [MultiSet] ms left join Version_MultiSet vm on ms.IDMultiSet = vm.IDMultiSet left join [Multiset_Set] mss on ms.IDMultiset = mss.IDMultiset Where ms.Activa != '2'
+      -->
+    </SQL>
+    <SQL id="Multiset_GetAll">
+      <!--
+       SELECT ms.*,
+ STUFF((SELECT '.'  + s.Nombre from Multiset_Set mss left join [Set] s on mss.IDSet = s.IDSet where mss.IDMultiset = ms.IDMultiSet
+    FOR XML PATH('')),1, 1, '') As Dimensiones
+ ,STUFF((SELECT '.'  + convert(varchar,s.IDSet,1) from Multiset_Set mss left join [Set] s on mss.IDSet = s.IDSet where mss.IDMultiset = ms.IDMultiSet
+    FOR XML PATH('')),1, 1, '') As IDsDimensiones
+	, dbo.fn_multiset_tiene_elementos(ms.IDMultiSet) tieneElementos
+FROM MultiSet ms where ms.Activa != '2'
+      -->
+    </SQL>
+    
   </queries>
 </top>
