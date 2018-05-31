@@ -15,6 +15,9 @@ namespace Base.Data.Extensions
             parameter.ParameterName = name;
             parameter.Value = value;
 
+            if (value.GetType() == typeof(char))
+                parameter.DbType = DbType.AnsiStringFixedLength;
+
             return parameter;
         }
     }

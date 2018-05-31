@@ -176,7 +176,10 @@ namespace Base.Data.Infrastructure
             foreach (var property in typeof(T).GetProperties())
             {
                 if (record.HasColumn(property.Name) && !record.IsDBNull(record.GetOrdinal(property.Name)))
-                    property.SetValue(objT, record[property.Name]);
+                    if (property.PropertyType != typeof(char))
+                        property.SetValue(objT, record[property.Name]);
+                    else
+                        property.SetValue(objT, Convert.ToChar(record[property.Name]));
             }
             return objT;
         }
