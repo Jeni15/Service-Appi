@@ -240,6 +240,8 @@ namespace SeedProject.Paginas.Administracion
 
                     if (chkActivo.Checked)
                     {
+                        esMarcado = true;
+
                         try
                         {
                             parametroFormViewModel.Parametro = new Parametro();
@@ -262,15 +264,25 @@ namespace SeedProject.Paginas.Administracion
 
                             spnEstado.Attributes["class"] = "label label-success";
                             lblEstado.Text = "Cargado";
+                            lblEstado.Attributes["data-original-title"] = "El registro se guardo con exito!";
                         }
                         catch (Exception ex)
                         {
                             errorCargue = ex;
                             spnEstado.Attributes["class"] = "label label-danger";
                             lblEstado.Text = "Error";
+                            lblEstado.Attributes["data-original-title"] = ExceptionService.ConvertirError(ex);
                         }
                     }
+                    else
+                    {
+                        spnEstado.Attributes["class"] = "label label-warning";
+                        lblEstado.Text = "Espera";
+                        lblEstado.Attributes["data-original-title"] = "No se ha hecho ninguna accion con este registro.";
+                    }
                 }
+
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "ToolTip", string.Format("$('[rel=tooltip], [data-rel=tooltip]').tooltip();"), true);
 
                 if (errorCargue != null)
                 {

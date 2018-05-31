@@ -15,29 +15,22 @@
 	    </div>
     </div>
 
-    <!-- widget grid -->
-    <section id="widget-grid" class="">
-	    <!-- START ROW -->
-	    <div class="row">
-            <div id="divMensajeMain"></div>
+    <asp:UpdatePanel ID="updDatos" runat="server" UpdateMode="Always">
+        <ContentTemplate>
+            <!-- widget grid -->
+            <section id="widget-grid" class="">
+	            <!-- START ROW -->
+	            <div class="row">
+                    <div id="divMensajeMain"></div>
 
-		    <!-- NEW COL START -->
-            <asp:UpdatePanel ID="updDatos" runat="server" UpdateMode="Always">
-                <ContentTemplate>
+		            <!-- NEW COL START -->
                     <asp:Panel ID="pnlDatos" runat="server">
 		                <article class="col-sm-12 col-md-5">
 			                <!-- Widget ID (each widget will need unique ID)-->
-			                <div class="jarviswidget jarviswidget-color-greenLight" id="wid-id-2" data-widget-editbutton="false" data-widget-custombutton="false">
+			                <div class="jarviswidget jarviswidget-color-greenLight" id="wid-id-2" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-togglebutton="false">
 				                <!-- widget options:
 					                usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 					
-					                data-widget-colorbutton="false"	
-					                data-widget-editbutton="false"
-					                data-widget-togglebutton="false"
-					                data-widget-deletebutton="false"
-					                data-widget-fullscreenbutton="false"
-					                data-widget-custombutton="false"
-					                data-widget-collapsed="true" 
 					                data-widget-sortable="false"
 					
 				                -->
@@ -95,16 +88,13 @@
                         </article>
 
                         <article class="col-sm-12 col-md-12">
-                            <div class="jarviswidget jarviswidget-color-greenLight" id="wid-id-1" data-widget-editbutton="false">
+                            <div class="jarviswidget jarviswidget-color-greenLight" id="wid-id-1"  data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-togglebutton="false">
 				                <!-- widget options:
 				                usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 
 				                data-widget-colorbutton="false"
-				                data-widget-editbutton="false"
 				                data-widget-togglebutton="false"
-				                data-widget-deletebutton="false"
 				                data-widget-fullscreenbutton="false"
-				                data-widget-custombutton="false"
 				                data-widget-collapsed="true"
 				                data-widget-sortable="false"
 
@@ -154,6 +144,7 @@
 											                        <asp:CheckBox ID="chkActivo" runat="server" Checked='<%#Eval("Activa").ToString() == "1"%>' Enabled="false" />
 											                        <i></i>
                                                                 </label>
+                                                                <label style="height: 0;overflow: hidden;position: absolute;"><%#Eval("Activa").ToString() == "1"%></label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                     </Columns>
@@ -187,23 +178,13 @@
                             </div>
                         </article>
                     </asp:Panel>
-                </ContentTemplate>
-            </asp:UpdatePanel>
-
-            <asp:UpdatePanel ID="updCargueMasivo" runat="server" UpdateMode="Always">
-                <ContentTemplate>
+                
                     <asp:Panel ID="pnlCargueMasivo" runat="server" Visible="false">
                         <article class="col-sm-12 col-md-12">
-                            <div class="jarviswidget jarviswidget-color-greenLight" id="wid-id-3" data-widget-editbutton="false">
+                            <div class="jarviswidget jarviswidget-color-greenLight" id="wid-id-3"  data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-togglebutton="false">
 				                <!-- widget options:
 				                usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 
-				                data-widget-colorbutton="false"
-				                data-widget-editbutton="false"
-				                data-widget-togglebutton="false"
-				                data-widget-deletebutton="false"
-				                data-widget-fullscreenbutton="false"
-				                data-widget-custombutton="false"
 				                data-widget-collapsed="true"
 				                data-widget-sortable="false"
 
@@ -249,18 +230,16 @@
                                                                                 <asp:BoundField DataField="AliasGAMS" HeaderText="Alias GAMS" />
                                                                                 <asp:TemplateField HeaderText="Cargar" ItemStyle-HorizontalAlign="Center">
                                                                                     <ItemTemplate>
-                                                                                        <div class="col-md-12 text-center">
-                                                                                            <label class="checkbox checkbox-inline">
-											                                                    <asp:CheckBox ID="chkActivo" runat="server" Checked="true" />
-											                                                    <i></i>
-                                                                                            </label>
-                                                                                        </div>
+                                                                                        <label class="checkbox checkbox-inline">
+											                                                <asp:CheckBox ID="chkActivo" runat="server" Checked="true" />
+											                                                <i></i>
+                                                                                        </label>
                                                                                     </ItemTemplate>
                                                                                 </asp:TemplateField>
                                                                                 <asp:TemplateField HeaderText="Estado">
                                                                                     <ItemTemplate>
                                                                                         <span id="spnEstado" runat="server" class="label label-warning">
-                                                                                            <asp:Label ID="lblEstado" runat="server" Text="Espera"></asp:Label>
+                                                                                            <asp:Label ID="lblEstado" runat="server" Text="Espera" rel="tooltip" data-placement="bottom" data-original-title="No se ha hecho ninguna accion con este registro."></asp:Label>
                                                                                         </span>
                                                                                     </ItemTemplate>
                                                                                 </asp:TemplateField>
@@ -297,14 +276,10 @@
                             </div>
                         </article>
                     </asp:Panel>
-                </ContentTemplate>
-            </asp:UpdatePanel>
 
-            <asp:UpdatePanel ID="updExportar" runat="server" UpdateMode="Always">
-                <ContentTemplate>
                     <asp:Panel ID="pnlExportar" runat="server" Visible="false">
                         <article class="col-sm-12 col-md-12">
-                            <div class="jarviswidget jarviswidget-color-greenLight" id="wid-id-4" data-widget-editbutton="false">
+                            <div class="jarviswidget jarviswidget-color-greenLight" id="wid-id-4" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-custombutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-togglebutton="false">
 				                <!-- widget options:
 				                usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 
@@ -409,10 +384,10 @@
                             </div>
                         </article>
                     </asp:Panel>
-                </ContentTemplate>
-            </asp:UpdatePanel>
-        </div>
-    </section>
+                </div>
+            </section>
+        </ContentTemplate>
+    </asp:UpdatePanel>
 
     <!-- Modal -->
     <div class="modal fade" id="modalSet" tabindex="-1" role="dialog">
@@ -533,8 +508,8 @@
                     '</asp:LinkButton>' +
                 '</div>');
 
-            iniDataTableRead($("#<%=grvCargueMasivo.ClientID%>"));
-            iniDataTableRead($("#<%=grvExportar.ClientID%>"));
+            iniDataTableRead($("#<%=grvCargueMasivo.ClientID%>"), [3]);
+            iniDataTableRead($("#<%=grvExportar.ClientID%>"), [4]);
 
             $("#<%=upfArchivo.ClientID%>").on('change', function () {
                 $("#<%=btnCargarArchivo.ClientID%>").click();
@@ -547,7 +522,7 @@
         function onEachRequest(sender, args) {
             if ($("#masterForm").validateWebForm() == false) {
                 args.set_cancel(true);
-            }
+            };
         };
 
         function pageLoad() {

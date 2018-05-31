@@ -125,12 +125,22 @@ function iniDataTable(grvDatos) {
     });
 };
 
-function iniDataTableRead(grvDatos) {
+function iniDataTableRead(grvDatos, colsNoOrdenable) {
     var responsiveHelper_datatable_fixed_column = undefined;
     var breakpointDefinition = {
         tablet: 1024,
         phone: 480
     };
+
+    var colsDefs = "[{\"className\": \"text-center\",\"targets\": \"_all\"}";
+
+    if (colsNoOrdenable != null) {
+        colsNoOrdenable.forEach(function (element) {
+            colsDefs = colsDefs + ",{\"targets\": " + element + ",\"orderable\": false}";
+        });
+    };
+
+    colsDefs = JSON.parse(colsDefs + "]");
 
     /* COLUMN FILTER  */
     var otable = grvDatos.DataTable({
@@ -142,10 +152,7 @@ function iniDataTableRead(grvDatos) {
         "responsive": true,
         //"bStateSave": true // saves sort state using localStorage
         "order": [[0, "asc"]],
-        columnDefs: [{
-            className: "text-center",
-            targets: "_all"
-        }],
+        "columnDefs": colsDefs,
         "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-xs-12 col-sm-6'<'toolbar'>>r>" +
                 "t" +
                 "<'dt-toolbar-footer'<'col-sm-12 col-xs-12'i><'col-xs-12 col-sm-12'p>>",

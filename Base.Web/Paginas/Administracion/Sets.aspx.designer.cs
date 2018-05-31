@@ -121,15 +121,6 @@ namespace SeedProject.Paginas.Administracion {
         protected global::System.Web.UI.WebControls.LinkButton btnExportar;
         
         /// <summary>
-        /// Control updCargueMasivo.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel updCargueMasivo;
-        
-        /// <summary>
         /// Control pnlCargueMasivo.
         /// </summary>
         /// <remarks>
@@ -200,15 +191,6 @@ namespace SeedProject.Paginas.Administracion {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton btnCargueMasivoCerrar;
-        
-        /// <summary>
-        /// Control updExportar.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel updExportar;
         
         /// <summary>
         /// Control pnlExportar.

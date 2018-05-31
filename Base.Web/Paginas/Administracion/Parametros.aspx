@@ -574,8 +574,8 @@
                     '</asp:LinkButton>' +
                 '</div>');
 
-            iniDataTableRead($("#<%=grvCargueMasivo.ClientID%>"));
-            iniDataTableRead($("#<%=grvExportar.ClientID%>"));
+            iniDataTableRead($("#<%=grvCargueMasivo.ClientID%>"), [3]);
+            iniDataTableRead($("#<%=grvExportar.ClientID%>"), [4]);
 
             $("#<%=upfArchivo.ClientID%>").on('change', function () {
                 $("#<%=btnCargarArchivo.ClientID%>").click();
