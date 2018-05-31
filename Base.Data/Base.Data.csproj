@@ -30,11 +30,24 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Oracle.DataAccess, Version=4.112.3.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\Oracle.DataAccess.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -45,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="Extensions\IDataRecordExtensions.cs" />
     <Compile Include="Extensions\IDbCommandExtensions.cs" />
     <Compile Include="Infrastructure\AdoNetUnitOfWork.cs" />
@@ -57,6 +71,19 @@
     <Compile Include="Infrastructure\IRepository.cs" />
     <Compile Include="Infrastructure\IUnitOfWork.cs" />
     <Compile Include="Infrastructure\AdoNetRepository.cs" />
+    <Compile Include="Migrations\201805220109439_InitialCreate.cs" />
+    <Compile Include="Migrations\201805220109439_InitialCreate.Designer.cs">
+      <DependentUpon>201805220109439_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805221410476_NewUsersAttributes.cs" />
+    <Compile Include="Migrations\201805221410476_NewUsersAttributes.Designer.cs">
+      <DependentUpon>201805221410476_NewUsersAttributes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805221936358_DontKnow.cs" />
+    <Compile Include="Migrations\201805221936358_DontKnow.Designer.cs">
+      <DependentUpon>201805221936358_DontKnow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\SetRepository.cs" />
     <Compile Include="Repositories\ParametroRepository.cs" />
@@ -69,7 +96,10 @@
     <Compile Include="Repositories\GenericRepository.cs" />
     <Compile Include="Xml\SqlManager.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Base.Model\Base.Model.csproj">
       <Project>{b5c8c4ed-4c38-41dc-b16b-28eb4d55fd69}</Project>
@@ -77,6 +107,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Migrations\201805220109439_InitialCreate.resx">
+      <DependentUpon>201805220109439_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805221410476_NewUsersAttributes.resx">
+      <DependentUpon>201805221410476_NewUsersAttributes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805221936358_DontKnow.resx">
+      <DependentUpon>201805221936358_DontKnow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Xml\Queries.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

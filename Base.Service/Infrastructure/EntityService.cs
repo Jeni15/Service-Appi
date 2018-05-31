@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Base.Service.Infrastructure
 {
-    public abstract class EntityService<TEntity> : IEntityService<TEntity> where TEntity : class
+    public class EntityService<TEntity> : IEntityService<TEntity> where TEntity : class
     {
         protected IUnitOfWork _unitOfWork;
         protected IRepository<TEntity> _repository;
@@ -17,6 +17,13 @@ namespace Base.Service.Infrastructure
             _unitOfWork = unitOfWork;
             _repository = repository;
 
+        }
+
+        public EntityService()
+        {
+            var adoNetDbFactory = new AdoNetDbFactory();
+            _unitOfWork = new AdoNetUnitOfWork(adoNetDbFactory);
+            _repository = new AdoNetRepository<TEntity>(adoNetDbFactory, _unitOfWork);
         }
 
 

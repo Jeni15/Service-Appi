@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Security.Claims;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-using Base.Service.Services;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
 
-namespace Base.Web
+namespace Base.Service
 {
-
     public static class IdentityHelper
     {
         // Se utilizan para XSRF al vincular inicios de sesión externos
@@ -64,5 +60,3 @@ namespace Base.Web
         }
     }
 }
-
-

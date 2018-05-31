@@ -64,12 +64,24 @@
     </SQL>
     <SQL id="Menu_GetParents">
       <!--
-       SELECT * FROM MENUS WHERE IdMenuPadre IS NULL  Order by Orden
+       SELECT DISTINCT ME.* 
+        FROM MENUS ME
+             INNER JOIN MENUROLES			MR ON MR.IdMenu = ME.IdMenu
+             INNER JOIN AspNetRoles		RO ON RO.Id		= MR.RoleId
+	         INNER JOIN AspNetUserRoles	UR ON UR.RoleId	= MR.RoleId 
+       WHERE IdMenuPadre IS NULL AND UR.UserId = @Nombre
+       ORDER BY Orden
       -->
     </SQL>
-    <SQL id="Menu_GetChildren">
-      <!--
-       SELECT * FROM MENUS WHERE IdMenuPadre = @IdMenuPadre Order by Orden
+   <SQL id="Menu_GetChildren">
+      <!--       
+       SELECT DISTINCT ME.* 
+        FROM MENUS ME
+             INNER JOIN MENUROLES			MR ON MR.IdMenu = ME.IdMenu
+             INNER JOIN AspNetRoles		RO ON RO.Id		= MR.RoleId
+	         INNER JOIN AspNetUserRoles	UR ON UR.RoleId	= MR.RoleId 
+       WHERE IdMenuPadre = @IdMenuPadre AND UR.UserId =  @Nombre
+       ORDER BY Orden
       -->
     </SQL>
 
