@@ -1,0 +1,114 @@
+﻿using Base.Api.Utils;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Http;
+using System.Xml;
+
+namespace Base.Api.Controllers.Api
+{
+    public class AuthFactorySuiteController : ApiController
+    {
+
+        public AuthFactorySuiteController()
+        {
+        }
+
+        //POST /api/authfactorysuite/token
+        [HttpPost]
+        public async Task<IHttpActionResult> Token()
+        {
+            try
+            {
+                NetworkCredential credentials = GetCredentials();
+
+                string token = await Authenticate(credentials);
+
+                return Ok(token);
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.Unauthorized, ex.Message);
+            }
+        }
+
+        //POST /api/authfactorysuite/ejecutar
+        [HttpPost]
+        public async Task<IHttpActionResult> Ejecutar()
+        {
+            try
+            {
+                NetworkCredential credentials = GetCredentials();
+
+                string token = await Authenticate(credentials);
+
+                return Ok(token);
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.Unauthorized, ex.Message);
+            }
+        }
+
+
+        private NetworkCredential GetCredentials()
+        {
+            string authHeader = HttpContext.Current.Request.Headers["Authorization"];
+
+            if (authHeader == null || !authHeader.StartsWith("Basic"))
+                throw new Exception("Authorization header esta vacía o no es basic.");
+
+            string usernamePassword = Encoding.GetEncoding("iso-8859-1").GetString(Convert.FromBase64String(authHeader.Substring("Basic ".Length).Trim()));
+
+            int seperatorIndex = usernamePassword.IndexOf(':');
+
+            return new NetworkCredential(usernamePassword.Substring(0, seperatorIndex), usernamePassword.Substring(seperatorIndex + 1));
+
+        }
+
+        private async Task<string> Authenticate(NetworkCredential credentials)
+        {
+            string result = "";
+
+            HttpContent content = new StringContent(Convert.ToBase64String(Encoding.ASCII.GetBytes($"USUARIO={credentials.UserName}&CLAVE={credentials.Password}&ACCION=login")));
+
+            using (var Client = new HttpClient())
+            {
+                Client.DefaultRequestHeaders.Accept.Clear();
+                Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml"));
+
+                try
+                {
+                    var Response = await Client.PostAsync(ServiceUrl.FactorySuiteProxy, content);
+
+                    if (Response.StatusCode == HttpStatusCode.OK)
+                    {
+                        var ResultWebAPI = await Response.Content.ReadAsStringAsync();
+
+                        XmlDocument document = new XmlDocument();
+
+                        document.LoadXml(ResultWebAPI);
+
+                        result = document.SelectSingleNode("/ROOT/XML/RETORNO/TOKEN").InnerText;
+
+                        if (string.IsNullOrEmpty(result))
+                            throw new Exception(document.SelectSingleNode("/ROOT/XML/RETORNO/MENSAJE").InnerText);
+                    }
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+
+            return result;
+        }
+
+    }
+}
