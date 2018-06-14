@@ -1,4 +1,5 @@
 ﻿using Base.Model.Models;
+using Base.Service.Infrastructure;
 using Base.Service.Services;
 using System;
 using System.Collections.Generic;
@@ -11,20 +12,31 @@ namespace Base.Api.Controllers.Api
 {
     public class SetsController : ApiController
     {
-        private readonly ISetService _setService;
+        public EntityService<Set> _setService;
 
-        public SetsController(ISetService setService)
+        public SetsController()
         {
-            _setService = setService;
+            _setService = new EntityService<Set>();
+
         }
 
+       
+
         // GET /api/sets
+        
         public IHttpActionResult GetSets()
-        {            
+        {
             return Ok(_setService.GetAll());
         }
 
         //GET /api/sets/1
+
+        /// <summary>
+        /// Obtiene set por id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Set consultado</returns>
+        /// <remarks>Obtiene set por id</remarks>
         public IHttpActionResult GetSet(int id)
         {
             Set set = _setService.GetById(id);
@@ -76,7 +88,7 @@ namespace Base.Api.Controllers.Api
         //DELETE /api/sets/1
         [HttpDelete]
         public IHttpActionResult DeleteSet(int id)
-        {            
+        {
             Set setInDb = _setService.GetById(id);
 
             if (setInDb == null)

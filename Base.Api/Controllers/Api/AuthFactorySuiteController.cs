@@ -21,7 +21,8 @@ namespace Base.Api.Controllers.Api
         }
 
         //POST /api/authfactorysuite/token
-        [HttpPost]
+        [Route("api/authfactorysuite/token")]
+        [HttpPost]        
         public async Task<IHttpActionResult> Token()
         {
             try
@@ -39,20 +40,21 @@ namespace Base.Api.Controllers.Api
         }
 
         //POST /api/authfactorysuite/ejecutar
+        [Route("api/authfactorysuite/ejecutar")]
         [HttpPost]
         public async Task<IHttpActionResult> Ejecutar()
         {
             try
             {
-                NetworkCredential credentials = GetCredentials();
+                string xml = GetMessage();
 
-                string token = await Authenticate(credentials);
+                string response = await Execute(xml);
 
-                return Ok(token);
+                return Ok(response);
             }
             catch (Exception ex)
             {
-                return Content(HttpStatusCode.Unauthorized, ex.Message);
+                return Content(HttpStatusCode.BadRequest, ex.Message);
             }
         }
 
@@ -99,6 +101,68 @@ namespace Base.Api.Controllers.Api
 
                         if (string.IsNullOrEmpty(result))
                             throw new Exception(document.SelectSingleNode("/ROOT/XML/RETORNO/MENSAJE").InnerText);
+                    }
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+
+            return result;
+        }
+
+        private string GetToken()
+        {
+            string authHeader = HttpContext.Current.Request.Headers["Authorization"];
+
+            if (authHeader == null )
+                throw new Exception("Authorization header esta vacía o no es basic.");
+
+            return  Encoding.GetEncoding("iso-8859-1").GetString(Convert.FromBase64String(authHeader.Trim()));
+
+        }
+
+        private string GetMessage()
+        {
+            string xml = HttpContext.Current.Request.Form["xml"];
+
+            if (xml == null)
+                throw new Exception("Mensaje esta vacío.");
+
+            return Encoding.GetEncoding("iso-8859-1").GetString(Convert.FromBase64String(xml.Trim()));
+
+        }
+
+        private async Task<string> Execute(string xml)
+        {
+            string result = "";
+
+            HttpContent content = new StringContent(Convert.ToBase64String(Encoding.ASCII.GetBytes($"XML={xml}&ACCION=ejecutar")));
+
+            using (var Client = new HttpClient())
+            {
+                Client.DefaultRequestHeaders.Accept.Clear();
+                Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml"));
+
+                try
+                {
+                    var Response = await Client.PostAsync(ServiceUrl.FactorySuiteProxy, content);
+
+                    if (Response.StatusCode == HttpStatusCode.OK)
+                    {
+                        var ResultWebAPI = await Response.Content.ReadAsStringAsync();
+
+                        //XmlDocument document = new XmlDocument();
+
+                        //document.LoadXml(ResultWebAPI);
+
+                        //result = document.SelectSingleNode("/ROOT/XML/RETORNO/TOKEN").InnerText;
+
+                        result = ResultWebAPI;
+
+                        //if (string.IsNullOrEmpty(result))
+                        //    throw new Exception(document.SelectSingleNode("/ROOT/XML/RETORNO/MENSAJE").InnerText);
                     }
                 }
                 catch (Exception)

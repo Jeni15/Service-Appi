@@ -1,11 +1,13 @@
 using System;
 using System.Text;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Base.Model.Models
 {
     public class Set
     {
+
         public long IDSet { get; set; }
 
         public string Nombre { get; set; }
