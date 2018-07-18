@@ -1,4 +1,6 @@
 ﻿using Base.Api.Utils;
+using Base.Model.Dtos;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +33,9 @@ namespace Base.Api.Controllers.Api
 
                 string token = await Authenticate(credentials);
 
-                return Ok(token);
+                var userToken = new UserToken { IdToken = token };
+
+                return Ok(userToken);
             }
             catch (Exception ex)
             {
@@ -175,4 +179,5 @@ namespace Base.Api.Controllers.Api
         }
 
     }
+  
 }
