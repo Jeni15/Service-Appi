@@ -47,9 +47,9 @@ namespace Base.Api.Controllers.Api
                     FechaExpedicion = certificados[0].FechaExpedicion,
                     FechaVencimiento = certificados[0].FechaVencimiento,
                     CodigoSeguridad = certificados[0].CodigoSeguridad,
-                    NombreEmpresa= certificados[0].NombreEmpresa,
-                    Sucursal= certificados[0].Sucursal,
-                    Sustancias= (from cert in certificados select new Sustancia() { Nombre= cert.Sustancia,  Cantidad= cert.Cantidad, Unidad= cert.Unidad }).ToList()
+                    NombreEmpresa= certificados[0].NombreEmpresa.Trim(),
+                    Sucursal= certificados[0].Sucursal.Trim(),
+                    Sustancias = (from cert in certificados select new Sustancia() { Nombre= cert.Sustancia,  Cantidad= cert.Cantidad, Unidad= cert.Unidad }).ToList()
                 };
                 
 
