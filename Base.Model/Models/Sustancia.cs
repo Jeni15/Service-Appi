@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace Base.Model.Models
 {
-    public class TipoIdentificacion
+    public class Sustancia
     {
-        public int Id { get; set; }
-
         public string Nombre { get; set; }
-
+        public double Cantidad { get; set; }
+        public string Unidad { get; set; }
     }
 }

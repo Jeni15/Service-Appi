@@ -1,5 +1,6 @@
 ﻿using Base.Data.Infrastructure;
 using Base.Data.Repositories;
+using Base.Model.Dtos;
 using Base.Model.Models;
 using Base.Service.Infrastructure;
 using System;
@@ -11,16 +12,16 @@ using System.Threading.Tasks;
 namespace Base.Service.Services
 {
    
-    public class MenuService : EntityService<Menu>, IMenuService
+    public class CertificadoService : EntityService<CertificadoDto>, ICertificadoService
     {
-        public MenuService(IUnitOfWork unitOfWork, IMenuRepository repository) : base(unitOfWork, repository)
+        public CertificadoService(IUnitOfWork unitOfWork, ICertificadoRepository repository) : base(unitOfWork, repository)
         {
 
         }
 
     }
 
-    public interface IMenuService : IEntityService<Menu>
+    public interface ICertificadoService : IEntityService<CertificadoDto>
     {
    
     }

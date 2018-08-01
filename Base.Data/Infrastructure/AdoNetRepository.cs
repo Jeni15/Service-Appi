@@ -21,6 +21,8 @@ namespace Base.Data.Infrastructure
 
         protected AdoNetUnitOfWork _uow;
 
+        public string Comodin { get; set; }
+
         protected IAdoNetDbFactory DbFactory
         {
             get;
@@ -40,6 +42,7 @@ namespace Base.Data.Infrastructure
         {
             DbFactory = dbFactory;
             _uow = unitOfWork as AdoNetUnitOfWork;
+            Comodin = ":";
         }
 
         #endregion  
@@ -113,7 +116,7 @@ namespace Base.Data.Infrastructure
 
                 //DbParameter[] parameters = CreateParemeters(entity, command, sql);
 
-                command.Parameters.Add(command.CreateParameter("@Id", id));
+                command.Parameters.Add(command.CreateParameter($"{Comodin}Id", id));
 
                 command.CommandText = sql;
 
@@ -186,7 +189,7 @@ namespace Base.Data.Infrastructure
 
         protected DbParameter[] CreateParemeters(T entity, IDbCommand command, string sql)
         {
-            var pattern = "@([a-zA-Z_]+)";
+            var pattern = $"{Comodin}([a-zA-Z_]+)";
 
             List<string> listParameters = new List<string>();
 
@@ -202,7 +205,7 @@ namespace Base.Data.Infrastructure
                 {
                     foreach (var property in typeof(T).GetProperties())
                     {
-                        if ($"@{property.Name}".ToUpper().Equals(param.Value.ToUpper()))
+                        if ($"{Comodin}{property.Name}".ToUpper().Equals(param.Value.ToUpper()))
                         {
                             object value = property.GetValue(entity, null);
 

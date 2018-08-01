@@ -1,6 +1,7 @@
 ﻿using Base.Data.Extensions;
 using Base.Data.Infrastructure;
 using Base.Data.Xml;
+using Base.Model.Dtos;
 using Base.Model.Models;
 using System;
 using System.Collections.Generic;
@@ -13,15 +14,15 @@ using System.Threading.Tasks;
 namespace Base.Data.Repositories
 {
 
-    public class ParametroRepository : AdoNetRepository<Parametro>, IParametroRepository
+    public class CertificadoRepository : AdoNetRepository<CertificadoDto>, ICertificadoRepository
     {
-        public ParametroRepository(IAdoNetDbFactory dbFactory, IUnitOfWork uow) : base(dbFactory,uow)
+        public CertificadoRepository(IAdoNetDbFactory dbFactory, IUnitOfWork uow) : base(dbFactory,uow)
         {
            
-        }
+        }       
     }
 
-    public interface IParametroRepository : IRepository<Parametro>
+    public interface ICertificadoRepository : IRepository<CertificadoDto>
     {
 
     }

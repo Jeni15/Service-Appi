@@ -23,7 +23,7 @@ namespace Base.Api.Controllers.Api
         }
 
         //POST /api/authfactorysuite/token
-        [Route("api/authfactorysuite/token")]
+        [Route("api/auth/token")]
         [HttpPost]        
         public async Task<IHttpActionResult> Token()
         {
@@ -44,7 +44,7 @@ namespace Base.Api.Controllers.Api
         }
 
         //POST /api/authfactorysuite/ejecutar
-        [Route("api/authfactorysuite/ejecutar")]
+        [Route("api/auth/ejecutar")]
         [HttpPost]
         public async Task<IHttpActionResult> Ejecutar()
         {

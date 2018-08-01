@@ -12,8 +12,6 @@ namespace Base.Model.Models
 
         public Set Set { get; set; }
 
-        public List<Modelo> Modelos { get; set; }
-
         public List<Version> Versiones { get; set; }
     }
 }

@@ -2,6 +2,30 @@
 <top>
   <queries>
 
+    <!-- CERTIFICADODTO -->
+    <SQL id="CertificadoDto_Get">
+      <!--
+
+       SELECT    c."IDCERTIFICADO",c.NoCCITE,c."FECHAEXPEDICION",c."FECHAVENCIMIENTO",c."IDEMPRESA",c."IDSOLICITUD",c."IDESTADOCERTIFICADO",c."IDPRESOLICITUD",c."IDVIGENCIA",c."PERIODICIDAD",c."CODSEGURIDAD",c."NOCCITESIE1"
+               , sc.sucursal  
+               , s.sustancia 
+               , dc.cantidad
+               , u.unidad
+               , e.Nombre as NombreEmpresa
+               , ec.EstadoCertificado
+         FROM    Certificado    c   
+                 INNER JOIN Empresa            e  ON  c.IDEmpresa = e.IDEmpresa  
+                 INNER JOIN EstadoCertificado  ec ON  c.IDEstadoCertificado = ec.IDEstadoCertificado  
+                 INNER JOIN DetalleCertificado dc ON  c.IDCertificado = dc.IDCertificado  
+                 INNER JOIN Sustancia          s  ON  dc.IDSustancia = s.IDSustancia 
+                 LEFT JOIN Unidad             u  ON  s.IDUnidad = u.IDUnidad 
+                 INNER JOIN Sucursal           sc ON  dc.IDSucursal = sc.IDSucursal 
+         WHERE NOCCITE = :NoCcite
+          ORDER BY e.Nombre, sc.sucursal, s.sustancia
+  
+      -->
+    </SQL>
+
     <!-- TIPOIDENTIFICACIONES -->
 
     <SQL id="TipoIdentificacion_Insert">
@@ -34,259 +58,8 @@
            SELECT COUNT(*) FROM TIPOIDENTIFICACIONES
           -->
     </SQL>
-   
-    <!-- MENUS -->
 
-    <SQL id="Menu_Insert">
-      <!--
-        INSERT INTO MENUS (nombre,IdMenuPadre,Url,Icono) VALUES (@Nombre, @IdMenuPadre,@Url,@Icono)
-      -->
-    </SQL>
-    <SQL id="Menu_Update">
-      <!--
-        UPDATE MENUS SET nombre = @Nombre, IdMenuPadre = @IdMenuPadre, Url = @Url, Icono = @Icono  WHERE IDMENU = @Id
-      -->
-    </SQL>
-    <SQL id="Menu_Delete">
-      <!--
-       DELETE FROM MENUS WHERE IDMENU = @Id
-      -->
-    </SQL>
-    <SQL id="Menu_Get">
-      <!--
-       SELECT * FROM MENUS WHERE IDMENU = @Id
-      -->
-    </SQL>
-    <SQL id="Menu_GetAll">
-      <!--
-       SELECT * FROM MENUS
-      -->
-    </SQL>
-    <SQL id="Menu_GetParents">
-      <!--
-       SELECT DISTINCT ME.* 
-        FROM MENUS ME
-             INNER JOIN MENUROLES			MR ON MR.IdMenu = ME.IdMenu
-             INNER JOIN AspNetRoles		RO ON RO.Id		= MR.RoleId
-	         INNER JOIN AspNetUserRoles	UR ON UR.RoleId	= MR.RoleId 
-       WHERE IdMenuPadre IS NULL AND UR.UserId = @Nombre
-       ORDER BY Orden
-      -->
-    </SQL>
-   <SQL id="Menu_GetChildren">
-      <!--       
-       SELECT DISTINCT ME.* 
-        FROM MENUS ME
-             INNER JOIN MENUROLES			MR ON MR.IdMenu = ME.IdMenu
-             INNER JOIN AspNetRoles		RO ON RO.Id		= MR.RoleId
-	         INNER JOIN AspNetUserRoles	UR ON UR.RoleId	= MR.RoleId 
-       WHERE IdMenuPadre = @IdMenuPadre AND UR.UserId =  @Nombre
-       ORDER BY Orden
-      -->
-    </SQL>
 
-    <!-- MODELO -->
 
-    <SQL id="Modelo_Insert">
-      <!--
-        INSERT INTO MODELOS (nombre) VALUES (@NOMBRE)
-      -->
-    </SQL>
-    <SQL id="Modelo_Update">
-      <!--
-        UPDATE MODELOS SET nombre = @NOMBRE WHERE IDMODELO = @Id
-      -->
-    </SQL>
-    <SQL id="Modelo_Delete">
-      <!--
-       DELETE FROM MODELOS WHERE IDMODELO = @Id
-      -->
-    </SQL>
-    <SQL id="Modelo_Get">
-      <!--
-       SELECT * FROM MODELOS WHERE IdModelo = @Id
-      -->
-    </SQL>
-    <SQL id="Modelo_GetAll">
-      <!--
-       SELECT * FROM Modelo
-      -->
-    </SQL>
-
-    <!-- VERSION -->
-
-    <SQL id="Version_Insert">
-      <!--
-        INSERT INTO Version (nombre,IdModelo) VALUES (@Nombre, @IdModelo)
-      -->
-    </SQL>
-    <SQL id="Version_Update">
-      <!--
-        UPDATE MODELOSVERSIONES SET nombre = @Nombre, IdModelo = @IdModelo WHERE IDMODELOVERSION = @Id
-      -->
-    </SQL>
-    <SQL id="Version_Delete">
-      <!--
-       DELETE FROM MODELOSVERSIONES WHERE IDMODELOVERSION = @Id
-      -->
-    </SQL>
-    <SQL id="Version_Get">
-      <!--
-       SELECT * FROM Version WHERE IDVersion = @Id
-      -->
-    </SQL>
-    <SQL id="Version_GetAll">
-      <!--
-       SELECT * FROM Version
-      -->
-    </SQL>
-
-    <!-- PARAMETRO -->
-
-    <SQL id="Parametro_Insert1">
-      <!--
-        INSERT INTO [Parameter] (IDParameter,Nombre,Descripcion,AliasGAMS,IdUOM,Cantidad_Dimensiones,Dimension,Entrada_Manual,Resultado,Fecha_Creacion,Usuario_Creacion,Activa) VALUES (NEXT VALUE FOR seqMICV,@Nombre,@Descripcion,@AliasGAMS,@IdUOM,@Cantidad_Dimensiones,@Dimension,@Entrada_Manual,@Resultado,@Fecha_Creacion,@Usuario_Creacion,@Activa)
-      -->
-    </SQL>
-    <SQL id="Parametro_Insert">
-      <!-- 
-        exec dbo.sp_CrearParameter @Nombre,@Descripcion,@AliasGAMS,@Cantidad_Dimensiones,@Dimension,@Usuario_Creacion
-      -->
-    </SQL>
-    <SQL id="Parametro_Update">
-      <!--
-        UPDATE [Parameter] SET Nombre = @Nombre, Descripcion = @Descripcion, AliasGAMS = @AliasGAMS, Usuario_UltMod = @Usuario_UltMod, Activa = @Activa WHERE IDParameter = @IDParameter
-      -->
-    </SQL>
-    <SQL id="Parametro_Delete">
-      <!--
-       UPDATE [Parameter] SET Usuario_UltMod = @Usuario_UltMod, Activa = '2' WHERE IDParameter = @IDParameter
-      -->
-    </SQL>
-    <SQL id="Parametro_Get">
-      <!--
-       SELECT * FROM [Parameter] WHERE IDParameter = @Id And Activa != '2'
-      -->
-    </SQL>
-    <SQL id="Parametro_GetAll">
-      <!--
-       SELECT p.*, vp.IdParameter FROM [Parameter] p left join Version_Parameter vp on p.IDParameter = vp.IdParameter Where p.Activa != '2'
-      -->
-    </SQL>
-    
-    <!-- SET -->
-
-    <SQL id="Set_Insert">
-      <!-- 
-        INSERT INTO [Set] (IDSet,Nombre,Descripcion,AliasGAMS,Usuario_Creacion) VALUES (NEXT VALUE FOR seqMICV,@Nombre,@Descripcion,@AliasGAMS,@Usuario_Creacion)
-      -->
-    </SQL>
-    <SQL id="Set_Update">
-      <!--
-        UPDATE [Set] SET Nombre = @Nombre, Descripcion = @Descripcion, AliasGAMS = @AliasGAMS, Usuario_UltMod = @Usuario_UltMod, Activa = @Activa WHERE IDSet = @IDSet
-      -->
-    </SQL>
-    <SQL id="Set_Delete">
-      <!--
-        UPDATE [Set] SET Usuario_UltMod = @Usuario_UltMod, Activa = '2' WHERE IDSet = @IDSet
-      -->
-    </SQL>
-    <SQL id="Set_Get">
-      <!--
-       SELECT * FROM [Set] WHERE IDSet = @Id And Activa != '2' And IDSet_Padre is Null
-      -->
-    </SQL>
-    <SQL id="Set_GetAll">
-      <!--
-       SELECT s.*, vs.IdVersion FROM [Set] s left join Version_Set vs on s.IDSet = vs.IdSet Where s.Activa != '2' And s.IDSet_Padre is Null
-      -->
-    </SQL>
-
-    <!-- SUBSET -->
-
-    <SQL id="Subset_Insert">
-      <!-- 
-        INSERT INTO [Set] (IDSet,Nombre,Descripcion,AliasGAMS,Usuario_Creacion, IDSet_Padre) VALUES (NEXT VALUE FOR seqMICV,@Nombre,@Descripcion,@AliasGAMS,@Usuario_Creacion,@IDSet_Padre)
-      -->
-    </SQL>
-    <SQL id="Subset_Update">
-      <!--
-        UPDATE [Set] SET Nombre = @Nombre, Descripcion = @Descripcion, AliasGAMS = @AliasGAMS, Usuario_UltMod = @Usuario_UltMod, Activa = @Activa, IDSet_Padre = @IDSet_Padre WHERE IDSet = @IDSet
-      -->
-    </SQL>
-    <SQL id="Subset_Delete">
-      <!--
-        UPDATE [Set] SET Usuario_UltMod = @Usuario_UltMod, Activa = '2' WHERE IDSet = @IDSet
-      -->
-    </SQL>
-    <SQL id="Subset_Get">
-      <!--
-       SELECT * FROM [Set] WHERE IDSet = @Id And Activa != '2' And IDSet_Padre is Not Null
-      -->
-    </SQL>
-    <SQL id="Subset_GetAll">
-      <!--
-       SELECT s.*, vs.IdVersion, sp.Nombre NMSet_padre
-            FROM [Set] s left join Version_Set vs on s.IDSet = vs.IdSet 
-			             left join [Set] sp on s.IDSet_Padre = sp.IdSet 
-            Where s.Activa != '2'  And s.IDSet_Padre is Not Null
-      -->
-    </SQL>
-
-    <!-- MULTISET -->
-
-    <SQL id="Multiset_Insert2">
-      <!-- 
-        INSERT INTO [MultiSet] (IDMultiSet,Nombre,Descripcion,AliasGAMS,Usuario_Creacion, Cantidad_Dimensiones, Dimension) VALUES (NEXT VALUE FOR seqMICV,@Nombre,@Descripcion,@AliasGAMS,@Usuario_Creacion,@Cantidad_Dimensiones, @Dimension)
-      -->
-    </SQL>
-    <SQL id="Multiset_Insert">
-      <!-- 
-        exec dbo.sp_CrearMultiset @Nombre,@Descripcion,@AliasGAMS,@Cantidad_Dimensiones,@Dimension,@Usuario_Creacion
-      -->
-    </SQL>
-    <SQL id="Multiset_Update1">
-      <!--
-        UPDATE [MultiSet] SET Nombre = @Nombre, Descripcion = @Descripcion, AliasGAMS = @AliasGAMS, Usuario_UltMod = @Usuario_UltMod, Fecha_UltMod = @Fecha_UltMod, Activa = @Activa, Cantidad_Dimensiones = @Cantidad_Dimensiones, Dimension = @Dimension WHERE IDMultiSet = @IDMultiSet
-      -->
-    </SQL>
-    <SQL id="Multiset_Update">
-      <!--
-        exec dbo.sp_ActualizarMultiset @IDMultiSet,@Nombre,@Descripcion,@AliasGAMS,@Cantidad_Dimensiones,@Dimension,@Usuario_UltMod,@Activa
-      -->
-    </SQL>
-    <SQL id="Multiset_Delete">
-      <!--
-        UPDATE [MultiSet] SET Usuario_UltMod = @Usuario_UltMod, Fecha_UltMod = @Fecha_UltMod, Activa = '2' WHERE IDMultiSet = @IDMultiSet
-      -->
-    </SQL>
-    <SQL id="Multiset_Get">
-      <!--
-       SELECT ms.*,
- STUFF((SELECT ','  + s.Nombre from Multiset_Set mss left join [Set] s on mss.IDSet = s.IDSet where mss.IDMultiset = ms.IDMultiSet
-    FOR XML PATH('')),1, 1, '') As Dimensiones
- ,STUFF((SELECT ','  + convert(varchar,s.IDSet,1) from Multiset_Set mss left join [Set] s on mss.IDSet = s.IDSet where mss.IDMultiset = ms.IDMultiSet
-    FOR XML PATH('')),1, 1, '') As IDsDimensiones
-	, dbo.fn_multiset_tiene_elementos(ms.IDMultiSet) tieneElementos
-FROM MultiSet ms where ms.Activa != '2' and ms.IDMultiSet = @Id
-      -->
-    </SQL>
-    <SQL id="Multiset_GetAll_old">
-      <!--
-       SELECT ms.*, vm.IdVersion, mss.IdSet Dimensiones FROM [MultiSet] ms left join Version_MultiSet vm on ms.IDMultiSet = vm.IDMultiSet left join [Multiset_Set] mss on ms.IDMultiset = mss.IDMultiset Where ms.Activa != '2'
-      -->
-    </SQL>
-    <SQL id="Multiset_GetAll">
-      <!--
-       SELECT ms.*,
- STUFF((SELECT '.'  + s.Nombre from Multiset_Set mss left join [Set] s on mss.IDSet = s.IDSet where mss.IDMultiset = ms.IDMultiSet
-    FOR XML PATH('')),1, 1, '') As Dimensiones
- ,STUFF((SELECT '.'  + convert(varchar,s.IDSet,1) from Multiset_Set mss left join [Set] s on mss.IDSet = s.IDSet where mss.IDMultiset = ms.IDMultiSet
-    FOR XML PATH('')),1, 1, '') As IDsDimensiones
-	, dbo.fn_multiset_tiene_elementos(ms.IDMultiSet) tieneElementos
-FROM MultiSet ms where ms.Activa != '2'
-      -->
-    </SQL>
-    
   </queries>
 </top>

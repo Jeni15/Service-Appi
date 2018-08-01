@@ -84,15 +84,9 @@
     <Compile Include="Services\ApplicationSignInManager.cs" />
     <Compile Include="Services\ApplicationUserManager.cs" />
     <Compile Include="Services\EmailService.cs" />
+    <Compile Include="Services\CertificadoService.cs" />
     <Compile Include="Services\SetService.cs" />
-    <Compile Include="Services\ParametroService.cs" />
-    <Compile Include="Services\MultisetService.cs" />
-    <Compile Include="Services\SubsetService.cs" />
     <Compile Include="Services\SmsService.cs" />
-    <Compile Include="Services\VersionService.cs" />
-    <Compile Include="Services\ModeloService.cs" />
-    <Compile Include="Services\MenuService.cs" />
-    <Compile Include="Services\TipoIdentificacionService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
