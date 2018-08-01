@@ -36,7 +36,7 @@ namespace Base.Api.Controllers.Api
             {
                 List<CertificadoDto> certificados = _certificadoService.Execute("Get", new CertificadoDto() { NoCcite=id }).ToList();
 
-                if (certificados == null)
+                if (certificados == null || certificados.Count <= 0)
                     return NotFound();               
 
                 var certificado = new Certificado()
