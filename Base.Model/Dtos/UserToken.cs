@@ -9,6 +9,9 @@ namespace Base.Model.Dtos
 {
     public class UserToken
     {
+        [JsonProperty("id_usuario")]
+        public string IdUsuario { get; set; }
+
         [JsonProperty("id_token")]
         public string IdToken { get; set; }
 

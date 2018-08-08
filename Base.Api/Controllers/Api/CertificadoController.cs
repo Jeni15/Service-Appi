@@ -20,40 +20,63 @@ namespace Base.Api.Controllers.Api
     public class CertificadoController : ApiController
     {
         private readonly ICertificadoService _certificadoService;
+        private readonly ISustanciaService _sustanciaService;
+        private readonly IUserTokenService _userTokenService;
+        private readonly ILogConsultaService _logConsultaService;
 
-        public CertificadoController(ICertificadoService certificadoService)
+        public CertificadoController(ICertificadoService certificadoService, ISustanciaService sustanciaService, IUserTokenService userTokenService, ILogConsultaService logConsultaService)
         {
             _certificadoService = certificadoService;
+            _sustanciaService = sustanciaService;
+            _userTokenService = userTokenService;
+            _logConsultaService = logConsultaService;
         }
 
 
         //GET /api/certificado/GetCertificat
-        [Route("api/certificado/GetCertificate/{id}")]
-        [HttpGet]
-        public async Task<IHttpActionResult> GetCertificate(int id)
+        //[Route("api/certificado/GetCertificate/{id}")]
+        [Route("api/certificado/GetCertificate")]
+        [HttpPost]
+        public async Task<IHttpActionResult> GetCertificate(CertificadoDto certificadoDto)
         {
             try
             {
-                List<CertificadoDto> certificados = _certificadoService.Execute("Get", new CertificadoDto() { NoCcite=id }).ToList();
+                var userid = "";
 
-                if (certificados == null || certificados.Count <= 0)
-                    return NotFound();               
+                var token = GetToken();
 
-                var certificado = new Certificado()
-                {
-                    IdCertificado = certificados[0].IdCertificado,
+                var resultValidation = ValidateToken(token, ref userid);
+
+                if (!resultValidation) throw new Exception ("Token invalido");
+
+                List<Certificado> certificados = _certificadoService.Execute("ConsultaInformacionGeneralCcite", new Certificado() { NoCcite= certificadoDto.Codigo }).ToList();
+
+                if (certificados == null || certificados.Count <= 0) return NotFound();
+
+                List<Sustancia> sustancias = _sustanciaService.Execute("ConsultaSustanciasCcite", new Sustancia() { NoCcite = certificadoDto.Codigo }).ToList();
+
+                
+                certificadoDto.Certificado = new Certificado()
+                {                 
                     NoCcite = certificados[0].NoCcite,
-                    EstadoCertificado = certificados[0].EstadoCertificado,
+                    NombreEmpresa = certificados[0].NombreEmpresa.Trim(),
+                    DocumentoEmpresa = certificados[0].DocumentoEmpresa.Trim(),                    
                     FechaExpedicion = certificados[0].FechaExpedicion,
                     FechaVencimiento = certificados[0].FechaVencimiento,
-                    CodigoSeguridad = certificados[0].CodigoSeguridad,
-                    NombreEmpresa= certificados[0].NombreEmpresa.Trim(),
-                    Sucursal= certificados[0].Sucursal.Trim(),
-                    Sustancias = (from cert in certificados select new Sustancia() { Nombre= cert.Sustancia,  Cantidad= cert.Cantidad, Unidad= cert.Unidad }).ToList()
+                    EstadoCertificado = certificados[0].EstadoCertificado,
+                    Periodicidad = certificados[0].Periodicidad,
+                    CodigoSeguridad = certificados[0].CodigoSeguridad                    
                 };
-                
 
-                return Ok(certificado);
+                certificadoDto.Sustancias = sustancias;
+
+                //var idCertificado = GetCertificateId(certificadoDto.Codigo); 
+                
+                //if( idCertificado == null) throw new Exception ("Certificado no encontrado");
+
+                //_logConsultaService.Create(new LogConsulta() { IdCertificado = 1, IdUsuario = userid, Latitude = certificadoDto.Location.Latitude, Longitude = certificadoDto.Location.Longitude });
+
+                return Ok(certificadoDto);
 
             }
             catch (Exception ex)
@@ -62,6 +85,34 @@ namespace Base.Api.Controllers.Api
             }
         }
 
+        private string GetToken(string tokenType="Bearer")
+        {           
+            string authHeader = HttpContext.Current.Request.Headers["Authorization"];
+
+            if (authHeader == null || !authHeader.StartsWith(tokenType))
+                throw new Exception("Token vacío");
+
+            string token= Encoding.GetEncoding("iso-8859-1").GetString(Convert.FromBase64String(authHeader.Substring($"{tokenType} ".Length).Trim()));
+          
+            return token;
+
+        }
+
+        private bool ValidateToken(string token, ref string userid)
+        {
+            var result = _userTokenService.Execute("ValidateToken", new UserToken() { IdToken = token }).ToList();
+
+            if (result != null && result.Count() > 0)
+            {
+                if (!string.IsNullOrEmpty(result[0].IdToken))
+                {
+                    userid = result[0].IdUsuario;
+                    return true;
+                }
+            }
+            
+            return false;
+        }
     }
   
 }

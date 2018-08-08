@@ -14,16 +14,16 @@ using System.Threading.Tasks;
 namespace Base.Data.Repositories
 {
 
-    public class CertificadoRepository : AdoNetRepository<Certificado>, ICertificadoRepository
+    public class UserTokenRepository : AdoNetRepository<UserToken>, IUserTokenRepository
     {
-        public CertificadoRepository(IAdoNetDbFactory dbFactory, IUnitOfWork uow) : base(dbFactory,uow)
+        public UserTokenRepository(IAdoNetDbFactory dbFactory, IUnitOfWork uow) : base(dbFactory,uow)
         {
            
         }
 
     }
 
-    public interface ICertificadoRepository : IRepository<Certificado>
+    public interface IUserTokenRepository : IRepository<UserToken>
     {
    
     }

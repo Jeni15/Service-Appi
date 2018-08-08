@@ -91,6 +91,9 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\LogConsultaRepository.cs" />
+    <Compile Include="Repositories\UserTokenRepository.cs" />
+    <Compile Include="Repositories\SustanciaRepository.cs" />
     <Compile Include="Repositories\CertificadoRepository.cs" />
     <Compile Include="Repositories\SetRepository.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />
@@ -116,7 +119,9 @@
     <EmbeddedResource Include="Migrations\201805221936358_DontKnow.resx">
       <DependentUpon>201805221936358_DontKnow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Xml\Queries.xml" />
+    <EmbeddedResource Include="Xml\Queries.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

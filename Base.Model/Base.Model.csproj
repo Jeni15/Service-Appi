@@ -56,6 +56,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Log.cs" />
+    <Compile Include="Models\Location.cs" />
     <Compile Include="Dtos\CertificadoDto.cs" />
     <Compile Include="Dtos\UserToken.cs" />
     <Compile Include="Models\ApplicationRole.cs" />

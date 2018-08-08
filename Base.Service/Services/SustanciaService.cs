@@ -12,9 +12,9 @@ using System.Threading.Tasks;
 namespace Base.Service.Services
 {
    
-    public class CertificadoService : EntityService<Certificado>, ICertificadoService
+    public class SustanciaService : EntityService<Sustancia>, ISustanciaService
     {
-        public CertificadoService(IUnitOfWork unitOfWork, ICertificadoRepository repository) : base(unitOfWork, repository)
+        public SustanciaService(IUnitOfWork unitOfWork, ISustanciaRepository repository) : base(unitOfWork, repository)
         {
 
         }
@@ -23,7 +23,7 @@ namespace Base.Service.Services
 
     }
 
-    public interface ICertificadoService : IEntityService<Certificado>
+    public interface ISustanciaService : IEntityService<Sustancia>
     {
 
        

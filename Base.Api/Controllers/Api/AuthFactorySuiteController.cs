@@ -103,8 +103,7 @@ namespace Base.Api.Controllers.Api
 
                         result = document.SelectSingleNode("/ROOT/XML/RETORNO/TOKEN").InnerText;
 
-                        if (string.IsNullOrEmpty(result))
-                            throw new Exception(document.SelectSingleNode("/ROOT/XML/RETORNO/MENSAJE").InnerText);
+                        if (string.IsNullOrEmpty(result)) throw new Exception(document.SelectSingleNode("/ROOT/XML/RETORNO/MENSAJE").InnerText);
                     }
                 }
                 catch (Exception)
