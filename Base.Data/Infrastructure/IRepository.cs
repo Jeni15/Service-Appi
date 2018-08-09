@@ -10,7 +10,7 @@ namespace Base.Data.Infrastructure
     public interface IRepository<T> where T : class
     {
         // Marks an entity as new
-        void Add(T entity);
+        long Add(T entity);
 
         // Marks an entity as modified
         void Update(T entity);

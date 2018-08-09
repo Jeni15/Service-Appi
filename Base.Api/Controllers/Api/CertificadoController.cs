@@ -41,6 +41,10 @@ namespace Base.Api.Controllers.Api
         {
             try
             {
+                List<Certificado> certificados = new List<Certificado>();
+
+                List<Sustancia> sustancias = new List<Sustancia>();
+
                 var userid = "";
 
                 var token = GetToken();
@@ -49,13 +53,20 @@ namespace Base.Api.Controllers.Api
 
                 if (!resultValidation) throw new Exception ("Token invalido");
 
-                List<Certificado> certificados = _certificadoService.Execute("ConsultaInformacionGeneralCcite", new Certificado() { NoCcite= certificadoDto.Codigo }).ToList();
+                if ( (string.IsNullOrEmpty(certificadoDto.Codigo.ToString()) || certificadoDto.Codigo == 0) && !string.IsNullOrEmpty(certificadoDto.CodigoQr))                
+                    certificados = _certificadoService.Execute("ConsultaInformacionGeneralCcitePorQr", new Certificado() { CodigoSeguridad = certificadoDto.CodigoQr }).ToList();                
+                else                
+                    certificados = _certificadoService.Execute("ConsultaInformacionGeneralCcite", new Certificado() { NoCcite = certificadoDto.Codigo }).ToList();
+                
 
                 if (certificados == null || certificados.Count <= 0) return NotFound();
 
-                List<Sustancia> sustancias = _sustanciaService.Execute("ConsultaSustanciasCcite", new Sustancia() { NoCcite = certificadoDto.Codigo }).ToList();
+                if ( (string.IsNullOrEmpty(certificadoDto.Codigo.ToString()) || certificadoDto.Codigo == 0) && !string.IsNullOrEmpty(certificadoDto.CodigoQr))
+                    sustancias = _sustanciaService.Execute("ConsultaSustanciasCcitePorQr", new Sustancia() { CodigoSeguridad = certificadoDto.CodigoQr }).ToList();
+                else
+                    sustancias = _sustanciaService.Execute("ConsultaSustanciasCcite", new Sustancia() { NoCcite = certificadoDto.Codigo }).ToList();
 
-                
+
                 certificadoDto.Certificado = new Certificado()
                 {                 
                     NoCcite = certificados[0].NoCcite,
@@ -70,11 +81,18 @@ namespace Base.Api.Controllers.Api
 
                 certificadoDto.Sustancias = sustancias;
 
-                //var idCertificado = GetCertificateId(certificadoDto.Codigo); 
-                
-                //if( idCertificado == null) throw new Exception ("Certificado no encontrado");
+                long idCertificado = 0;
+                if ((string.IsNullOrEmpty(certificadoDto.Codigo.ToString()) || certificadoDto.Codigo == 0) && !string.IsNullOrEmpty(certificadoDto.CodigoQr))
+                    idCertificado = GetCertificateIdFromCcitePorQr(certificadoDto.CodigoQr); 
+                else
+                    idCertificado = GetCertificateIdFromCcite(certificadoDto.Codigo);
 
-                //_logConsultaService.Create(new LogConsulta() { IdCertificado = 1, IdUsuario = userid, Latitude = certificadoDto.Location.Latitude, Longitude = certificadoDto.Location.Longitude });
+
+                if ( idCertificado == 0) throw new Exception ("Certificado no encontrado");
+
+                var logId = _logConsultaService.Create(new LogConsulta() { IdCertificado = idCertificado, IdUsuario = userid, Latitude = certificadoDto.Location.Latitude, Longitude = certificadoDto.Location.Longitude });
+
+                certificadoDto.IdConsulta = Convert.ToInt64(logId);
 
                 return Ok(certificadoDto);
 
@@ -112,6 +130,30 @@ namespace Base.Api.Controllers.Api
             }
             
             return false;
+        }
+
+        private long GetCertificateIdFromCcite(long ccite)
+        {
+            var result = _certificadoService.Execute("GetCertificateIdFromCcite", new Certificado() { NoCcite = ccite }).ToList();
+
+            if (result != null && result.Count() > 0)
+            {
+               return result[0].IdCertificado;                
+            }
+
+            return 0;
+        }
+
+        private long GetCertificateIdFromCcitePorQr(string qr)
+        {
+            var result = _certificadoService.Execute("GetCertificateIdFromCcitePorQr", new Certificado() { CodigoSeguridad = qr }).ToList();
+
+            if (result != null && result.Count() > 0)
+            {
+                return result[0].IdCertificado;
+            }
+
+            return 0;
         }
     }
   

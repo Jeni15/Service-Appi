@@ -27,7 +27,7 @@ namespace Base.Service.Infrastructure
         }
 
 
-        public virtual void Create(TEntity entity)
+        public virtual long Create(TEntity entity)
         {
             if (entity == null)
             {
@@ -35,8 +35,9 @@ namespace Base.Service.Infrastructure
             }
 
             _unitOfWork.BeginTransaction();
-            _repository.Add(entity);
+            var t = _repository.Add(entity);
             _unitOfWork.SaveChanges();
+            return t;
         }
         
         public virtual void Update(TEntity entity)

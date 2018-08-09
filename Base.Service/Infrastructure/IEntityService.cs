@@ -9,7 +9,7 @@ namespace Base.Service.Infrastructure
 {
     public interface IEntityService<T> where T : class
     {
-        void Create(T entity);
+        long Create(T entity);
         void Delete(T entity);
         IEnumerable<T> GetAll();
         //IEnumerable<T> GetAll(params Expression<Func<T, object>>[] includes);

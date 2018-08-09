@@ -49,7 +49,7 @@ namespace Base.Data.Infrastructure
 
         #region Methods
 
-        public void Add(T entity)
+        public long Add(T entity)
         {
 
             using (var command = (_uow?.CreateCommand() ?? DbContext.Connection.CreateCommand()))
@@ -64,6 +64,22 @@ namespace Base.Data.Infrastructure
                 command.CommandText = sql;
 
                 command.ExecuteNonQuery();
+
+                var parameter = command.Parameters[":Id"];
+
+                if (parameter == null)
+                    return 0;
+
+                var parameterType = parameter.GetType();
+
+
+                var id = parameterType.GetProperty("Value").GetValue(parameter); //command.Parameters[":Id"].ToString();
+
+                if (id != null)
+                    return Convert.ToInt64(id);
+
+
+                return 0;
 
             }
 

@@ -45,7 +45,48 @@
       -->
     </SQL>
     
-     <!-- SUSTANCIA -->   
+     <SQL id="Certificado_ConsultaInformacionGeneralCcitePorQr">
+      <!--
+
+             Select nvl(c.noccitesie1,c.NoCCITE) NoCCITE
+                  , upper(e.DireccionCorrespondencia) DireccionCorrespondencia
+                  , c.FechaExpedicion
+                  , FechaVencimiento
+                  , upper(e.Nombre) NombreEmpresa
+                  , upper(ec.EstadoCertificado) EstadoCertificado
+                  , upper(CASE WHEN Periodicidad=0 THEN 'Mensual(es)' WHEN Periodicidad=1 THEN 'Anual(es)' WHEN Periodicidad=3 THEN 'Semestral(es)' ELSE 'Unica Operación' END) Periodicidad 
+                  , upper(codseguridad) codseguridad
+                  , upper(e.telefono) telefono
+                  , upper(ci.ciudad) ciudad
+                  , upper(de.departamento) departamento
+                  , upper(tt.tipotramite) tipotramite
+                  , upper(e.nodoc) DocumentoEmpresa 
+              From certificado  c
+                   INNER JOIN presolicitud      p   ON  c.IdPresolicitud = p.IdPresolicitud
+                   INNER JOIN tipotramite       tt  ON  p.IdTipoTramite = tt.IdTipoTramite
+                   INNER JOIN empresa           e   ON  c.IDEmpresa = e.IDEmpresa
+                   INNER JOIN ciudad            ci  ON  e.IdCiudad = ci.IdCiudad
+                   INNER JOIN departamento      de  ON  ci.IdDepartamento = de.IdDepartamento
+                   INNER JOIN EstadoCertificado ec  ON  c.IDEstadoCertificado= ec.IDEstadoCertificado
+            where c.CodSeguridad = :CodigoSeguridad
+          
+  
+      -->
+    </SQL>
+    
+    <SQL id="Certificado_GetCertificateIdFromCcite">
+      <!--
+         Select IdCertificado From certificado  c where c.NoCcite = :NoCcite            
+      -->
+    </SQL>
+    
+    <SQL id="Certificado_GetCertificateIdFromCcitePorQr">
+      <!--
+         Select IdCertificado From certificado  c where c.CodSeguridad = :CodigoSeguridad
+      -->
+    </SQL>
+     
+    <!-- SUSTANCIA -->   
     
     <SQL id="Sustancia_ConsultaSustanciasCcite">
       <!--
@@ -80,13 +121,46 @@
       -->
     </SQL>
     
+    <SQL id="Sustancia_ConsultaSustanciasCcitePorQr">
+      <!--
+
+             
+          SELECT   distinct     
+                    upper(sc.Direccion) Sucursal 
+                  , upper(s.Sustancia) Nombre
+                  , dc.Cantidad
+                  , upper(u.Unidad) Unidad
+                  , upper(u.Sigla) SiglaUnidad
+                  , upper(PKG_SICOQ.FN_ObtenerSiglaSustancia(c.IDCertificado,s.IDSustancia,dc.IDSucursal)) Sigla
+                  , initcap(expresar_en_letras.numero_a_letras(NVL(dc.Cantidad,0))||' '||NVL(u.Unidad,'')) CantidadLetras
+                  ,upper(sc.direccion || ' ' || de.departamento || ' - ' || ci.ciudad) direccion
+                  ,upper(sc.telefono) telefono
+                  ,upper(sc.celular) celular
+                  ,upper(ci.ciudad) ciudad
+                  ,upper(de.departamento) departamento
+          FROM    Certificado    c   
+                  INNER JOIN DetalleCertificado           dc  ON  c.IDCertificado = dc.IDCertificado
+                  INNER JOIN Sustancia                    s   ON  dc.IDSustancia = s.IDSustancia
+                  INNER JOIN Unidad                       u   ON  dc.IDUnidad = u.IDUnidad
+                  INNER JOIN Sucursal                     sc  ON  dc.IDSucursal = sc.IDSucursal
+                  INNER JOIN DetalleCertificadoCalidades  dcc ON  dc.IDDetalleCertificado = dcc.IDDetalleCertificado
+                  INNER JOIN Calidades                    c   ON  dcc.IDCalidad = c.IDCalidad
+                  INNER JOIN ciudad                       ci  ON  sc.IdCiudad = ci.IdCiudad
+                  INNER JOIN departamento                 de  ON  ci.IdDepartamento = de.IdDepartamento
+          WHERE   c.CodSeguridad = :CodigoSeguridad And   dc.Cantidad>0
+          ORDER BY 8,2 asc 
+          
+  
+      -->
+    </SQL>
+    
      <!-- LOGCONSULTA -->   
     
-    <SQL id="LogConsulta_Insertar">
+    <SQL id="LogConsulta_Insert">
       <!--
-          
-          INSERT INTO ConsultaCCITELog (IdCertificado, IdUsuario, Latitud, Longitud) 
-          VALUES (:IdCertificado, :IdUsuario, :Latitud, :Longitud)
+          BEGIN
+            INSERT INTO CertificadoLog (IdCertificado, IdUsuario, Latitud, Longitud) VALUES (:IdCertificado, :IdUsuario, :Latitude, :Longitude) Returning Id into :Id;            
+          END ;
           
       -->
     </SQL>

@@ -20,6 +20,8 @@ namespace Base.Model.Models
          * PROPIEDADES DE CONSILTA
          * ------------------------------------------*/
         public long NoCcite { get; set; }
+        public string CodigoSeguridad { get; set; }
+
 
     }
 }

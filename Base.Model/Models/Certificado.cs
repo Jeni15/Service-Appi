@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 namespace Base.Model.Models
 {
     public class Certificado {          
-        public decimal NoCcite { get; set; }
+        public long IdCertificado { get; set; }
+        public decimal NoCcite { get; set; }        
         public string NombreEmpresa { get; set; }
         public string DocumentoEmpresa { get; set; }
         public DateTime FechaExpedicion { get; set; }
