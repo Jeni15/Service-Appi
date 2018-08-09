@@ -5,6 +5,7 @@ using Base.Service.Services;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -23,6 +24,7 @@ namespace Base.Api.Controllers.Api
         private readonly ISustanciaService _sustanciaService;
         private readonly IUserTokenService _userTokenService;
         private readonly ILogConsultaService _logConsultaService;
+        private static TraceSource mySource = new TraceSource("SicoqApi");
 
         public CertificadoController(ICertificadoService certificadoService, ISustanciaService sustanciaService, IUserTokenService userTokenService, ILogConsultaService logConsultaService)
         {
@@ -41,7 +43,9 @@ namespace Base.Api.Controllers.Api
         {
             try
             {
-                List<Certificado> certificados = new List<Certificado>();
+                mySource.TraceEvent(TraceEventType.Start, 1, $"Inicio acción GetCertificate {JsonConvert.SerializeObject(certificadoDto)}");
+
+                List <Certificado> certificados = new List<Certificado>();
 
                 List<Sustancia> sustancias = new List<Sustancia>();
 
@@ -49,9 +53,13 @@ namespace Base.Api.Controllers.Api
 
                 var token = GetToken();
 
+                mySource.TraceEvent(TraceEventType.Information, 3, $"Validando Token {token}");
+
                 var resultValidation = ValidateToken(token, ref userid);
 
-                if (!resultValidation) throw new Exception ("Token invalido");
+                if (!resultValidation) { mySource.TraceEvent(TraceEventType.Information, 3, $"Token invalido {token}");  throw new Exception("Token invalido"); }
+
+                mySource.TraceEvent(TraceEventType.Information, 4, $"Consultando certificado {JsonConvert.SerializeObject(certificadoDto)}");
 
                 if ( (string.IsNullOrEmpty(certificadoDto.Codigo.ToString()) || certificadoDto.Codigo == 0) && !string.IsNullOrEmpty(certificadoDto.CodigoQr))                
                     certificados = _certificadoService.Execute("ConsultaInformacionGeneralCcitePorQr", new Certificado() { CodigoSeguridad = certificadoDto.CodigoQr }).ToList();                
@@ -104,14 +112,21 @@ namespace Base.Api.Controllers.Api
         }
 
         private string GetToken(string tokenType="Bearer")
-        {           
+        {
+            mySource.TraceEvent(TraceEventType.Information, 2, $"Recuperando token {tokenType}");
+
             string authHeader = HttpContext.Current.Request.Headers["Authorization"];
 
             if (authHeader == null || !authHeader.StartsWith(tokenType))
+            {
+                mySource.TraceEvent(TraceEventType.Information, 2, "Token vacío");
                 throw new Exception("Token vacío");
+            }
 
-            string token= Encoding.GetEncoding("iso-8859-1").GetString(Convert.FromBase64String(authHeader.Substring($"{tokenType} ".Length).Trim()));
-          
+            string token= authHeader.Substring($"{tokenType} ".Length).Trim();
+
+            mySource.TraceEvent(TraceEventType.Information, 2, $"Token recuperado {token}");
+
             return token;
 
         }
