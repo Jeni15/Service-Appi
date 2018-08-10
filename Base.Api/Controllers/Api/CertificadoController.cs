@@ -43,7 +43,7 @@ namespace Base.Api.Controllers.Api
         {
             try
             {
-                mySource.TraceEvent(TraceEventType.Start, 1, $"Inicio acción GetCertificate {JsonConvert.SerializeObject(certificadoDto)}");
+                mySource.TraceInformation($"Inicio acción GetCertificate {JsonConvert.SerializeObject(certificadoDto)}");
 
                 List <Certificado> certificados = new List<Certificado>();
 
@@ -53,27 +53,31 @@ namespace Base.Api.Controllers.Api
 
                 var token = GetToken();
 
-                mySource.TraceEvent(TraceEventType.Information, 3, $"Validando Token {token}");
+                mySource.TraceInformation($"Validando Token {token}");
 
                 var resultValidation = ValidateToken(token, ref userid);
 
                 if (!resultValidation) { mySource.TraceEvent(TraceEventType.Information, 3, $"Token invalido {token}");  throw new Exception("Token invalido"); }
 
-                mySource.TraceEvent(TraceEventType.Information, 4, $"Consultando certificado {JsonConvert.SerializeObject(certificadoDto)}");
+                mySource.TraceInformation( $"Consultando certificado {JsonConvert.SerializeObject(certificadoDto)}");
 
                 if ( (string.IsNullOrEmpty(certificadoDto.Codigo.ToString()) || certificadoDto.Codigo == 0) && !string.IsNullOrEmpty(certificadoDto.CodigoQr))                
                     certificados = _certificadoService.Execute("ConsultaInformacionGeneralCcitePorQr", new Certificado() { CodigoSeguridad = certificadoDto.CodigoQr }).ToList();                
                 else                
                     certificados = _certificadoService.Execute("ConsultaInformacionGeneralCcite", new Certificado() { NoCcite = certificadoDto.Codigo }).ToList();
-                
+
+                mySource.TraceInformation($"Certificado obtenido {JsonConvert.SerializeObject(certificados)}");
 
                 if (certificados == null || certificados.Count <= 0) return NotFound();
+
+                mySource.TraceInformation($"Consultando sustancias ");
 
                 if ( (string.IsNullOrEmpty(certificadoDto.Codigo.ToString()) || certificadoDto.Codigo == 0) && !string.IsNullOrEmpty(certificadoDto.CodigoQr))
                     sustancias = _sustanciaService.Execute("ConsultaSustanciasCcitePorQr", new Sustancia() { CodigoSeguridad = certificadoDto.CodigoQr }).ToList();
                 else
                     sustancias = _sustanciaService.Execute("ConsultaSustanciasCcite", new Sustancia() { NoCcite = certificadoDto.Codigo }).ToList();
 
+                mySource.TraceInformation($"sustancias obtenidas {JsonConvert.SerializeObject(sustancias)}");
 
                 certificadoDto.Certificado = new Certificado()
                 {                 
@@ -90,7 +94,7 @@ namespace Base.Api.Controllers.Api
                 certificadoDto.Sustancias = sustancias;
 
                 long idCertificado = 0;
-                if ((string.IsNullOrEmpty(certificadoDto.Codigo.ToString()) || certificadoDto.Codigo == 0) && !string.IsNullOrEmpty(certificadoDto.CodigoQr))
+                if ((string.IsNullOrEmpty(certificadoDto.Codigo.ToString()) || certificadoDto.Codigo ==0) && !string.IsNullOrEmpty(certificadoDto.CodigoQr))
                     idCertificado = GetCertificateIdFromCcitePorQr(certificadoDto.CodigoQr); 
                 else
                     idCertificado = GetCertificateIdFromCcite(certificadoDto.Codigo);
@@ -102,13 +106,21 @@ namespace Base.Api.Controllers.Api
 
                 certificadoDto.IdConsulta = Convert.ToInt64(logId);
 
+                mySource.TraceEvent(TraceEventType.Information, 10, $"Retorno {JsonConvert.SerializeObject(certificadoDto)}");
+
                 return Ok(certificadoDto);
 
             }
             catch (Exception ex)
             {
+                mySource.TraceEvent(TraceEventType.Error, 99, ex.Message);
                 return Content(HttpStatusCode.BadRequest, ex.Message);
             }
+            finally
+            {
+               mySource.Flush();               
+            }
+            
         }
 
         private string GetToken(string tokenType="Bearer")
@@ -147,7 +159,7 @@ namespace Base.Api.Controllers.Api
             return false;
         }
 
-        private long GetCertificateIdFromCcite(long ccite)
+        private long GetCertificateIdFromCcite(int ccite)
         {
             var result = _certificadoService.Execute("GetCertificateIdFromCcite", new Certificado() { NoCcite = ccite }).ToList();
 

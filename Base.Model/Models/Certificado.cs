@@ -9,7 +9,7 @@ namespace Base.Model.Models
 {
     public class Certificado {          
         public long IdCertificado { get; set; }
-        public decimal NoCcite { get; set; }        
+        public int NoCcite { get; set; }        
         public string NombreEmpresa { get; set; }
         public string DocumentoEmpresa { get; set; }
         public DateTime FechaExpedicion { get; set; }

@@ -196,7 +196,12 @@ namespace Base.Data.Infrastructure
             {
                 if (record.HasColumn(property.Name) && !record.IsDBNull(record.GetOrdinal(property.Name)))
                     if (property.PropertyType != typeof(char))
-                        property.SetValue(objT, record[property.Name]);
+                    {
+                        if (property.PropertyType == typeof(int) && record[property.Name].GetType() == typeof(decimal))
+                            property.SetValue(objT, Convert.ToInt32(record[property.Name].ToString()));
+                        else
+                            property.SetValue(objT, record[property.Name]);
+                    }
                     else
                         property.SetValue(objT, Convert.ToChar(record[property.Name]));
             }

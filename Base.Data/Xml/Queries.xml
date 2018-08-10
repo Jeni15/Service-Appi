@@ -19,7 +19,7 @@
     <SQL id="Certificado_ConsultaInformacionGeneralCcite">
       <!--
 
-             Select nvl(c.noccitesie1,c.NoCCITE) NoCCITE
+             Select cast( nvl(c.noccitesie1,c.NoCCITE) as int) NoCCITE
                   , upper(e.DireccionCorrespondencia) DireccionCorrespondencia
                   , c.FechaExpedicion
                   , FechaVencimiento
@@ -48,7 +48,7 @@
      <SQL id="Certificado_ConsultaInformacionGeneralCcitePorQr">
       <!--
 
-             Select nvl(c.noccitesie1,c.NoCCITE) NoCCITE
+              Select cast( nvl(c.noccitesie1,c.NoCCITE) as int) NoCCITE
                   , upper(e.DireccionCorrespondencia) DireccionCorrespondencia
                   , c.FechaExpedicion
                   , FechaVencimiento
