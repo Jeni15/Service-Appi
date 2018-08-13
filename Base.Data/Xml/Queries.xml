@@ -166,5 +166,21 @@
     </SQL>
     
 
+    <!--TIPO FALLA-->
+    
+    <SQL id="TipoFalla_GetAll">
+      <!--
+          Select Id, Nombre From CertificadoTipoFallas
+          
+      -->
+    </SQL>
+
+    <SQL id="TipoFalla_DetalleInsert">
+      <!--
+          INSERT INTO CertificadoDetalleLog (IdLog, IdTipoFalla, Comentario) VALUES (:IdConsulta, :Id, :Comentario)
+          
+      -->
+    </SQL>
+    
   </queries>
 </top>

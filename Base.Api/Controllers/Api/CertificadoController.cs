@@ -24,14 +24,20 @@ namespace Base.Api.Controllers.Api
         private readonly ISustanciaService _sustanciaService;
         private readonly IUserTokenService _userTokenService;
         private readonly ILogConsultaService _logConsultaService;
+        private readonly ITipoFallaService _tipoFallaService;
         private static TraceSource mySource = new TraceSource("SicoqApi");
 
-        public CertificadoController(ICertificadoService certificadoService, ISustanciaService sustanciaService, IUserTokenService userTokenService, ILogConsultaService logConsultaService)
+        public CertificadoController(ICertificadoService certificadoService, 
+                                     ISustanciaService sustanciaService, 
+                                     IUserTokenService userTokenService, 
+                                     ILogConsultaService logConsultaService,
+                                     ITipoFallaService  tipoFallaService)
         {
             _certificadoService = certificadoService;
             _sustanciaService = sustanciaService;
             _userTokenService = userTokenService;
             _logConsultaService = logConsultaService;
+            _tipoFallaService = tipoFallaService;
         }
 
 
@@ -121,6 +127,93 @@ namespace Base.Api.Controllers.Api
                mySource.Flush();               
             }
             
+        }
+
+        //GET /api/certificado/GetCertificat
+        //[Route("api/certificado/GetTipoFallas/")]
+        [Route("api/certificado/GetTipoFallas")]
+        [HttpGet]
+        public async Task<IHttpActionResult> GetTipoFallas(TipoFallaDto tipoFallaDto)
+        {
+            try
+            {
+                mySource.TraceInformation($"Inicio acción GetTipoFallas {JsonConvert.SerializeObject(tipoFallaDto)}");
+             
+                var userid = "";
+
+                var token = GetToken();
+
+                mySource.TraceInformation($"Validando Token {token}");
+
+                var resultValidation = ValidateToken(token, ref userid);
+
+                if (!resultValidation) { mySource.TraceEvent(TraceEventType.Information, 3, $"Token invalido {token}"); throw new Exception("Token invalido"); }
+
+                mySource.TraceInformation($"Consultando TipoFallas");
+
+                var tipoFallas = _tipoFallaService.GetAll();
+
+                return Ok(tipoFallas);
+
+            }
+            catch (Exception ex)
+            {
+                mySource.TraceEvent(TraceEventType.Error, 99, ex.Message);
+                return Content(HttpStatusCode.BadRequest, ex.Message);
+            }
+            finally
+            {
+                mySource.Flush();
+            }
+
+        }
+
+
+        //GET /api/certificado/GetCertificat
+        //[Route("api/certificado/GetCertificate/{id}")]
+        [Route("api/certificado/CreateTipoFallaCertificado")]
+        [HttpPost]
+        public async Task<IHttpActionResult> CreateTipoFallaCertificado(List<TipoFalla> tipoFallas)
+        {
+            try
+            {
+                mySource.TraceInformation($"Inicio acción CreateTipoFallaCertificado {JsonConvert.SerializeObject(tipoFallas)}");
+
+                List<Certificado> certificados = new List<Certificado>();
+
+                List<Sustancia> sustancias = new List<Sustancia>();
+
+                var userid = "";
+
+                var token = GetToken();
+
+                mySource.TraceInformation($"Validando Token {token}");
+
+                var resultValidation = ValidateToken(token, ref userid);
+
+                if (!resultValidation) { mySource.TraceEvent(TraceEventType.Information, 3, $"Token invalido {token}"); throw new Exception("Token invalido"); }
+
+                mySource.TraceInformation($"Guardando tipos de fallas {JsonConvert.SerializeObject(tipoFallas)}");
+
+
+                foreach(var falla in tipoFallas)
+                {                    
+                    _tipoFallaService.Execute("DetalleInsert", falla);
+                }
+                                               
+                return Created("","");
+
+            }
+            catch (Exception ex)
+            {
+                mySource.TraceEvent(TraceEventType.Error, 99, ex.Message);
+                return Content(HttpStatusCode.BadRequest, ex.Message);
+            }
+            finally
+            {
+                mySource.Flush();
+            }
+
         }
 
         private string GetToken(string tokenType="Bearer")
