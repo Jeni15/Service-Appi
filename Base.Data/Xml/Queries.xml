@@ -39,7 +39,7 @@
                    INNER JOIN ciudad            ci  ON  e.IdCiudad = ci.IdCiudad
                    INNER JOIN departamento      de  ON  ci.IdDepartamento = de.IdDepartamento
                    INNER JOIN EstadoCertificado ec  ON  c.IDEstadoCertificado= ec.IDEstadoCertificado
-            where c.NoCcite = :NoCcite
+            where nvl(c.noccitesie1,c.NoCCITE) = :NoCcite
           
   
       -->
@@ -76,7 +76,7 @@
     
     <SQL id="Certificado_GetCertificateIdFromCcite">
       <!--
-         Select IdCertificado From certificado  c where c.NoCcite = :NoCcite            
+         Select IdCertificado From certificado  c where nvl(c.noccitesie1,c.NoCCITE) = :NoCcite            
       -->
     </SQL>
     
@@ -114,7 +114,7 @@
                   INNER JOIN Calidades                    c   ON  dcc.IDCalidad = c.IDCalidad
                   INNER JOIN ciudad                       ci  ON  sc.IdCiudad = ci.IdCiudad
                   INNER JOIN departamento                 de  ON  ci.IdDepartamento = de.IdDepartamento
-          WHERE   c.Noccite = :NoCcite And   dc.Cantidad>0
+          WHERE   nvl(c.noccitesie1,c.NoCCITE) = :NoCcite And   dc.Cantidad>0
           ORDER BY 8,2 asc 
           
   
