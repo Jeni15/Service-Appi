@@ -169,8 +169,8 @@
     <!--TIPO FALLA-->
     
     <SQL id="TipoFalla_GetAll">
-      <!--
-          Select Id, Nombre From CertificadoTipoFallas
+      <!-- 
+          Select Id, Nombre From CertificadoTipoFallas Where Activo = 1
           
       -->
     </SQL>
