@@ -85,7 +85,64 @@
          Select IdCertificado From certificado  c where c.CodSeguridad = :CodigoSeguridad
       -->
     </SQL>
-     
+        
+     <!-- CERTIFICADO CONSUMO MASIVO-->   
+    
+    <SQL id="CertificadoConsumoMasivo_ConsultaInformacionGeneralCertificado">
+      <!--
+
+             SELECT MSM.IDMOVIMIENTO
+                    ,EMP.NOMBRE NOMBREEMPRESA
+                    ,TID.ABREVIATURA TIPODOCUMENTOEMPRESA
+                    ,EMP.NODOC DOCUMENTOEMPRESA
+                    ,EMP.NOMBREREPRESENTANTE NOMBREREPRESENTANTE
+                    ,TIR.ABREVIATURA TIPODOCUMENTOREPRESENTANTE
+                    ,EMP.NODOCREPRESENTANTE DOCUMENTOREPRESENTANTE
+                    ,EMP.EMAILREPRESENTANTE
+                    ,EMP.TELEFONOREPRESENTANTE
+                    ,SUC.DIRECCION DIRECCIONEMPRESA
+                    ,DEP.DEPARTAMENTO DEPARTAMENTOEMPRESA
+                    ,CIU.CIUDAD CIUDADEMPRESA     
+                    ,SUS.SUSTANCIA
+                    ,CD.NOMBRE ACTIVIDAD
+                    ,MSM.CANTIDAD
+                    ,UNI.UNIDAD
+                    ,TM.TIPOMOVIMIENTO || ' - ' || TDS.TIPODOCSOPORTE TIPODOCUMENTOSOPORTE
+                    ,MSM.NRODOCSOPORTE DOCUMENTOSOPORTE
+                    ,MSM.FECHAESTIMADADESDE
+                    ,MSM.FECHAESTIMADAHASTA
+                    ,MSM.USO
+                    ,MSM.NOMBRETERCERO
+                    ,DOC.ABREVIATURA TIPODOCUMENTOTERCERO
+                    ,MSM.NRODOCTERCERO DOCUMENTOTERCERO
+                    ,MSM.TELEFONOTERCERO
+                    ,CIU2.CIUDAD CIUDADTERCERO
+                    ,DEP2.DEPARTAMENTO DEPARTAMENTOTERCERO
+                    ,MSM.DIRECCIONTERCERO
+               FROM  MOVIMIENTOSSUSTANCIAMASIVO             MSM
+                     INNER JOIN TIPOIDENTIFICACION          DOC  ON DOC.IDTIPOID        = MSM.TIPODOCUMENTO
+                     INNER JOIN TIPODOCSOPORTEMOV           TDS  ON TDS.IDTIPODOCSOPORTE= MSM.TIPODOCSOPORTE
+                     INNER JOIN TIPOMOVIMIENTO              TM   ON TM.IDTIPOMOVIMIENTO=TDS.IDTIPOMOVIMIENTO
+                     INNER JOIN CALIDADES                   CD   ON CD.IDCALIDAD= MSM.IDACTIVIDAD
+                     INNER JOIN SUSTANCIASAUTORIZADASMODMAS AUT  ON AUT.ID              = MSM.IDSUSTANCIAAUTORIZADA
+                     INNER JOIN SUSTANCIA                   SUS  ON SUS.IDSUSTANCIA     = AUT.IDSUSTANCIA
+                     INNER JOIN UNIDAD                      UNI  ON UNI.IDUNIDAD        = MSM.UNIDAD       
+                     INNER JOIN SUCURSAL                    SUC  ON SUC.IDSUCURSAL      = MSM.SUCURSAL
+                     INNER JOIN CIUDAD                      CIU  ON CIU.IDCIUDAD        = SUC.IDCIUDAD
+                     INNER JOIN DEPARTAMENTO                DEP  ON DEP.IDDEPARTAMENTO  = SUC.IDDEPARTAMENTO
+                     INNER JOIN EMPRESA                     EMP  ON SUC.IDEMPRESA       = EMP.IDEMPRESA
+                     INNER JOIN TIPOIDENTIFICACION          TID  ON TID.IDTIPOID        = EMP.IDTIPOID
+                     LEFT JOIN TIPOIDENTIFICACION          TIR  ON TIR.IDTIPOID        = EMP.IDTIPOIDREPRESENTANTE
+                     INNER JOIN CIUDAD                      CIU2  ON CIU2.IDCIUDAD        = MSM.MUNICIPIOTERCERO
+                     INNER JOIN DEPARTAMENTO                DEP2  ON DEP2.IDDEPARTAMENTO  = MSM.DEPARTAMENTOTERCERO
+               Where MSM.IDMOVIMIENTO = :IdMovimiento
+          
+  
+      -->
+    </SQL>
+    
+  
+   
     <!-- SUSTANCIA -->   
     
     <SQL id="Sustancia_ConsultaSustanciasCcite">
@@ -159,7 +216,7 @@
     <SQL id="LogConsulta_Insert">
       <!--
           BEGIN
-            INSERT INTO CertificadoLog (IdCertificado, IdUsuario, Latitud, Longitud) VALUES (:IdCertificado, :IdUsuario, :Latitude, :Longitude) Returning Id into :Id;            
+            INSERT INTO CertificadoLog (IdCertificado, IdUsuario, Tipo, Latitud, Longitud) VALUES (:IdCertificado, :IdUsuario, :Tipo, :Latitude, :Longitude) Returning Id into :Id;            
           END ;
           
       -->

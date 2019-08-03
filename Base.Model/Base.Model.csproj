@@ -56,7 +56,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dtos\CertificadoConsumoMasivoDto.cs" />
     <Compile Include="Dtos\TipoFallaDto.cs" />
+    <Compile Include="Models\CertificadoConsumoMasivo.cs" />
     <Compile Include="Models\Log.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Dtos\CertificadoDto.cs" />

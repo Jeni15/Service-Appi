@@ -7,9 +7,9 @@ namespace Base.Api.Utils
 {
     public static class ServiceUrl
     {
-        public const string FactorySuiteProxy = "http://190.85.15.21:8087/ServicioFactorySuiteProxyV1/WebServiceProxy.ashx";
         //public const string FactorySuiteProxy = "http://localhost:2720/WebServiceProxy.ashx";
-        //public const string FactorySuiteProxy = "http://localhost/ServicioFactorySuiteProxy/WebServiceProxy.ashx";
+        //public const string FactorySuiteProxy = "http://localhost:2720/WebServiceProxy.ashx";
+        public const string FactorySuiteProxy = "http://localhost/ServicioFactorySuiteProxy/WebServiceProxy.ashx";
 
     }
 }

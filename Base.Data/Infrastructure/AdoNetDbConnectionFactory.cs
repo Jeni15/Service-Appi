@@ -25,7 +25,8 @@ namespace Base.Data.Infrastructure
 
             _providerName = conStr.ProviderName;
             _provider = DbProviderFactories.GetFactory(conStr.ProviderName);
-            _connectionString = conStr.ConnectionString;        
+            _connectionString = conStr.ConnectionString;
+            _connection = (DbConnection)CreateConnection();
 
         }       
         

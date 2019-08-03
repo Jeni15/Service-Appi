@@ -79,6 +79,7 @@
     <Compile Include="Infrastructure\EntityService.cs" />
     <Compile Include="Infrastructure\IEntityService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CertificadoConsumoMasivoService.cs" />
     <Compile Include="Services\TipoFallaService.cs" />
     <Compile Include="Services\LogConsultaService.cs" />
     <Compile Include="Services\UserTokenService.cs" />

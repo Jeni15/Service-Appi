@@ -21,6 +21,7 @@ namespace Base.Api.Controllers.Api
     public class CertificadoController : ApiController
     {
         private readonly ICertificadoService _certificadoService;
+        private readonly ICertificadoConsumoMasivoService _certificadoConsumoMasivoService;
         private readonly ISustanciaService _sustanciaService;
         private readonly IUserTokenService _userTokenService;
         private readonly ILogConsultaService _logConsultaService;
@@ -31,14 +32,110 @@ namespace Base.Api.Controllers.Api
                                      ISustanciaService sustanciaService, 
                                      IUserTokenService userTokenService, 
                                      ILogConsultaService logConsultaService,
-                                     ITipoFallaService  tipoFallaService)
+                                     ITipoFallaService  tipoFallaService,
+                                     ICertificadoConsumoMasivoService certificadoConsumoMasivoService)
         {
             _certificadoService = certificadoService;
             _sustanciaService = sustanciaService;
             _userTokenService = userTokenService;
             _logConsultaService = logConsultaService;
             _tipoFallaService = tipoFallaService;
+            _certificadoConsumoMasivoService = certificadoConsumoMasivoService;
         }
+
+
+        [Route("api/certificado/GetCertificateConsumoMasivo")]
+        [HttpPost]
+        public async Task<IHttpActionResult> GetCertificateConsumoMasivo(CertificadoConsumoMasivoDto certificadoDto)
+        {
+            try
+            {
+                mySource.TraceInformation($"Inicio acción GetCertificateConsumoMasivo {JsonConvert.SerializeObject(certificadoDto)}");
+
+                List<CertificadoConsumoMasivo> certificados = new List<CertificadoConsumoMasivo>();
+
+                var userid = "";
+
+                var token = GetToken();
+
+                mySource.TraceInformation($"Validando Token {token}");
+
+                var resultValidation = ValidateToken(token, ref userid);
+
+                if (!resultValidation) { mySource.TraceEvent(TraceEventType.Information, 3, $"Token invalido {token}"); throw new Exception("Token invalido"); }
+
+                mySource.TraceInformation($"Consultando certificado {JsonConvert.SerializeObject(certificadoDto)}");
+
+                if ((string.IsNullOrEmpty(certificadoDto.Codigo.ToString()) || certificadoDto.Codigo == 0) && !string.IsNullOrEmpty(certificadoDto.CodigoQr))
+                    certificados = _certificadoConsumoMasivoService.Execute("ConsultaInformacionGeneralCertificado", new CertificadoConsumoMasivo() { IdMovimiento = Convert.ToInt32(certificadoDto.CodigoQr) }).ToList();
+                else
+                    certificados = _certificadoConsumoMasivoService.Execute("ConsultaInformacionGeneralCertificado", new CertificadoConsumoMasivo() { IdMovimiento = certificadoDto.Codigo }).ToList();
+                
+                mySource.TraceInformation($"Certificado obtenido {JsonConvert.SerializeObject(certificados)}");
+
+                if (certificados == null || certificados.Count <= 0) return NotFound();
+
+                mySource.TraceInformation($"Consultando sustancias ");
+
+                certificadoDto.Certificado = new CertificadoConsumoMasivo()
+                {
+
+                    IdMovimiento = certificados[0].IdMovimiento,
+                    NombreEmpresa = certificados[0].NombreEmpresa,
+                    TipoDocumentoEmpresa = certificados[0].TipoDocumentoEmpresa,
+                    DocumentoEmpresa = certificados[0].DocumentoEmpresa,
+                    DireccionEmpresa = certificados[0].DireccionEmpresa,
+                    DepartamentoEmpresa = certificados[0].DepartamentoEmpresa,
+                    CiudadEmpresa = certificados[0].CiudadEmpresa,
+
+                    NombreRepresentante = certificados[0].NombreRepresentante,
+                    TipoDocumentoRepresentante = certificados[0].TipoDocumentoRepresentante,
+                    DocumentoRepresentante = certificados[0].DocumentoRepresentante,
+                    EmailRepresentante = certificados[0].EmailRepresentante,
+                    TelefonoRepresentante = certificados[0].TelefonoRepresentante,
+
+                    Sustancia = certificados[0].Sustancia,
+                    Actividad = certificados[0].Actividad,
+                    Cantidad = certificados[0].Cantidad,
+                    Unidad = certificados[0].Unidad,
+
+                    TipoDocumentoSoporte = certificados[0].TipoDocumentoSoporte,
+                    DocumentoSoporte = certificados[0].DocumentoSoporte,
+                    FechaEstimadaDesde = certificados[0].FechaEstimadaDesde,
+                    FechaEstimadaHasta = certificados[0].FechaEstimadaHasta,
+                    Uso = certificados[0].Uso,
+
+                    TipoDocumentoTercero = certificados[0].TipoDocumentoTercero,
+                    DocumentoTercero = certificados[0].DocumentoTercero,
+                    TelefonoTercero = certificados[0].TelefonoTercero,
+                    DepartamentoTercero = certificados[0].DepartamentoTercero,
+                    CiudadTercero = certificados[0].CiudadTercero,
+                    DireccionTercero = certificados[0].DireccionTercero
+
+                };
+
+
+                var logId = _logConsultaService.Create(new LogConsulta() { IdCertificado = certificadoDto.Codigo, Tipo="Consumo Masivo", IdUsuario = userid, Latitude = certificadoDto.Location.Latitude, Longitude = certificadoDto.Location.Longitude });
+
+                certificadoDto.IdConsulta = Convert.ToInt64(logId);
+
+                mySource.TraceEvent(TraceEventType.Information, 10, $"Retorno {JsonConvert.SerializeObject(certificadoDto)}");
+
+                return Ok(certificadoDto);
+
+            }
+            catch (Exception ex)
+            {
+                mySource.TraceEvent(TraceEventType.Error, 99, ex.Message);
+                return Content(HttpStatusCode.BadRequest, ex.Message);
+            }
+            finally
+            {
+                mySource.Flush();
+            }
+
+        }
+
 
 
         //GET /api/certificado/GetCertificat

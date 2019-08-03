@@ -91,6 +91,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\CertificadoConsumoMasivoRepository.cs" />
     <Compile Include="Repositories\TipoFallaRepository.cs" />
     <Compile Include="Repositories\LogConsultaRepository.cs" />
     <Compile Include="Repositories\UserTokenRepository.cs" />
